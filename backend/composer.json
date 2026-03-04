@@ -1,0 +1,19 @@
+{
+    "name": "lucas/seus_momentos",
+    "description": "Configuração inicial do backend PHP",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lucas"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.5",
+        "guzzlehttp/guzzle": "^7.5"
+    }
+}
