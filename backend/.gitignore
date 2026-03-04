@@ -1,6 +1,0 @@
-/.agent
-/vendor
-.DOCUMENT.md
-.historico_dev.md
-.BD_assist.sql
-.env
