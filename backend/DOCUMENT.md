@@ -103,7 +103,7 @@ O sistema utiliza a classe `Src\Utils\Response` para garantir que todas as respo
 **Sucesso (200/201):**
 ```json
 {
-  "success": true,
+  "status": "success",
   "data": { ... }
 }
 ```
@@ -111,8 +111,8 @@ O sistema utiliza a classe `Src\Utils\Response` para garantir que todas as respo
 **Erro (400/500):**
 ```json
 {
-  "success": false,
-  "error": "Mensagem detalhada do erro"
+  "status": "error",
+  "message": "Mensagem detalhada do erro"
 }
 ```
 

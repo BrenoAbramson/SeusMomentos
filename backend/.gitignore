@@ -1,6 +1,17 @@
-/.agent
+# Dependências e Ferramentas
 /vendor
-.DOCUMENT.md
-.historico_dev.md
-.BD_assist.sql
+/.agent
+
+# Configurações de Ambiente (Segurança: JAMAIS commitar .env)
 .env
+.env.local
+
+# Banco de Dados (Backup local/Script)
+# BD_assist.sql
+
+# Sistema e IDEs
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+

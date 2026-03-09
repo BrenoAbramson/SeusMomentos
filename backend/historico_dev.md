@@ -32,4 +32,19 @@ Este documento registra as principais decisões, conversas e evoluções do back
 - Criado o arquivo **[BD_assist.sql](file:///c:/Users/Hp440/.gemini/antigravity/scratch/Nova%20pasta/BD_assist.sql)** contendo o script SQL completo para criação da tabela `users`, incluindo índices e triggers de atualização automática.
 
 ---
+
+## 📅 Sessão 08/03/2026 - Refinamento e Finalização do Cadastro
+
+### 1. Conclusão da Implementação
+**Ação:** Implementado o `UserController.php` e a base `Controller.php`.
+- Refinada a regex de senha forte para incluir caracteres especiais `@$!%*?&`.
+- Implementada a classe `Response.php` para padronização rigorosa dos retornos da API.
+- Adicionado tratamento de erros para dados JSON inválidos ou vazios.
+
+### 2. Correção de Ambiente e Testes
+- **Resolução do Composer**: Identificado erro de diretório (rodar dentro da pasta `/backend`) e resolvido erro de trava de arquivo no Windows (`Resource temporarily unavailable`) através da limpeza da pasta `vendor` via PowerShell.
+- **Configuração**: Criado o arquivo `.env.example` para facilitar a configuração local do banco de dados.
+- **Postman**: Gerada coleção completa (`seus_momentos_postman.json`) para testes imediatos das rotas de cadastro e cenários de erro.
+
+---
 *Histórico mantido para referência futura do time de desenvolvimento.*
