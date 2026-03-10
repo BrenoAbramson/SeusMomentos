@@ -1,0 +1,374 @@
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Roboto', sans-serif;
+min-height:100vh;
+
+}
+
+input::placeholder{
+    color: #94A3B8;
+}
+
+/* CONTAINER PRINCIPAL */
+
+.page-container{
+display:flex;
+min-height:100vh;
+}
+
+.alerta{
+
+position:fixed;
+top:20px;
+right:20px;
+
+background:white;
+
+padding:16px 20px;
+
+border-radius:8px;
+
+display:flex;
+align-items:center;
+gap:12px;
+
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
+min-width:320px;
+
+opacity:0;
+transform:translateX(120px);
+
+transition:all .4s ease;
+
+z-index:999;
+
+}
+
+.alerta.show{
+
+opacity:1;
+transform:translateX(0);
+
+}
+
+
+
+.alerta-icone{
+
+width:28px;
+height:28px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+font-size:16px;
+
+color:white;
+
+}
+
+
+
+.alerta.sucesso{
+border-bottom:4px solid #22c55e;
+}
+
+.alerta.sucesso .alerta-icone{
+background:#22c55e;
+}
+
+.alerta.erro{
+border-bottom:4px solid #ef4444;
+}
+
+.alerta.erro .alerta-icone{
+background:#ef4444;
+}
+
+.alerta.aviso{
+border-bottom:4px solid #eab308;
+}
+
+.alerta.aviso .alerta-icone{
+background:#eab308;
+}
+
+/* PAINEL ESQUERDO */
+
+.left-panel {
+    width: 50%;
+    min-height: 100vh;
+    background-image: url("../../assets/cadastro/casal.jpg");
+    background-size: cover; 
+    background-position: 50% 30%;
+    background-repeat: no-repeat;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 48px;
+    position: relative;
+    flex-shrink: 0; 
+}
+
+
+.left-panel::before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:rgba(0,0,0,0.35);
+}
+
+.left-panel h1,
+.left-panel p{
+position:relative;
+}
+
+.left-panel h1{
+font-family:'Playfair Display', serif;
+font-size:36px;
+line-height:40px;
+margin-bottom:16px;
+}
+
+.left-panel p{
+font-family: Manrope, sans-serif;
+font-size:18px;
+line-height:28px;
+opacity:0.9;
+}
+
+/* PAINEL DIREITO */
+
+.right-panel {
+    width: 50%;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    justify-content: center;
+    padding: 40px;}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-title{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-header{
+    color:#0F172A;
+}
+
+
+.form-header h2{
+
+    font-family: Playfair display, serif;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.form-header p{
+    color: #64748B;
+}
+
+
+/* LOGO */
+
+.logo-container{
+display:flex;
+align-items:center;
+gap:8px;
+margin-bottom:20px;
+}
+
+
+.logo-icon{
+width:32px;
+height:32px;
+color:#149cb8;
+}
+
+.logo-text{
+    font-family: Playfair Display, serif;
+font-size: 24px;
+font-weight:700;
+}
+
+/* FORM */
+
+.register-form{
+max-width: 360px;
+display:flex;
+color: #64748B;
+flex-direction:column;
+justify-content: center;
+gap:20px;
+}
+
+.input-group{
+display:flex;
+flex-direction:column;
+}
+
+.input-group label{
+font-family: manrope, sans-serif;
+font-size: 12px;
+margin-bottom:6px;
+font-weight:500;
+}
+
+.input-group input{
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:14px;
+outline: none;
+}
+
+/* BOTÃO */
+
+.btn-submit{
+margin-top:10px;
+padding:14px;
+border:none;
+border-radius:8px;
+background:#149cb8;
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:0.2s;
+}
+
+.btn-submit:hover{
+background:#11879e;
+}
+
+/* LINKS */
+
+.login-link{
+margin-top:8px;
+font-size:14px;
+text-align: center;
+color: #64748B;
+}
+
+.login-link p{
+font-family: Manrope, sans-serif;
+color: #64748B;
+}
+
+.login-link a{
+color:#149cb8;
+text-decoration:none;
+}
+
+/* FOOTER */
+
+.formulario hr{
+    background-color: #dee2e6;
+    border: none;
+    height: 1px;
+}
+
+.form-footer {
+    font-family: Manrope, sans-serif;
+    width: 100%;        
+    text-align: center;   
+    margin-top: 10px;      
+    font-size: 10px;
+    color: #94A3B8;
+}
+
+/* RESPONSIVIDADE */
+
+/* TABLET */
+@media (max-width: 900px) {
+  .page-container {
+    flex-direction: column;
+    min-height: auto; 
+  }
+
+  .left-panel {
+    display: none; 
+    background: none !important; 
+    min-height: 0 !important; 
+    height: auto !important;
+    padding: 40px 20px 0 20px; 
+    text-align: center;
+    width: 100%;
+  }
+
+  .left-panel img, 
+  .left-panel .illustration-container {
+    display: none !important;
+  }
+
+  .right-panel {
+    padding: 20px;
+    width: 100%;
+    margin-top: 0; 
+    text-align: flex-start; 
+  }
+
+  /* Garante que o formulário não fique largo demais no tablet */
+  .register-form {
+    max-width: 600px;
+    box-sizing: border-box;
+  }
+}
+
+/* CELULAR */
+
+@media (max-width: 500px){
+
+  .page-container {
+    flex-direction: column;
+    min-height: auto; 
+  }
+
+  .left-panel {
+    display: none; 
+    background: none !important; 
+    min-height: 0 !important; 
+    height: auto !important;
+    padding: 40px 20px 0 20px; 
+    text-align: center;
+    width: 100%;
+  }
+
+  .left-panel img, 
+  .left-panel .illustration-container {
+    display: none !important;
+  }
+
+  .right-panel {
+    padding: 20px;
+    width: 100%;
+    margin-top: 0; 
+    text-align: flex-start; 
+  }
+
+  /* Garante que o formulário não fique largo demais no tablet */
+  .register-form {
+    max-width: 600px;
+    box-sizing: border-box;
+  }
+}
