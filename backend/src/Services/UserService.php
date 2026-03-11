@@ -21,15 +21,21 @@ class UserService
         $this->db = Database::connect();
     }
 
-    /**
-     * Verifica se um e-mail já está cadastrado no sistema.
-     * Retorna o registro se encontrado ou falso caso contrário.
-     */
     public function emailExists($email)
     {
         $stmt = $this->db->prepare("SELECT id FROM users WHERE email = :email LIMIT 1");
         $stmt->execute(["email" => $email]);
         return $stmt->fetch();
+    }
+
+    /**
+     * Busca um usuário pelo e-mail (incluindo senha para validação).
+     */
+    public function findByEmail($email)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE email = :email LIMIT 1");
+        $stmt->execute(["email" => $email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     /**

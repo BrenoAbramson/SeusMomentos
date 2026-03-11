@@ -47,4 +47,23 @@ Este documento registra as principais decisões, conversas e evoluções do back
 - **Postman**: Gerada coleção completa (`seus_momentos_postman.json`) para testes imediatos das rotas de cadastro e cenários de erro.
 
 ---
+
+## 📅 Sessão 11/03/2026 - Migração para Supabase e Autenticação
+
+### 1. Migração Definitiva do Banco de Dados
+**Ação:** O banco de dados foi migrado de uma instância local para o **Supabase (PostgreSQL Cloud)**.
+- **Host**: `aws-0-us-west-2.pooler.supabase.com`
+- **Porta**: `6543` (Pooler para prevenção de excesso de conexões).
+- **Driver**: Habilitadas as extensões `pgsql` e `pdo_pgsql` no `php.ini` do ambiente WAMP64.
+
+### 2. Implementação do Login e Segurança
+- **Endpoint `/login` (POST)**: Criado para validar credenciais.
+- **Integração**: Busca de usuário por e-mail no banco e validação de hash de senha via `password_verify()`.
+- **Proteção de Dados**: Remoção automática do campo `senha` no retorno JSON para garantir a privacidade.
+
+### 3. Ajustes de Ambiente e Roteamento
+- **Versão do PHP**: Atualizado o ambiente WAMP64 para rodar com **PHP 8.1.13**, atendendo às exigências das dependências do Composer.
+- **Router Adaptável**: O arquivo `api.php` foi refatorado para detectar e limpar o caminho da URL automaticamente, permitindo que a API funcione perfeitamente mesmo em subdiretórios do servidor local (ex: `/SeusMomentos/backend/public/index.php/users`).
+
+---
 *Histórico mantido para referência futura do time de desenvolvimento.*

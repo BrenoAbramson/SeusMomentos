@@ -42,8 +42,7 @@ A estrutura do projeto foi desenhada para separar responsabilidades de forma cla
 - **Gerenciador de Pacotes**: Composer
 - **Frameworks/Libs**:
     - `vlucas/phpdotenv`: Gerenciamento de arquivos `.env`.
-    - `guzzlehttp/guzzle`: Cliente HTTP para integrações externas (Supabase REST API).
-- **Banco de Dados**: PostgreSQL intermediado pelo **Supabase**.
+- **Banco de Dados**: PostgreSQL intermediado pelo **Supabase** (Conexão direta via PDO).
 
 ## 🗄️ Estrutura do Banco de Dados (PostgreSQL)
 Para o funcionamento correto do sistema, a tabela `users` deve ser criada com a seguinte estrutura:
@@ -75,19 +74,24 @@ composer install
 ```
 
 ### 3. Variáveis de Ambiente
-Copie o exemplo abaixo para um arquivo `.env` e preencha com suas credenciais:
+Copie o arquivo `.env.example` para `.env` e preencha com as credenciais do seu projeto no Supabase:
+
+1. Acesse o painel do [Supabase](https://supabase.com/).
+2. Vá em **Project Settings** > **Database**.
+3. Procure por **Connection Info** ou **Connection String**.
+4. Use o modo **Transaction** (porta 6543) se estiver em ambientes com muitas conexões, ou a porta padrão 5432.
+
+Exemplo de `.env`:
 ```ini
 APP_ENV=local
 APP_DEBUG=true
 
-SUPABASE_URL=URL_DO_SUPABASE
-SUPABASE_ANON_KEY=SUA_CHAVE_ANON
-
-DB_HOST=HOST_DO_BANCO
-DB_PORT=5432
-DB_DATABASE=NOME_DO_BANCO
-DB_USER=USUARIO
-DB_PASSWORD=SENHA
+# Configurações do Supabase (PostgreSQL)
+DB_HOST=aws-0-us-west-2.pooler.supabase.com
+DB_PORT=6543
+DB_DATABASE=postgres
+DB_USER=postgres.qppvkbdjswfbszngmzll
+DB_PASSWORD=sua_senha_segura
 ```
 
 ## 📡 API Endpoints (Exemplos)
@@ -96,6 +100,7 @@ DB_PASSWORD=SENHA
 |--------|----------|-----------|
 | GET | `/ping` | Teste de conectividade da API. |
 | POST | `/users` | Cadastro de novo usuário. |
+| POST | `/login` | Autenticação de usuário e início de sessão. |
 
 ### Exemplo de Resposta Padronizada
 O sistema utiliza a classe `Src\Utils\Response` para garantir que todas as respostas sigam o mesmo formato:

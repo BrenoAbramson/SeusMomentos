@@ -79,6 +79,44 @@ class UserController extends Controller
         }
     }
 
+    public function login()
+    {
+        // 1. Receber dados JSON
+        $input = json_decode(file_get_contents("php://input"), true);
+
+        if (!$input) {
+            Response::error("Dados inválidos ou vazios", 400);
+        }
+
+        $email = $input['email'] ?? null;
+        $senha = $input['senha'] ?? null;
+
+        // 2. Validar campos obrigatórios
+        if (!$email || !$senha) {
+            Response::error("E-mail e senha são obrigatórios", 400);
+        }
+
+        // 3. Buscar usuário pelo e-mail
+        $user = $this->userService->findByEmail($email);
+
+        if (!$user) {
+            Response::error("E-mail ou senha incorretos", 401);
+        }
+
+        // 4. Verificar a senha
+        if (password_verify($senha, $user['senha'])) {
+            // Sucesso! Removemos a senha dos dados retornados por segurança
+            unset($user['senha']);
+            
+            Response::success([
+                "message" => "Login realizado com sucesso!",
+                "user" => $user
+            ]);
+        } else {
+            Response::error("E-mail ou senha incorretos", 401);
+        }
+    }
+
     private function sendVerificationEmail($email, $token)
     {
         // Placeholder para envio de e-mail
