@@ -18,90 +18,73 @@
 
 <div class="login-page">
 
-  
+  <!-- Lado esquerdo -->
   <div class="login-left">
-    <h1>Seu grande dia, <br>gerenciado com amor.</h1>
-            <p>Acompanhe cada detalhe do seu momento especial.</p>
+    <h1>Seu grande dia,<br>gerenciado com amor.</h1>
+    <p>Acompanhe cada detalhe do seu momento especial.</p>
   </div>
 
-
- 
-  <div class="login-background">
+  <!-- Lado direito -->
+  <div class="login-right">
 
     <div class="login-container">
 
-      
+      <!-- Logo -->
       <div class="logo">
         <div class="logo-icon">
-          <img src="../../assets/login/coraçao.png" alt="">
+          <img src="../../assets/login/coraçao.png" alt="Logo Seus Momentos">
         </div>
-       
         <span class="logo-text">Seus Momentos</span>
       </div>
 
-
-    
+      <!-- Header -->
       <div class="login-header">
-
-        <h1 class="login-title">
-        Bem-vindo de volta
-        </h1>
-
+        <h1 class="login-title">Bem-vindo de volta</h1>
         <p class="login-subtitle">
-        Acesse sua conta para gerenciar seu casamento.
+          Acesse sua conta para gerenciar seu casamento.
         </p>
-
       </div>
 
-
-      
+      <!-- Form -->
       <form class="login-form" id="loginForm">
 
-     
+        <!-- Email -->
         <div class="input-group">
-          <label>E-mail</label>
-         <input type="email" id="email" placeholder="seu@email.com">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" placeholder="seu@email.com">
         </div>
 
-
-        
+        <!-- Senha -->
         <div class="input-group">
 
           <div class="password-header">
-            <label>Senha</label>
+            <label for="senha">Senha</label>
 
             <a href="#" class="forgot-link">
-            Esqueci minha senha
+              Esqueci minha senha
             </a>
           </div>
 
-        <input type="password" id="senha" placeholder="••••••••">
+          <input type="password" id="senha" placeholder="••••••••">
+
         </div>
 
-
-        
-        <button class="login-button">
-        Entrar
+        <!-- Botão -->
+        <button type="submit" class="login-button">
+          Entrar
         </button>
-     
 
       </form>
 
-
-    <div>
+      <!-- Registro -->
       <p class="login-register">
-
-      Ainda não tem uma conta?
-      <a href="cadastro.html">Criar minha conta</a>
-
+        Ainda não tem uma conta?
+        <a href="cadastro.html">Criar minha conta</a>
       </p>
 
-    </div>
-      
-
-      <!-- FOOTER -->
+      <!-- Footer -->
       <div class="login-footer">
-      © 2026 Seus Momentos • Gestão de Casamentos
+        © 2026 Seus Momentos • Gestão de Casamentos
       </div>
 
     </div>
@@ -109,14 +92,16 @@
   </div>
 
 </div>
+
+<!-- ALERTA -->
+
 <div id="alerta" class="alerta">
-  
+
   <div id="alerta-icone" class="alerta-icone"></div>
 
   <div id="alerta-texto" class="alerta-texto"></div>
 
 </div>
-
 
 <script src="../../js/login/login.js"></script>
 
