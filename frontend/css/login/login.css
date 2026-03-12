@@ -31,14 +31,10 @@ background-position:center;
 background-repeat:no-repeat;
 }
 
-.login-left h1,
-.login-left p{
+.login-left h1{
 position:absolute;
 left:20px;
 color:white;
-}
-
-.login-left h1{
 bottom:120px;
 font-family:'Playfair Display', serif;
 font-size:36px;
@@ -47,19 +43,20 @@ margin-bottom:16px;
 }
 
 .login-left p{
+position:absolute;
+left:20px;
+color:white;
 bottom:80px;
 font-size:18px;
 line-height:28px;
 opacity:0.9;
 }
-
 /* Lado direito */
 
 .login-right{
 display:flex;
 justify-content:center;
 align-items:center;
-padding:64px;
 flex:1;
 height:100vh;
 background:#FFFFFF;
