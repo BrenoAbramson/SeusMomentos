@@ -1,0 +1,76 @@
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Criar Conta - Seus Momentos</title>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/cadastro/style.css">
+    </head>
+    <body>
+    <div>
+        <div id="alerta" class="alerta">
+  
+        <div id="alerta-icone" class="alerta-icone"></div>
+
+        <div id="alerta-texto" class="alerta-texto"></div>
+
+    </div>
+
+    <div class="page-container">
+        <div class="left-panel">
+            <h1>Comece a planejar<br> o seu sonho.</h1>
+            <p>Junte-se a nós e transforme a organização do<br> seu casamento em uma
+                jornada leve e<br> inesquecível.</p>
+        </div>
+
+        <div class="right-panel">
+            <div class="formulario">
+                <div class="form-header">
+                    <div class="logo-container">
+                        <img class="logo-icon" src="../../assets/cadastro/Icon.png" alt="Logo">
+                        <span class="logo-text">Seus Momentos</span>
+                    </div>
+                    <div class="form-title">
+                        <h2>Criar minha conta</h2>
+                        <p class="subtitle">Preencha os campos abaixo para iniciar sua jornada.</p>
+                    </div>
+                </div>
+                
+                <div id="message"></div>
+
+                <form id="registerForm" class="register-form">
+                    <div class="input-group">
+                        <label for="nome">NOME COMPLETO</label>
+                        <input type="text" id="nome" placeholder="Seu nome completo" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">E-MAIL</label>
+                        <input type="email" id="email" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="senha">SENHA</label>
+                        <input type="password" id="senha" placeholder="••••••••" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="confirmarSenha">CONFIRMAR SENHA</label>
+                        <input type="password" id="confirmarSenha" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" id="btnSubmit" class="btn-submit">Criar minha conta</button>
+                </form>
+                
+                <p class="login-link">Já tem uma conta? <a href="../../pages/login/login.html">Entrar</a></p>
+                <hr>
+                <div class="form-footer">
+                    © 2026 SEUS MOMENTOS • GESTÃO DE CASAMENTOS
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+
+    <script src="../../js/cadastro/script.js"></script>
+    </body>
+    </html>
