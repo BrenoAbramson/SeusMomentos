@@ -1,0 +1,17 @@
+# Dependências e Ferramentas
+/vendor
+/.agent
+
+# Configurações de Ambiente (Segurança: JAMAIS commitar .env)
+.env
+.env.local
+
+# Banco de Dados (Backup local/Script)
+# BD_assist.sql
+
+# Sistema e IDEs
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
