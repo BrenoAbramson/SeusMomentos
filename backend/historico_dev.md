@@ -32,4 +32,38 @@ Este documento registra as principais decisões, conversas e evoluções do back
 - Criado o arquivo **[BD_assist.sql](file:///c:/Users/Hp440/.gemini/antigravity/scratch/Nova%20pasta/BD_assist.sql)** contendo o script SQL completo para criação da tabela `users`, incluindo índices e triggers de atualização automática.
 
 ---
+
+## 📅 Sessão 08/03/2026 - Refinamento e Finalização do Cadastro
+
+### 1. Conclusão da Implementação
+**Ação:** Implementado o `UserController.php` e a base `Controller.php`.
+- Refinada a regex de senha forte para incluir caracteres especiais `@$!%*?&`.
+- Implementada a classe `Response.php` para padronização rigorosa dos retornos da API.
+- Adicionado tratamento de erros para dados JSON inválidos ou vazios.
+
+### 2. Correção de Ambiente e Testes
+- **Resolução do Composer**: Identificado erro de diretório (rodar dentro da pasta `/backend`) e resolvido erro de trava de arquivo no Windows (`Resource temporarily unavailable`) através da limpeza da pasta `vendor` via PowerShell.
+- **Configuração**: Criado o arquivo `.env.example` para facilitar a configuração local do banco de dados.
+- **Postman**: Gerada coleção completa (`seus_momentos_postman.json`) para testes imediatos das rotas de cadastro e cenários de erro.
+
+---
+
+## 📅 Sessão 11/03/2026 - Migração para Supabase e Autenticação
+
+### 1. Migração Definitiva do Banco de Dados
+**Ação:** O banco de dados foi migrado de uma instância local para o **Supabase (PostgreSQL Cloud)**.
+- **Host**: `aws-0-us-west-2.pooler.supabase.com`
+- **Porta**: `6543` (Pooler para prevenção de excesso de conexões).
+- **Driver**: Habilitadas as extensões `pgsql` e `pdo_pgsql` no `php.ini` do ambiente WAMP64.
+
+### 2. Implementação do Login e Segurança
+- **Endpoint `/login` (POST)**: Criado para validar credenciais.
+- **Integração**: Busca de usuário por e-mail no banco e validação de hash de senha via `password_verify()`.
+- **Proteção de Dados**: Remoção automática do campo `senha` no retorno JSON para garantir a privacidade.
+
+### 3. Ajustes de Ambiente e Roteamento
+- **Versão do PHP**: Atualizado o ambiente WAMP64 para rodar com **PHP 8.1.13**, atendendo às exigências das dependências do Composer.
+- **Router Adaptável**: O arquivo `api.php` foi refatorado para detectar e limpar o caminho da URL automaticamente, permitindo que a API funcione perfeitamente mesmo em subdiretórios do servidor local (ex: `/SeusMomentos/backend/public/index.php/users`).
+
+---
 *Histórico mantido para referência futura do time de desenvolvimento.*
