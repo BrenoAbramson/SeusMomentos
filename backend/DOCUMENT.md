@@ -68,12 +68,19 @@ CREATE TABLE users (
 - Servidor PostgreSQL ou conta no Supabase.
 
 ### 2. Instalação
-No diretório raiz, execute:
+No diretório raiz (`/backend`), execute:
 ```bash
 composer install
 ```
 
-### 3. Variáveis de Ambiente
+### 3. Execução
+Para iniciar o servidor de desenvolvimento local (sem necessidade de WAMP/XAMPP):
+```bash
+composer start
+```
+O servidor estará disponível em `http://127.0.0.1:8080`.
+
+### 4. Variáveis de Ambiente
 Copie o arquivo `.env.example` para `.env` e preencha com as credenciais do seu projeto no Supabase:
 
 1. Acesse o painel do [Supabase](https://supabase.com/).
@@ -99,8 +106,11 @@ DB_PASSWORD=sua_senha_segura
 | Método | Endpoint | Descrição |
 |--------|----------|-----------|
 | GET | `/ping` | Teste de conectividade da API. |
-| POST | `/users` | Cadastro de novo usuário. |
-| POST | `/login` | Autenticação de usuário e início de sessão. |
+| POST | `/api/users` | Cadastro de novo usuário. |
+| POST | `/api/login` | Autenticação de usuário e início de sessão. |
+
+> [!NOTE]
+> Os endpoints também respondem sem o prefixo `/api` (ex: `/login`), mas o padrão recomendado é utilizar o prefixo. Para detalhes de como testar, consulte o arquivo [MANUAL_TEST.md](file:///c:/Users/Hp440/OneDrive/Área de Trabalho/Projeto/SeusMomentos/backend/MANUAL_TEST.md).
 
 ### Exemplo de Resposta Padronizada
 O sistema utiliza a classe `Src\Utils\Response` para garantir que todas as respostas sigam o mesmo formato:
