@@ -22,8 +22,6 @@ if(tipo === "aviso"){
 icone = "!";
 }
 
-
-
 alertaTexto.innerText = texto;
 alertaIcone.innerText = icone;
 
@@ -35,17 +33,17 @@ alerta.classList.remove("show");
 
 }
 
+
+// LOGIN
+
 form.addEventListener("submit", function(event){
 
 event.preventDefault();
-
-
 
 if(email.value === "" || senha.value === ""){
 mostrarAlerta("Preencha todos os campos obrigatórios","aviso");
 return;
 }
-
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 
@@ -53,8 +51,6 @@ if(!emailRegex.test(email.value)){
 mostrarAlerta("Formato de e-mail inválido","aviso");
 return; 
 }
-
-
 
 const emailCorreto = "teste@email.com";
 const senhaCorreta = "123456";
@@ -64,12 +60,70 @@ mostrarAlerta("E-mail ou senha inválidos","erro");
 return;
 }
 
-
-
 mostrarAlerta("Login realizado com sucesso","sucesso");
 
 setTimeout(()=>{
 window.location.href = "home.html";
 },1500);
+
+});
+
+
+// ---------------- MODAL ----------------
+
+
+// ABRIR MODAL
+
+const abrirModal = document.getElementById("abrirModal");
+const modal = document.getElementById("modalOverlay");
+const fecharModal = document.getElementById("closeModal");
+
+abrirModal.addEventListener("click", function(e){
+e.preventDefault();
+modal.style.display = "flex";
+});
+
+
+// FECHAR NO X
+
+fecharModal.addEventListener("click", function(){
+modal.style.display = "none";
+});
+
+
+// FECHAR CLICANDO FORA
+
+modal.addEventListener("click", function(e){
+
+if(e.target === modal){
+modal.style.display = "none";
+}
+
+});
+
+
+// VALIDAÇÃO EMAIL MODAL
+
+const modalForm = document.querySelector(".modal-form");
+const modalEmail = document.querySelector(".modal-input");
+
+modalForm.addEventListener("submit", function(e){
+
+e.preventDefault();
+
+const emailValor = modalEmail.value.trim();
+
+const modalEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if(!modalEmailRegex.test(emailValor)){
+
+mostrarAlerta("Formato de e-mail inválido","aviso");
+
+return;
+}
+
+mostrarAlerta("Link de recuperação enviado","sucesso");
+
+modal.style.display = "none";
 
 });

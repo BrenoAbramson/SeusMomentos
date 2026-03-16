@@ -60,9 +60,10 @@
           <div class="password-header">
             <label for="senha">Senha</label>
 
-            <a href="#" class="forgot-link">
+            <a href="#" id="abrirModal" class="forgot-link">
               Esqueci minha senha
             </a>
+
           </div>
 
           <input type="password" id="senha" placeholder="••••••••">
@@ -88,6 +89,51 @@
       </div>
 
     </div>
+
+  </div>
+
+</div>
+
+<!-- MODAL RECUPERAÇÃO DE SENHA -->
+
+<div class="modal-overlay" id="modalOverlay">
+
+  <div class="modal-box">
+
+    <button class="modal-close" id="closeModal">✕</button>
+
+    <div class="modal-icon">
+
+      <img src="../../assets/modal/Overlay.png" alt="icone">
+
+    </div>
+
+    <h2 class="modal-title">Redefinir Senha</h2>
+
+    <p class="modal-text">
+      Insira o e-mail associado à sua conta para receber as instruções de recuperação.
+    </p>
+
+    <form class="modal-form">
+
+      <label>E-mail</label>
+
+      <input
+        type="email"
+        class="modal-input"
+        placeholder="exemplo@email.com"
+        required
+      >
+
+      <button class="modal-button">
+        Enviar link de recuperação
+      </button>
+
+    </form>
+
+    <a href="index.html" class="modal-back">
+      Voltar para o login
+    </a>
 
   </div>
 
