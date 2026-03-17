@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redefinir Senha - Seus Momentos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/recuperarsenha/rec.css">
+</head>
+<body>
+    <div class="login-page">
+        <div class="login-left">
+            <div class="overlay-content">
+                <h1>Proteja as memórias do seu grande dia.</h1>
+                <p>Uma nova senha garante que seus preparativos continuem seguros e privados.</p>
+            </div>
+        </div>
+
+        <div class="login-right">
+            <div class="login-container">
+                <div class="logo">
+                    <img src="../../assets/login/coraçao.png" alt="Logo" class="logo-img">
+                    <span class="logo-text">Seus Momentos</span>
+                </div>
+
+                <div class="login-header">
+                    <h1 class="login-title">Redefinir sua senha</h1>
+                    <p class="login-subtitle">Escolha uma senha forte e segura para proteger os detalhes do seu grande dia.</p>
+                </div>
+
+                <form class="login-form" id="resetForm">
+                    <div class="input-group">
+                        <label for="novaSenha">Nova Senha</label>
+                        <div class="password-wrapper">
+                            <span class="input-icon-left">
+                                <img src="../../assets/recuperarsenha/lock.png" alt="Cadeado" class="field-icon">
+                            </span>
+                            <input type="password" id="novaSenha" placeholder="••••••••">
+                            <button type="button" class="toggle-password">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="confirmarSenha">Confirmar Nova Senha</label>
+                        <div class="password-wrapper">
+                            <span class="input-icon-left">
+                                <img src="../../assets/recuperarsenha/lock2.png" alt="Recarregar" class="field-icon">
+                            </span>
+                            <input type="password" id="confirmarSenha" placeholder="••••••••">
+                            <button type="button" class="toggle-password">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="requirements-box">
+                        <p class="req-title">REQUISITOS DE SEGURANÇA</p>
+                        <ul>
+                            <li id="req-length">Mínimo de 8 caracteres</li>
+                            <li id="req-upper">Pelo menos uma letra maiúscula e minúscula</li>
+                            <li id="req-number">Pelo menos um número</li>
+                            <li id="req-special">1 Caractere especial</li>
+                        </ul>
+                    </div>
+
+                    <button type="submit" class="login-button">Alterar Senha</button>
+                </form>
+
+                <a href="../login/index.html" class="back-link">← Voltar para o login</a>
+
+                <div class="login-footer">
+                    © 2026 Seus Momentos. Todos os direitos reservados.
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="customAlert" class="alerta">
+    <div class="alerta-icone" id="alertIcon"></div>
+    <div class="alerta-conteudo">
+        <p id="alertMessage" style="font-size: 14px; font-weight: 500; color: #1E293B;"></p>
+    </div>
+</div>
+    
+    <script src="../../js/recuperarsenha/rec.js"></script>
+</body>
+</html>
