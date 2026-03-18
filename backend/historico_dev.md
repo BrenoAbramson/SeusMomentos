@@ -66,4 +66,22 @@ Este documento registra as principais decisões, conversas e evoluções do back
 - **Router Adaptável**: O arquivo `api.php` foi refatorado para detectar e limpar o caminho da URL automaticamente, permitindo que a API funcione perfeitamente mesmo em subdiretórios do servidor local (ex: `/SeusMomentos/backend/public/index.php/users`).
 
 ---
+
+## 📅 Sessão 15/03/2026 - Refinamento de Autenticação e Facilitação de Execução
+
+### 1. Melhorias no Endpoint de Login
+**Ação:** Refinado o método `login()` no `UserController.php`.
+- Adicionada validação de formato de e-mail via `filter_var`.
+- Padronização das mensagens de erro: unificadas para "E-mail ou senha incorretos" visando segurança (não revelar quais e-mails estão cadastrados).
+- Garantido que o retorno de sucesso não inclua a senha do usuário e siga o padrão `Src\Utils\Response`.
+
+### 2. Ajustes de Roteamento e Compatibilidade
+- **Prefixos de API**: Suporte adicionado para endpoints com prefixo `/api/` no arquivo `api.php`.
+- **Servidor Embutido**: Configurado o comando `composer start` para rodar o servidor embutido do PHP (`php -S 127.0.0.1:8080 -t public public/index.php`).
+- **Resolução de Conflitos**: Alterada a porta padrão para `8080` para evitar conflitos com serviços locais (Apache/WAMP) na porta `80` ou `8000`.
+
+### 3. Documentação de Testes Manuais
+- Criado o arquivo `MANUAL_TEST.md` contendo um guia passo a passo, incluindo payloads JSON e comandos `curl` para testar o fluxo de cadastro e login.
+
+---
 *Histórico mantido para referência futura do time de desenvolvimento.*
