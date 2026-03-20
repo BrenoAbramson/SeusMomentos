@@ -96,14 +96,19 @@ class UserController extends Controller
             Response::error("E-mail e senha são obrigatórios", 400);
         }
 
-        // 3. Buscar usuário pelo e-mail
+        // 3. Validar formato de e-mail
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            Response::error("Formato de e-mail inválido", 400);
+        }
+
+        // 4. Buscar usuário pelo e-mail
         $user = $this->userService->findByEmail($email);
 
         if (!$user) {
             Response::error("E-mail ou senha incorretos", 401);
         }
 
-        // 4. Verificar a senha
+        // 5. Verificar a senha
         if (password_verify($senha, $user['senha'])) {
             // Sucesso! Removemos a senha dos dados retornados por segurança
             unset($user['senha']);

@@ -1,0 +1,386 @@
+/* 1. RESET E BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    height: 100vh;
+    overflow: hidden;
+    color: #0F172A;
+}
+
+.login-page {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* 2. LADO ESQUERDO (IMAGEM) */
+.login-left {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%), 
+                url("../../assets/redefinirSenha/Background.png") center/cover no-repeat;
+}
+
+.overlay-content {
+    position: absolute;
+    bottom: 80px;
+    left: 60px;
+    max-width: 420px;
+    color: white;
+}
+
+.overlay-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    line-height: 1.2;
+    margin-bottom: 15px;
+}
+
+.overlay-content p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* 3. LADO DIREITO (FORMULÁRIO) */
+.login-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #F8FAFC; 
+    padding: 40px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* LOGO */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* CABEÇALHO */
+.login-header {
+    margin-bottom: 30px;
+}
+
+.login-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.login-subtitle {
+    font-size: 14px;
+    color: #64748B;
+    line-height: 1.5;
+}
+
+/* 4. INPUTS E WRAPPERS */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748B;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-wrapper input {
+    width: 100%;
+    height: 52px;
+    padding: 0 52px;
+    background-color: #FFFFFF; /* Fundo branco puro nos campos */
+    border: 1px solid #E2E8F0;
+    border-radius: 10px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s;
+}
+
+
+
+/* 5. ÍCONES (TRATAMENTO DE TAMANHOS) */
+
+/* Contêiner da esquerda (Cadeado/Reload) */
+.input-icon-left {
+    position: absolute;
+    left: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+/* A imagem específica dentro do contêiner da esquerda */
+.input-icon-left .field-icon {
+    width: 50px !important;  
+    height: 50px !important;
+    object-fit: contain;
+}
+
+/* Botão do Olhinho (Direita) */
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0;
+}
+
+/* SVG do Olhinho - Fica menor para não destoar */
+.toggle-password svg {
+    width: 20px !important;
+    height: 20px !important;
+    stroke-width: 1.5;
+    color: #94A3B8;
+    transition: color 0.2s;
+}
+
+.toggle-password:hover svg {
+    color: #64748B;
+}
+
+/* 6. REQUISITOS DE SEGURANÇA */
+.requirements-box {
+    background-color: #EDF7F9; /* Tom bem clarinho para o container de requisitos */
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.req-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #149CB8;
+    margin-bottom: 15px;
+    letter-spacing: 0.05em;
+}
+
+.requirements-box ul {
+    list-style: none;
+}
+
+.requirements-box li {
+    font-size: 13px;
+    color: #64748B;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.requirements-box li::before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #CBD5E1;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+/* Estilo para quando o requisito for validado via JS */
+.requirements-box li.valid {
+    color: #149CB8;
+}
+
+.requirements-box li.valid::before {
+    border-color: #149CB8;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23149CB8' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: 10px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* 7. BOTÃO E LINKS INFERIORES */
+.login-button {
+    width: 100%;
+    padding: 16px;
+    background-color: #149CB8; /* Cor exata do botão no seu print alvo */
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(20, 156, 184, 0.3); /* Sombra suave azulada */
+    transition: background 0.2s;
+}
+
+
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    color: #64748B;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login-footer {
+    text-align: center;
+    font-size: 11px;
+    color: #94A3B8;
+    margin-top: 40px;
+}
+
+
+
+
+.alerta {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 16px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    min-width: 320px;
+    opacity: 0;
+    transform: translateX(120px);
+    transition: all .4s ease;
+    z-index: 9999; /* Garante que fique acima de tudo */
+}
+
+/* Quando o JS ativa o alerta */
+.alerta.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.alerta-icone {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Tipos de Alerta */
+.alerta.sucesso { border-bottom: 4px solid #22c55e; }
+.alerta.sucesso .alerta-icone { background: #22c55e; }
+
+.alerta.erro { border-bottom: 4px solid #ef4444; }
+.alerta.erro .alerta-icone { background: #ef4444; }
+
+.alerta.aviso { border-bottom: 4px solid #eab308; }
+.alerta.aviso .alerta-icone { background: #eab308; }
+
+.alerta-conteudo p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1E293B;
+}
+
+/* 8. RESPONSIVIDADE */
+/* --- RESPONSIVIDADE MOBILE CORRIGIDA --- */
+
+@media (max-width: 900px) {
+    /* 1. Esconde a imagem da esquerda */
+    .login-left {
+        display: none !important;
+    }
+
+    /* 2. Ajusta o lado direito para ser a tela cheia */
+    .login-right {
+        width: 100%;
+        min-height: 100vh;
+        background-color: #FFFFFF; /* Fundo branco conforme o Figma */
+        display: block; /* Mudamos para block para evitar o corte no topo */
+        padding: 40px 24px; /* Espaço generoso no topo e laterais */
+        overflow-y: auto;
+    }
+
+    /* 3. Container do form centralizado horizontalmente */
+    .form-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    /* 4. AJUSTE DA LOGO (Coração + Texto lado a lado) */
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* Alinhado à esquerda conforme o print */
+        gap: 12px; /* Espaço entre o coração e o texto */
+        margin-bottom: 40px;
+    }
+
+    .logo img {
+        width: 35px; /* Tamanho do ícone do coração */
+        height: auto;
+        margin: 0; /* Remove margens automáticas */
+    }
+
+    .logo span {
+        font-size: 20px;
+        font-weight: bold;
+        color: #001529; /* Cor do seu texto */
+    }
+
+    /* 5. Ajuste de fontes para mobile */
+    h2 {
+        font-size: 28px;
+        line-height: 1.2;
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    p {
+        text-align: left;
+        font-size: 14px;
+        color: #64748B;
+        margin-bottom: 32px;
+    }
+
+    /* 6. Alerta no topo */
+    .alerta {
+        width: 90%;
+        left: 5%;
+        top: 20px;
+    }
+}
