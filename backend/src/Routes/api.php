@@ -27,7 +27,7 @@ if ($requestUri === "/ping" && $requestMethod === "GET") {
 }
 
 // Rotas de Usuários: Gerencia cadastro (POST)
-if ($requestUri === "/users" || $requestUri === "/api/users") {
+if ($requestUri === "/users") {
     if ($requestMethod === "POST") {
         (new UserController())->store();
     } else {
@@ -36,7 +36,7 @@ if ($requestUri === "/users" || $requestUri === "/api/users") {
 }
 
 // Rota de Login: Verifica credenciais e inicia sessão
-if ($requestUri === "/login" || $requestUri === "/api/login") {
+if ($requestUri === "/login") {
     if ($requestMethod === "POST") {
         (new UserController())->login();
     } else {
