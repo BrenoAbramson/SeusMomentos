@@ -42,19 +42,25 @@ form.addEventListener('submit', async (e) => {
 
     if (senhaVal !== confirmarSenhaVal) {
         return mostrarAlerta("As senhas não coincidem", "aviso");
+    }                               
+    if (senhaVal.length < 8) {
+        return mostrarAlerta("A senha deve ter pelo menos 8 caracteres", "aviso");
     }
+
 
     setLoading(true);
 
     try {
-        const response = await fetch('http://127.0.0.1:8000/users', { 
+
+        const response = await fetch('http://127.0.0.1:8000/users', {
+
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 nome: nomeVal,
                 email: emailVal,
                 senha: senhaVal,
-                confirmarsenha: confirmarSenhaVal
+                confirmar_senha: confirmarSenhaVal
             })
         });
 
@@ -64,7 +70,7 @@ form.addEventListener('submit', async (e) => {
             // Sucesso retornado pelo Back-end
             mostrarAlerta("Cadastro realizado com sucesso!", "sucesso");
             setTimeout(() => {
-                window.location.href = "../login/index.html"; // Redireciona após sucesso
+                window.location.href = "../../pages/login/index.html"; // Redireciona após sucesso
             }, 2000);
         } else {
             // Erro validado pelo Back-end
