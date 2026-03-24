@@ -80,35 +80,64 @@ document.addEventListener('DOMContentLoaded', () => {
 
     novaSenha.addEventListener('input', validate);
 
-    // --- 3. SUBMISSÃO E CRITÉRIOS DE ACEITAÇÃO ---
-    resetForm.addEventListener('submit', (e) => {
+    // --- 3. SUBMISSÃO E CONEXÃO COM O BACKEND ---
+    resetForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Critério: Não permite campos obrigatórios vazios
+        // 1. Pegar token e email da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        const email = urlParams.get('email');
+
+        if (!token || !email) {
+            mostrarAlerta("Token ou e-mail ausentes na URL. Por favor, use o link enviado no seu e-mail.", "erro");
+            return;
+        }
+
+        // 2. Validações básicas de frontend
         if (!novaSenha.value || !confirmarSenha.value) {
             mostrarAlerta("Por favor, preencha todos os campos obrigatórios.", "aviso");
             return;
         }
 
-        // Critério: Formato de senha inválido / Requisitos não atendidos
         if (!validate()) {
             mostrarAlerta("Ops! Sua senha não é forte o suficiente", "erro");
             return;
         }
 
-        // Critério: Senhas diferentes (Confirmar se coincidem)
         if (novaSenha.value !== confirmarSenha.value) {
             mostrarAlerta("As senhas não coincidem.", "erro");
             return;
         }
 
-        // Critério: Sucesso (Tudo OK)
-        mostrarAlerta("Senha alterada com sucesso.", "sucesso");
-        
-        // Pequena pausa para o usuário ler o alerta antes de redirecionar
-    setTimeout(() => {
-            // Caminho ajustado para o seu padrão de pastas
-            window.location.href = "../login/index.html"; 
-        }, 2500);
+        // 3. Chamada de rede real
+        try {
+            const response = await fetch("http://127.0.0.1:8080/auth/reset-password/update", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: email,
+                    token: token,
+                    nova_senha: novaSenha.value,
+                    confirmar_senha: confirmarSenha.value
+                })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                mostrarAlerta("Senha alterada com sucesso!", "sucesso");
+                
+                // Redireciona após o alerta
+                setTimeout(() => {
+                    window.location.href = "../login/index.html"; 
+                }, 2500);
+            } else {
+                mostrarAlerta(result.message || "Erro ao redefinir senha", "erro");
+            }
+        } catch (error) {
+            mostrarAlerta("Erro de conexão com o servidor", "erro");
+            console.error("Erro no fetch:", error);
+        }
     });
 });

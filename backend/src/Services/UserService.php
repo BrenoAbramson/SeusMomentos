@@ -55,4 +55,42 @@ class UserService
             "token" => $token
         ]);
     }
+
+    /**
+     * Define o token de recuperação de senha para um usuário.
+     */
+    public function setResetToken($email, $tokenHash, $expiry)
+    {
+        $stmt = $this->db->prepare("
+            UPDATE users 
+            SET reset_token_hash = :hash, 
+                reset_token_expires_at = :expiry 
+            WHERE email = :email
+        ");
+
+        return $stmt->execute([
+            "hash"   => $tokenHash,
+            "expiry" => $expiry,
+            "email"  => $email
+        ]);
+    }
+
+    /**
+     * Atualiza a senha do usuário e limpa as informações de recuperação.
+     */
+    public function updatePassword($email, $newPasswordHash)
+    {
+        $stmt = $this->db->prepare("
+            UPDATE users 
+            SET senha = :senha, 
+                reset_token_hash = NULL, 
+                reset_token_expires_at = NULL 
+            WHERE email = :email
+        ");
+
+        return $stmt->execute([
+            "senha" => $newPasswordHash,
+            "email" => $email
+        ]);
+    }
 }
