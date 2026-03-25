@@ -1,18 +1,17 @@
-const faqs = document.querySelectorAll(".faq-item");
+const faqItems = document.querySelectorAll(".faq-item");
 
-faqs.forEach((faq) => {
-  const header = faq.querySelector(".faq-header");
+faqItems.forEach((item) => {
+  const header = item.querySelector(".faq-header");
 
   header.addEventListener("click", () => {
-    
-    // fecha todos os outros
-    faqs.forEach((item) => {
-      if (item !== faq) {
-        item.classList.remove("active");
-      }
+    const isActive = item.classList.contains("active");
+
+    faqItems.forEach((faq) => {
+      faq.classList.remove("active");
     });
 
-    // alterna o atual
-    faq.classList.toggle("active");
+    if (!isActive) {
+      item.classList.add("active");
+    }
   });
 });
