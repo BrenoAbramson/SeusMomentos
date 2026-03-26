@@ -46,6 +46,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
 
+    // --- 0. VALIDAÇÃO DO TOKEN NO CARREGAMENTO ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialToken = urlParams.get('token');
+    const initialEmail = urlParams.get('email');
+
+    const mainContent = document.getElementById('mainContent');
+    const expiredContent = document.getElementById('expiredContent');
+
+    if (!initialToken || !initialEmail) {
+        expiredContent.style.display = 'block'; // Mostra mensagem de erro central
+    } else {
+        // Verificar se o token expirou via Backend
+        fetch(`http://127.0.0.1:8080/auth/reset-password/validate?email=${encodeURIComponent(initialEmail)}&token=${initialToken}`)
+            .then(async response => {
+                if (response.ok) {
+                    // TOKEN VÁLIDO: Mostra o formulário
+                    mainContent.style.display = 'flex';
+                } else {
+                    // TOKEN EXPIRADO: Mostra apenas a mensagem central (sem alert no topo)
+                    expiredContent.style.display = 'block';
+                }
+            })
+            .catch(error => {
+                console.error("Erro ao validar token:", error);
+                mostrarAlerta("Erro de conexão com o servidor.", "erro");
+            });
+    }
+
     // --- 1. LÓGICA DO OLHINHO (MOSTRAR/ESCONDER SENHA) ---
     btnToggle.forEach(btn => {
         btn.addEventListener('click', function() {
