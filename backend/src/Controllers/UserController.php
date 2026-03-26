@@ -153,18 +153,16 @@ class UserController extends Controller
             // 5. Hash do token para armazenamento seguro
             $tokenHash = password_hash($token, PASSWORD_BCRYPT);
 
-            // 6. Definir expiração (3 minutos a partir de agora)
-            $expiry = date('Y-m-d H:i:s', strtotime('+3 minutes'));
-
-            // 7. Armazenar no banco de dados
-            $this->userService->setResetToken($email, $tokenHash, $expiry);
-
             // 8. Montar link (Direcionando para o front-end vindo do .env)
             $baseUrl = $_ENV['FRONTEND_URL'] ?? "http://127.0.0.1:5500/frontend/pages/redefinirSenha/index.html";
             $resetLink = "$baseUrl?token=$token&email=" . urlencode($email);
 
             // 9. Enviar e-mail REAL via PHPMailer
-            $this->sendResetEmail($email, $resetLink);
+            // Definimos a expiração de 3 minutos APÓS o disparo bem-sucedido
+            if ($this->sendResetEmail($email, $resetLink)) {
+                $expiry = date('Y-m-d H:i:s', strtotime('+3 minutes'));
+                $this->userService->setResetToken($email, $tokenHash, $expiry);
+            }
         }
 
         // Retornar sempre sucesso (OK) independente de o e-mail existir ou não
@@ -224,6 +222,38 @@ class UserController extends Controller
         }
     }
 
+    public function validateToken()
+    {
+        // 1. Receber dados via Query String (GET)
+        $email = $_GET['email'] ?? null;
+        $token = $_GET['token'] ?? null;
+
+        if (!$email || !$token) {
+            Response::error("E-mail e token são obrigatórios para validação", 400);
+        }
+
+        // 2. Buscar usuário
+        $user = $this->userService->findByEmail($email);
+
+        if (!$user) {
+            Response::error("Usuário não encontrado", 404);
+        }
+
+        // 3. Validar Token (Hash)
+        if (!$user['reset_token_hash'] || !password_verify($token, $user['reset_token_hash'])) {
+            Response::error("Token de recuperação inválido", 401);
+        }
+
+        // 4. Validar Expiração (3 Minutos)
+        $expiryTime = strtotime($user['reset_token_expires_at']);
+        if (time() > $expiryTime) {
+            Response::error("O link de recuperação expirou", 401);
+        }
+
+        // Se chegou aqui, o token é válido e não expirou
+        Response::success(["message" => "Token válido"]);
+    }
+
     private function sendVerificationEmail($email, $token)
     {
         // Placeholder para envio de e-mail
@@ -246,6 +276,15 @@ class UserController extends Controller
             $mail->Port       = $_ENV['MAIL_PORT'] ?? 587;
             $mail->CharSet    = 'UTF-8';
 
+            // Adicionado para contornar falha de SSL no ambiente local
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+
             // Remetente e Destinatário
             $mail->setFrom($_ENV['MAIL_USER'], 'Suporte Seus Momentos');
             $mail->addAddress($email);
@@ -264,9 +303,11 @@ class UserController extends Controller
             $mail->AltBody = "Olá! Clique no link para redefinir sua senha: $link (Expira em 3 minutos)";
 
             $mail->send();
+            return true;
         } catch (Exception $e) {
             // Log do erro silencioso para não quebrar a resposta da API
             error_log("Erro ao enviar e-mail de recuperação: {$mail->ErrorInfo}");
+            return false;
         }
     }
 }

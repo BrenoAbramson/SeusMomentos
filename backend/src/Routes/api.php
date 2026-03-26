@@ -56,6 +56,16 @@ if ($requestUri === "/auth/reset-password") {
     }
 }
 
+// Rota de Validação do Token (GET) - Para o Front-end
+if (strpos($requestUri, "/auth/reset-password/validate") === 0) {
+    if ($requestMethod === "GET") {
+        (new UserController())->validateToken();
+    }
+    else {
+        Response::error("Método não permitido", 405);
+    }
+}
+
 // Rota de Atualização de Senha
 if ($requestUri === "/auth/reset-password/update") {
     if ($requestMethod === "POST") {
