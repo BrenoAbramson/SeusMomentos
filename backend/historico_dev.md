@@ -101,4 +101,24 @@ Este documento registra as principais decisões, conversas e evoluções do back
  - Criado script de migração: `backend/src/Config/migration_reset_password.sql`.
  
  ---
+ 
+ ## 📅 Sessão 25/03/2026 - Refinamento de UX, Segurança e Git
+ 
+ ### 1. Refinamento da Expiração do Token
+ **Ação:** Ajustada a precisão do tempo de vida do link de recuperação.
+ - **Lógica Temporal**: O cronômetro de 3 minutos agora inicia exatamente no momento do disparo bem-sucedido do e-mail, garantindo o tempo integral para o usuário.
+ - **Expiração Rígida**: O backend invalida o token em exatamente 3 minutos (180 segundos).
+ 
+ ### 2. Estabilidade e Conectividade SMTP
+ - **Correção SSL no Windows**: Implementado o workaround `SMTPOptions` (verify_peer = false) no `UserController.php` para contornar a falha de verificação de certificado CA comum em ambientes PHP locais no Windows.
+ - **Servidor PHP**: Atualizado `composer.json` com `process-timeout: 0` para evitar que o servidor de desenvolvimento encerre a execução por timeout do Composer.
+ 
+ ### 3. Bloqueio Total de Link Expirado (UX)
+ - **Fase de Carregamento**: O frontend agora consulta o novo endpoint `/auth/reset-password/validate` antes de exibir qualquer campo.
+ - **Segurança Visual**: Se o link estiver expirado ou for inválido, o formulário de senha permanece oculto e uma tela de erro central de "Link Expirado" é exibida, impedindo qualquer interação com campos desatualizados.
+ 
+ ### 4. Controle de Versão
+ - **Git**: Alterações enviadas para o repositório remoto no branch `feature/SEUSM-0015`, consolidando as melhorias de backend e frontend.
+ 
+ ---
  *Histórico mantido para referência futura do time de desenvolvimento.*
