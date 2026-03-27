@@ -80,7 +80,7 @@ Para iniciar o servidor de desenvolvimento local (sem necessidade de WAMP/XAMPP)
 ```bash
 composer start
 ```
-O servidor estará disponível em `http://127.0.0.1:8080`.
+O servidor estará disponível em `http://127.0.0.1:8080`. O comando está configurado no `composer.json` para ignorar timeouts (`process-timeout: 0`), ideal para desenvolvimento contínuo.
 
 ### 4. Variáveis de Ambiente
 Copie o arquivo `.env.example` para `.env` e preencha com as credenciais do seu projeto no Supabase:
@@ -110,7 +110,9 @@ DB_PASSWORD=sua_senha_segura
 | GET | `/ping` | Teste de conectividade da API. |
 | POST | `/api/users` | Cadastro de novo usuário. |
 | POST | `/api/login` | Autenticação de usuário e início de sessão. |
-| POST | `/auth/reset-password` | Solicitação de link de recuperação (envio real via PHPMailer). |
+| POST | `/auth/reset-password` | Solicitação de link de recuperação (válido por 3 min). |
+| GET | `/auth/reset-password/validate` | Valida se o link enviado ainda é válido/não expirou. |
+| POST | `/auth/reset-password/update` | Atualização final da senha no banco de dados. |
 
 > [!NOTE]
 > Os endpoints também respondem sem o prefixo `/api` (ex: `/login`), mas o padrão recomendado é utilizar o prefixo. Para detalhes de como testar, consulte o arquivo [MANUAL_TEST.md](file:///c:/Users/Hp440/OneDrive/Área de Trabalho/Projeto/SeusMomentos/backend/MANUAL_TEST.md).
