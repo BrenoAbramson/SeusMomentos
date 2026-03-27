@@ -154,7 +154,7 @@ class UserController extends Controller
             $tokenHash = password_hash($token, PASSWORD_BCRYPT);
 
             // 8. Montar link (Direcionando para o front-end vindo do .env)
-            $baseUrl = $_ENV['FRONTEND_URL'] ?? "http://127.0.0.1:5500/frontend/pages/redefinirSenha/index.html";
+            $baseUrl = $_ENV['FRONTEND_URL'] ?? "http://127.0.0.1:5500/pages/redefinirSenha/index.html";
             $resetLink = "$baseUrl?token=$token&email=" . urlencode($email);
 
             // 9. Enviar e-mail REAL via PHPMailer
