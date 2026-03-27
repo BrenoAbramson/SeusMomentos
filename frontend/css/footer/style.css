@@ -1,5 +1,5 @@
 .main-footer {
-    background-color: #f9f9f9;
+    background-color: #F8FAFC;
     padding: 60px 0 20px; 
     border-top: 1px solid #eee;
     color: #666;
@@ -50,7 +50,9 @@
 }
 
 .footer-brand {
-        font-size: 14px;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
     color: #64748B;
     margin-bottom: 20px;
     max-width: 400px; 
@@ -64,8 +66,7 @@
 }
 
 .footer-brand .logo span {
-    font-family: 'Playfair Display', serif;
-    font-weight: bold;
+    font-family: 'Playfair Display', bold;
     color: #0F172A;
     font-size: 24px;
 }
@@ -79,6 +80,7 @@
 
 .link-column h4 {
     color: #0F172A;
+    font-family: 'Manrope', bold;
     font-size: 14px;
     letter-spacing: 1px;
     margin-bottom: 20px;
@@ -94,6 +96,8 @@
 }
 
 .link-column ul li a {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
     text-decoration: none;
     color: #64748B;
     font-size: 14px;
@@ -117,16 +121,19 @@
 }
 
 .footer-bottom p {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
     font-size: 12xpx;
     color: #94A3B8;
     text-align: center;     
 }
 
 .payment-methods {
+    font-family: 'Manrope', bold;
     display: flex;
     justify-content: center; 
     gap: 20px;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     color: #dfdfdf;
     letter-spacing: 1px;
@@ -135,7 +142,6 @@
 .payment-methods span {
     margin-left: 15px;
     color: #0F172A;
-    font-weight: bold;
 }
 
 
