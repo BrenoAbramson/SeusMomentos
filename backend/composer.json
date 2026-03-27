@@ -14,9 +14,13 @@
     ],
     "require": {
         "vlucas/phpdotenv": "^5.5",
-        "guzzlehttp/guzzle": "^7.5"
+        "guzzlehttp/guzzle": "^7.5",
+        "phpmailer/phpmailer": "^7.0"
     },
     "scripts": {
         "start": "php -S 127.0.0.1:8080 -t public public/index.php"
+    },
+    "config": {
+        "process-timeout": 0
     }
 }
