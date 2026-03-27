@@ -55,6 +55,8 @@ CREATE TABLE users (
     senha VARCHAR(255) NOT NULL,
     email_verificado BOOLEAN DEFAULT FALSE,
     token_verificacao VARCHAR(255),
+    reset_token_hash VARCHAR(255),
+    reset_token_expires_at TIMESTAMP,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ```
@@ -108,6 +110,7 @@ DB_PASSWORD=sua_senha_segura
 | GET | `/ping` | Teste de conectividade da API. |
 | POST | `/api/users` | Cadastro de novo usuário. |
 | POST | `/api/login` | Autenticação de usuário e início de sessão. |
+| POST | `/auth/reset-password` | Solicitação de link de recuperação (envio real via PHPMailer). |
 
 > [!NOTE]
 > Os endpoints também respondem sem o prefixo `/api` (ex: `/login`), mas o padrão recomendado é utilizar o prefixo. Para detalhes de como testar, consulte o arquivo [MANUAL_TEST.md](file:///c:/Users/Hp440/OneDrive/Área de Trabalho/Projeto/SeusMomentos/backend/MANUAL_TEST.md).
