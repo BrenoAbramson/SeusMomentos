@@ -1,13 +1,32 @@
 :root {
     --primary: #149CB8;
-    --primary-light: rgba(20, 156, 184, 0.1);
+    --primary-light: rgba(20, 156, 184, 0.10);
+
     --dark: #0F172A;
-    --slate: #475569;
-    --slate-light: #64748B;
-    --gray-border: #E2E8F0;
+    --white: #FFFFFF;
+
+    --bg-page: #F8FAFC;
     --bg-light: #F6F8F8;
     --bg-hero: #FDF8F5;
-    --white: #FFFFFF;
+
+    --text-muted: #7A8798;
+    --text-soft: #8A97A8;
+    --text-body: #64748B;
+    --text-disabled: #C7D0DB;
+
+    --border-default: #E5EBF1;
+    --border-light: #E6EBF1;
+    --border-faq: #EEF2F6;
+
+    --shadow-card: 0 2px 10px rgba(15, 23, 42, 0.03);
+    --shadow-featured: 0 10px 24px rgba(20, 156, 184, 0.06);
+    --shadow-button: 0 10px 20px rgba(20, 156, 184, 0.25);
+
+    --radius-card: 16px;
+    --radius-button: 8px;
+    --radius-pill: 9999px;
+
+    --transition-default: all 0.3s ease;
 }
 
 * {
@@ -22,7 +41,7 @@ html {
 
 body {
     font-family: 'Manrope', sans-serif;
-    background-color: #F8FAFC;
+    background-color: var(--bg-page);
     color: var(--dark);
     font-size: 16px;
 }
@@ -32,11 +51,9 @@ a {
 }
 
 img {
-    max-width: 100%;
     display: block;
+    max-width: 100%;
 }
-
-
 
 /* HERO */
 .hero-planos {
@@ -45,7 +62,7 @@ img {
     text-align: center;
     position: relative;
     overflow: hidden;
-    gap: 20px;
+    z-index: 1;
 }
 
 .badge-overlay {
@@ -54,68 +71,83 @@ img {
     justify-content: center;
     height: 38px;
     padding: 0 22px;
-    background: rgba(20, 156, 184, 0.10);
-    border-radius: 999px;
+    margin-bottom: 28px;
+    border-radius: var(--radius-pill);
+    background: var(--primary-light);
     color: var(--primary);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    margin-bottom: 28px;
 }
 
 .hero-title {
-    gap: 30px;
     font-family: 'Playfair Display', serif;
     font-size: 60px;
     font-weight: 700;
     line-height: 1.05;
     letter-spacing: -1.5px;
-    color: #0F172A;
+    color: var(--dark);
 }
 
 .hero-highlight {
     display: block;
     margin-top: 20px;
+    margin-bottom: 24px;
     font-family: 'Playfair Display', serif;
     font-size: 50px;
     font-weight: 400;
     line-height: 0.92;
     letter-spacing: -0.8px;
     color: var(--primary);
-    margin-bottom: 24px;
 }
-.hero-subtitle {
 
-    font-size: 16px;
-    line-height: 1.7;
-    color: #7A8798;
+.hero-subtitle {
     max-width: 760px;
     margin: 0 auto;
     text-align: center;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-muted);
 }
 
 /* PLANOS */
 .pricing-container {
+    position: relative;
+    z-index: 1;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Alinha os cards pelo topo */
-    gap: 32px;
-    padding: 40px 24px 80px;
-    max-width: 1200px;
+    align-items: flex-start;
+    gap: 56px;
+    flex-wrap: nowrap;
+    max-width: 1000px;
     margin: 0 auto;
+    padding: 40px 24px 80px;
+    overflow: hidden;
 }
+
+.pricing-container::before {
+    content: "";
+    position: absolute;
+    inset: auto;
+    width: 900px;
+    height: 400px;
+    
+    z-index: -1;
+    pointer-events: none;
+}
+
 .pricing-card {
-    background: var(--white);
-    border: 1px solid #E5EBF1;
-    border-radius: 12px;
-    padding: 32px 30px 26px;
-    width: 100%;
-    max-width: 380px;
-    min-height: 440px;
     position: relative;
+    width: 100%;
+    max-width: 420px;
+    min-height: 460px;
+    padding: 40px 36px;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-card);
+    background: var(--white);
+    box-shadow: var(--shadow-card);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.03);
 }
 
 .pricing-card:hover {
@@ -124,53 +156,60 @@ img {
 
 .pricing-card.featured {
     border: 2px solid var(--primary);
-    box-shadow: 0 14px 30px rgba(20, 156, 184, 0.08);
+    box-shadow: var(--shadow-featured);
 }
 
 .popular-tag {
     position: absolute;
-    top: -13px;
+    top: -12px;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    padding: 0 18px;
+    border-radius: var(--radius-pill);
     background: var(--primary);
     color: var(--white);
-    padding: 5px 16px;
-    border-radius: 999px;
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
     white-space: nowrap;
 }
 
 .card-title {
+    margin-bottom: 6px;
     font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    margin-bottom: 8px;
+    font-size: 22px;
+    font-weight: 700;
     color: var(--dark);
 }
 
 .card-desc {
+    margin-bottom: 20px;
     font-size: 14px;
-    color: #8A97A8;
-    margin-bottom: 26px;
-    line-height: 1.5;
+    line-height: 1.6;
+    color: var(--text-soft);
 }
 
 .card-price {
-    font-size: 46px;
-    font-weight: 700;
-    margin-bottom: 24px;
-    color: var(--dark);
     display: flex;
     align-items: baseline;
-    gap: 6px;
     flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 32px;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--dark);
 }
 
 .card-price small {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 500;
-    color: #8A97A8;
+    color: var(--text-soft);
 }
 
 .btn-plan {
@@ -178,20 +217,21 @@ img {
     align-items: center;
     justify-content: center;
     width: 100%;
-    min-height: 46px;
+    max-width: 100%;
+    min-height: 44px;
+    margin: 0 0 32px;
     padding: 10px 16px;
-    border-radius: 8px;
-    font-weight: 700;
+    border-radius: var(--radius-button);
     font-size: 14px;
-    margin-bottom: 24px;
-    transition: all 0.3s ease;
+    font-weight: 700;
     cursor: pointer;
+    transition: var(--transition-default);
 }
 
 .btn-free {
     border: 1px solid rgba(20, 156, 184, 0.35);
-    color: var(--primary);
     background: transparent;
+    color: var(--primary);
 }
 
 .btn-free:hover {
@@ -199,9 +239,10 @@ img {
 }
 
 .btn-premium {
+    border: none;
     background: var(--primary);
     color: var(--white);
-    box-shadow: none;
+    box-shadow: var(--shadow-button);
 }
 
 .btn-premium:hover {
@@ -209,135 +250,116 @@ img {
 }
 
 .feature-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
     display: flex;
     flex-direction: column;
     gap: 14px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .feature-item {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     font-size: 14px;
-    color: #7A8798;
-    line-height: 1.5;
-}
-
-.feature-item::before {
-    content: "✓";
-    width: 18px;
-    height: 18px;
-    min-width: 18px;
-    border-radius: 50%;
-    border: 1.5px solid var(--primary);
-    color: var(--primary);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 10px;
-    font-weight: 700;
-    line-height: 1;
-    box-sizing: border-box;
-    flex-shrink: 0;
+    line-height: 1.6;
+    color: var(--text-muted);
 }
 
 .feature-item::before {
     content: "";
-    width: 16px;
-    height: 16px;
-    min-width: 16px;
-    border-radius: 50%;
-    border: 1px solid #149CB8;
-    box-sizing: border-box;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
     flex-shrink: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4.3 8.2 6.7 10.5 11.8 5.4' fill='none' stroke='%23149CB8' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-image: url("../../assets/Planos/Icon.svg");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 10px 10px;
+    background-size: contain;
 }
 
-/* item desabilitado */
 .feature-item.disabled {
-    color: #C7D0DB;
+    color: var(--text-disabled);
     text-decoration: line-through;
     text-decoration-thickness: 1px;
-    text-decoration-color: #C7D0DB;
+    text-decoration-color: var(--text-disabled);
 }
 
-/* bolinha com traço diagonal DENTRO */
 .feature-item.disabled::before {
     content: "";
-    width: 16px;
-    height: 16px;
-    min-width: 16px;
-    border-radius: 50%;
-    border: 1px solid #C7D0DB;
-    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
     flex-shrink: 0;
+    border: 2px solid var(--text-disabled);
+    border-radius: 50%;
+    box-sizing: border-box;
     background-image: linear-gradient(
         45deg,
         transparent 46%,
-        #C7D0DB 46%,
-        #C7D0DB 54%,
+        var(--text-disabled) 46%,
+        var(--text-disabled) 54%,
         transparent 54%
     );
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100% 100%;
 }
+
 /* FAQ */
 .faq-section {
-    background: #FFFFFF;
-    padding: 64px 20px 56px;
-    border-top: 1px solid #EEF2F6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 96px 20px 80px;
+    background: var(--white);
+    border-top: 1px solid var(--border-faq);
 }
 
 .faq-title {
+    margin: 0 0 48px;
     font-family: 'Playfair Display', serif;
-    font-size: 28px;
+    font-size: 40px;
     font-weight: 700;
     line-height: 1.2;
-    color: #0F172A;
     text-align: center;
-    margin-bottom: 24px;
+    color: var(--dark);
 }
 
 .faq-container {
-    max-width: 600px;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
 }
 
 .faq-item {
-    background: #FFFFFF;
-    border: 1px solid #E2E8F0;
-    border-radius: 10px;
-    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
 }
 
 .faq-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
     width: 100%;
+    padding: 24px;
     background: transparent;
     border: none;
     outline: none;
     box-shadow: none;
-    padding: 18px 16px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
     cursor: pointer;
     text-align: left;
     font-family: 'Manrope', sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 700;
     line-height: 1.4;
-    color: #0F172A;
+    color: var(--dark);
 }
 
 .faq-header span:first-child {
@@ -345,30 +367,27 @@ img {
 }
 
 .faq-icon {
-    
-    width: 8px;
-    height: 8px;
-    border-right: 1.5px solid #0F172A;
-    border-bottom: 1.5px solid #0F172A;
+    width: 10px;
+    height: 10px;
+    border-right: 1.5px solid var(--dark);
+    border-bottom: 1.5px solid var(--dark);
     transform: rotate(45deg);
-    flex-shrink: 0;
-    margin-top: 2px;
     transition: transform 0.25s ease;
 }
 
 .faq-body {
     max-height: 0;
     overflow: hidden;
+    padding: 0 24px;
+    background: var(--white);
     transition: max-height 0.25s ease;
-    padding: 0 16px;
-    background: #FFFFFF;
 }
 
 .faq-body p {
+    padding-bottom: 20px;
     font-size: 14px;
     line-height: 1.6;
-    color: #6B7787;
-    padding: 0 0 16px;
+    color: var(--text-body);
 }
 
 .faq-item.active .faq-body {
@@ -376,34 +395,30 @@ img {
 }
 
 .faq-item.active .faq-icon {
-    transform: rotate(-135deg);
     margin-top: 6px;
+    transform: rotate(-135deg);
 }
-
 
 /* RESPONSIVO */
 @media (max-width: 900px) {
-    
-
-  @media (max-width: 900px) {
     .hero-planos {
         padding: 95px 20px 55px;
     }
 
-    .hero-planos h1 {
+    .hero-title {
         font-size: 46px;
         line-height: 1.12;
         letter-spacing: -1px;
     }
 
-    .hero-planos h1 span {
+    .hero-highlight {
         font-size: inherit;
     }
 
-    .hero-planos p {
+    .hero-subtitle {
+        max-width: 560px;
         font-size: 16px;
         line-height: 1.6;
-        max-width: 560px;
     }
 
     .pricing-container {
@@ -413,31 +428,6 @@ img {
     .pricing-card {
         max-width: 100%;
     }
-}
-
-@media (max-width: 480px) {
-    .hero-planos {
-        padding: 85px 16px 45px;
-    }
-
-    .hero-planos .badge {
-        font-size: 10px;
-        padding: 7px 12px;
-        margin-bottom: 20px;
-    }
-
-    .hero-planos h1 {
-        font-size: 34px;
-        line-height: 1.15;
-        letter-spacing: -0.6px;
-    }
-
-    .hero-planos p {
-        font-size: 15px;
-        line-height: 1.55;
-        margin-top: 14px;
-    }
-}
 
     .nav-menu {
         gap: 18px;
@@ -449,14 +439,32 @@ img {
         flex-wrap: wrap;
         justify-content: center;
     }
+}
 
-    .pricing-container {
-        gap: 24px;
+@media (max-width: 480px) {
+    .hero-planos {
+        padding: 85px 16px 45px;
     }
 
-    .pricing-card {
-        max-width: 100%;
+    .hero-title {
+        font-size: 34px;
+        line-height: 1.15;
+        letter-spacing: -0.6px;
     }
 
-    
+    .hero-highlight {
+        font-size: inherit;
+    }
+
+    .hero-subtitle {
+        margin-top: 14px;
+        font-size: 15px;
+        line-height: 1.55;
+    }
+
+    .badge-overlay {
+        margin-bottom: 20px;
+        padding: 7px 12px;
+        font-size: 10px;
+    }
 }
