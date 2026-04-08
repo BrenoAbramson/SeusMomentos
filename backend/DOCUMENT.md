@@ -53,6 +53,7 @@ CREATE TABLE users (
     nome VARCHAR(150) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
+    role VARCHAR(20) DEFAULT 'CLIENT' NOT NULL, -- ADMIN ou CLIENT
     email_verificado BOOLEAN DEFAULT FALSE,
     token_verificacao VARCHAR(255),
     reset_token_hash VARCHAR(255),
@@ -108,8 +109,8 @@ DB_PASSWORD=sua_senha_segura
 | Método | Endpoint | Descrição |
 |--------|----------|-----------|
 | GET | `/ping` | Teste de conectividade da API. |
-| POST | `/api/users` | Cadastro de novo usuário. |
-| POST | `/api/login` | Autenticação de usuário e início de sessão. |
+| POST | `/auth/cadastro` | Cadastro de novo usuário. |
+| POST | `/auth/login` | Autenticação de usuário e início de sessão. |
 | POST | `/auth/reset-password` | Solicitação de link de recuperação (válido por 3 min). |
 | GET | `/auth/reset-password/validate` | Valida se o link enviado ainda é válido/não expirou. |
 | POST | `/auth/reset-password/update` | Atualização final da senha no banco de dados. |

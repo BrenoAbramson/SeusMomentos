@@ -4,6 +4,7 @@ namespace Src\Controllers;
 
 use Src\Services\UserService;
 use Src\Utils\Response;
+use Src\Utils\UserRole;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
@@ -17,7 +18,7 @@ class UserController extends Controller
         $this->userService = new UserService();
     }
 
-    public function store()
+    public function cadastrar()
     {
         // 1. Receber dados JSON
         $input = json_decode(file_get_contents("php://input"), true);
@@ -64,8 +65,8 @@ class UserController extends Controller
         // 8. Gerar token de verificação (placeholder)
         $token = bin2hex(random_bytes(32));
 
-        // 9. Salvar no banco de dados
-        $success = $this->userService->create($nome, $email, $senhaHash, $token);
+        // 9. Salvar no banco de dados com perfil padrão CLIENT
+        $success = $this->userService->cadastrar($nome, $email, $senhaHash, $token, UserRole::CLIENT);
 
         if ($success) {
             // 10. Simular envio de e-mail (Log ou placeholder)
@@ -113,12 +114,14 @@ class UserController extends Controller
 
         // 5. Verificar a senha
         if (password_verify($senha, $user['senha'])) {
-            // Sucesso! Removemos a senha dos dados retornados por segurança
-            unset($user['senha']);
-            
             Response::success([
                 "message" => "Login realizado com sucesso!",
-                "user" => $user
+                "user" => [
+                    "id"    => $user['id'],
+                    "nome"  => $user['nome'],
+                    "email" => $user['email'],
+                    "role"  => $user['role'] ?? UserRole::CLIENT
+                ]
             ]);
         } else {
             Response::error("E-mail ou senha incorretos", 401);
