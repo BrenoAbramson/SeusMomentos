@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redefinir Senha - Seus Momentos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="../../css/redefinirSenha/style.css">
 </head>
+
 <body>
-    <div class="login-page">
+    <!-- CONTÊINER PARA LINK EXPIRADO (Oculto por padrão) -->
+    <div id="expiredContent"
+        style="display: none; text-align: center; margin-top: 100px; font-family: 'Inter', sans-serif;">
+        <div
+            style="background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); display: inline-block; max-width: 400px;">
+            <div style="font-size: 50px; margin-bottom: 20px;">⏰</div>
+            <h1 style="color: #1e293b; font-size: 24px; margin-bottom: 15px; font-family: 'Playfair Display', serif;">
+                Link Expirado</h1>
+            <p style="color: #64748b; margin-bottom: 25px;">Por motivos de segurança, este link de recuperação é válido
+                por apenas 3 minutos e já expirou.</p>
+            <a href="../login/index.html"
+                style="background: #007bff; color: white; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; display: block;">Solicitar
+                Novo Link</a>
+        </div>
+    </div>
+
+    <!-- PÁGINA DE LOGIN (Oculta por padrão para não "abrir" o link se expirado) -->
+    <div class="login-page" id="mainContent" style="display: none;">
         <div class="login-left">
             <div class="overlay-content">
                 <h1>Proteja as memórias do seu grande dia.</h1>
@@ -25,7 +46,8 @@
 
                 <div class="login-header">
                     <h1 class="login-title">Redefinir sua senha</h1>
-                    <p class="login-subtitle">Escolha uma senha forte e segura para proteger os detalhes do seu grande dia.</p>
+                    <p class="login-subtitle">Escolha uma senha forte e segura para proteger os detalhes do seu grande
+                        dia.</p>
                 </div>
 
                 <form class="login-form" id="resetForm">
@@ -37,7 +59,12 @@
                             </span>
                             <input type="password" id="novaSenha" placeholder="••••••••">
                             <button type="button" class="toggle-password">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
                             </button>
                         </div>
                     </div>
@@ -50,7 +77,12 @@
                             </span>
                             <input type="password" id="confirmarSenha" placeholder="••••••••">
                             <button type="button" class="toggle-password">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
                             </button>
                         </div>
                     </div>
@@ -77,12 +109,13 @@
         </div>
     </div>
     <div id="customAlert" class="alerta">
-    <div class="alerta-icone" id="alertIcon"></div>
-    <div class="alerta-conteudo">
-        <p id="alertMessage" style="font-size: 14px; font-weight: 500; color: #1E293B;"></p>
+        <div class="alerta-icone" id="alertIcon"></div>
+        <div class="alerta-conteudo">
+            <p id="alertMessage" style="font-size: 14px; font-weight: 500; color: #1E293B;"></p>
+        </div>
     </div>
-</div>
-    
+
     <script src="../../js/redefinirSenha/script.js"></script>
 </body>
+
 </html>
