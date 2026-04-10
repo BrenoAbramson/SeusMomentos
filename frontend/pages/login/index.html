@@ -3,153 +3,151 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Login - Seus Momentos</title>
+  <title>Login - Seus Momentos</title>
 
-<link rel="stylesheet" href="../../css/login/style.css">
+  <link rel="stylesheet" href="../../css/login/style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet">
 
 </head>
 
 <body>
 
-<div class="login-page">
+  <div class="login-page">
 
-  <!-- Lado esquerdo -->
-  <div class="login-left">
-    <h1>Seu grande dia,<br>gerenciado com amor.</h1>
-    <p>Acompanhe cada detalhe do seu momento especial.</p>
-  </div>
+    <!-- Lado esquerdo -->
+    <div class="login-left">
+      <h1>Seu grande dia,<br>gerenciado com amor.</h1>
+      <p>Acompanhe cada detalhe do seu momento especial.</p>
+    </div>
 
-  <!-- Lado direito -->
-  <div class="login-right">
+    <!-- Lado direito -->
+    <div class="login-right">
 
-    <div class="login-container">
+      <div class="login-container">
 
-      <!-- Logo -->
-      <div class="logo">
-        <div class="logo-icon">
-          <img src="../../assets/login/coraçao.png" alt="Logo Seus Momentos">
-        </div>
-        <span class="logo-text">Seus Momentos</span>
-      </div>
-
-      <!-- Header -->
-      <div class="login-header">
-        <h1 class="login-title">Bem-vindo de volta</h1>
-        <p class="login-subtitle">
-          Acesse sua conta para gerenciar seu casamento.
-        </p>
-      </div>
-
-      <!-- Form -->
-      <form class="login-form" id="loginForm">
-
-        <!-- Email -->
-        <div class="input-group">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" placeholder="seu@email.com">
+        <!-- Logo -->
+        <div class="logo">
+          <div class="logo-icon">
+            <img src="../../assets/login/coraçao.png" alt="Logo Seus Momentos">
+          </div>
+          <span class="logo-text">Seus Momentos</span>
         </div>
 
-        <!-- Senha -->
-        <div class="input-group">
+        <!-- Header -->
+        <div class="login-header">
+          <h1 class="login-title">Bem-vindo de volta</h1>
+          <p class="login-subtitle">
+            Acesse sua conta para gerenciar seu casamento.
+          </p>
+        </div>
 
-          <div class="password-header">
-            <label for="senha">Senha</label>
+        <!-- Form -->
+        <form class="login-form" id="loginForm">
 
-            <a href="#" id="abrirModal" class="forgot-link">
-              Esqueci minha senha
-            </a>
+          <!-- Email -->
+          <div class="input-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" placeholder="seu@email.com">
+          </div>
+
+          <!-- Senha -->
+          <div class="input-group">
+
+            <div class="password-header">
+              <label for="senha">Senha</label>
+
+              <a href="#" id="abrirModal" class="forgot-link">
+                Esqueci minha senha
+              </a>
+
+            </div>
+
+            <input type="password" id="senha" placeholder="••••••••">
 
           </div>
 
-          <input type="password" id="senha" placeholder="••••••••">
+          <!-- Botão -->
+          <button type="submit" class="login-button">
+            Entrar
+          </button>
 
+        </form>
+
+        <!-- Registro -->
+        <p class="login-register">
+          Ainda não tem uma conta?
+          <a href="../../pages/cadastro/index.html">Criar minha conta</a>
+        </p>
+
+        <!-- Footer -->
+        <div class="login-footer">
+          © 2026 Seus Momentos • Gestão de Casamentos
         </div>
 
-        <!-- Botão -->
-        <button type="submit" class="login-button">
-          Entrar
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- MODAL RECUPERAÇÃO DE SENHA -->
+
+  <div class="modal-overlay" id="modalOverlay">
+
+    <div class="modal-box">
+
+      <button class="modal-close" id="closeModal">✕</button>
+
+      <div class="modal-icon">
+
+        <img src="../../assets/modal/Overlay.png" alt="icone">
+
+      </div>
+
+      <h2 class="modal-title">Redefinir Senha</h2>
+
+      <p class="modal-text">
+        Insira o e-mail associado à sua conta para receber as instruções de recuperação.
+      </p>
+
+      <form class="modal-form">
+
+        <label>E-mail</label>
+
+        <input type="email" class="modal-input" placeholder="exemplo@email.com" required>
+
+        <button class="modal-button">
+          Enviar link de recuperação
         </button>
 
       </form>
 
-      <!-- Registro -->
-      <p class="login-register">
-        Ainda não tem uma conta?
-        <a href="../../pages/cadastro/index.html">Criar minha conta</a>
-      </p>
-
-      <!-- Footer -->
-      <div class="login-footer">
-        © 2026 Seus Momentos • Gestão de Casamentos
-      </div>
+      <a href="index.html" class="modal-back">
+        Voltar para o login
+      </a>
 
     </div>
 
   </div>
 
-</div>
+  <!-- ALERTA -->
 
-<!-- MODAL RECUPERAÇÃO DE SENHA -->
+  <div id="alerta" class="alerta">
 
-<div class="modal-overlay" id="modalOverlay">
+    <div id="alerta-icone" class="alerta-icone"></div>
 
-  <div class="modal-box">
-
-    <button class="modal-close" id="closeModal">✕</button>
-
-    <div class="modal-icon">
-
-      <img src="../../assets/modal/Overlay.png" alt="icone">
-
-    </div>
-
-    <h2 class="modal-title">Redefinir Senha</h2>
-
-    <p class="modal-text">
-      Insira o e-mail associado à sua conta para receber as instruções de recuperação.
-    </p>
-
-    <form class="modal-form">
-
-      <label>E-mail</label>
-
-      <input
-        type="email"
-        class="modal-input"
-        placeholder="exemplo@email.com"
-        required
-      >
-
-      <button class="modal-button">
-        Enviar link de recuperação
-      </button>
-
-    </form>
-
-    <a href="index.html" class="modal-back">
-      Voltar para o login
-    </a>
+    <div id="alerta-texto" class="alerta-texto"></div>
 
   </div>
 
-</div>
-
-<!-- ALERTA -->
-
-<div id="alerta" class="alerta">
-
-  <div id="alerta-icone" class="alerta-icone"></div>
-
-  <div id="alerta-texto" class="alerta-texto"></div>
-
-</div>
-
-<script src="../../js/login/script.js"></script>
+  <script src="../../js/login/script.js"></script>
 
 </body>
+
 </html>
