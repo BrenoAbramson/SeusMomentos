@@ -121,4 +121,40 @@ Este documento registra as principais decisões, conversas e evoluções do back
  - **Git**: Alterações enviadas para o repositório remoto no branch `feature/SEUSM-0015`, consolidando as melhorias de backend e frontend.
  
  ---
- *Histórico mantido para referência futura do time de desenvolvimento.*
+
+## 📅 Sessão 07/04/2026 - Padronização de API e Sistema de Roles
+
+### 1. Reestruturação de Endpoints
+**Ação:** Padronização da nomenclatura das rotas para maior clareza e organização.
+- **Antes**: `/users` (Cadastro), `/login` (Login).
+- **Agora**: `/auth/cadastro`, `/auth/login`, `/auth/reset-password`, etc.
+- **Vantagem**: Agrupamento lógico de funcionalidades sob o prefixo `/auth`.
+
+### 2. Implementação do Sistema de Roles (Perfis)
+- **Camada de Dados**: Atualizada a tabela `users` com a coluna `role` (padrão `CLIENT`).
+- **Camada de Código**: Criado o helper `Src\Utils\UserRole` para gerenciar as constantes `ADMIN` e `CLIENT`.
+- **Controllers**: O `UserController` agora retorna o perfil do usuário no login e permite definir o perfil no cadastro (garantindo que novos usuários sejam `CLIENT` por padrão).
+
+### 3. Segurança e Middleware
+- **AuthMiddleware**: Criada a estrutura base de Middleware em `src/Utils/AuthMiddleware.php` para futuras validações de token JWT e controle de acesso granular baseado em perfis.
+
+---
+
+## 📅 Sessão 09/04/2026 - Estratégia de Versionamento e Fluxo de Trabalho
+
+### 1. Definição do Modelo de Branching (Git Flow Adaptado)
+**Ação:** Estruturação das ramificações do repositório para garantir estabilidade e organização.
+- **`Prod` (Main)**: Código em produção, altamente estável.
+- **`Staging`**: Ambiente de pré-lançamento para testes finais e homologação.
+- **`dev`**: Branch principal de integração para desenvolvimento contínuo.
+- **`feature/SEUSM-XXXX`**: Branches temporárias para implementação de novas funcionalidades ou correções específicas.
+
+### 2. Fluxo de Trabalho (Workflow)
+1. Desenvolvedores criam branches `feature/` a partir da `dev`.
+2. Após conclusão e testes locais, realizam o Merge para `dev`.
+3. Periodicamente, o conteúdo de `dev` é promovido para `Staging`.
+4. Após validação em `Staging`, o código é mesclado em `Prod` para release oficial.
+
+---
+
+*Histórico mantido para referência futura do time de desenvolvimento.*

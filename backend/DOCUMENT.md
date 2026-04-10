@@ -137,9 +137,31 @@ O sistema utiliza a classe `Src\Utils\Response` para garantir que todas as respo
 }
 ```
 
+## 👥 Sistema de Perfis (Roles)
+O sistema utiliza um controle de acesso baseado em perfis para diferenciar as ações permitidas por cada usuário:
+
+- **CLIENT**: Perfil padrão para novos cadastros. Possui acesso às funcionalidades básicas de usuário.
+- **ADMIN**: Perfil com permissões elevadas para gestão do sistema e moderação.
+
+As constantes de perfil são gerenciadas centralizadamente em `Src\Utils\UserRole.php`.
+
+## 🔄 Estratégia de Controle de Versão
+O projeto adota um modelo de **Git Flow Adaptado** para garantir a integridade e estabilidade do código:
+
+1. **Branches de Longa Duração**:
+   - `Prod`: Código estável em produção.
+   - `Staging`: Espelho de produção para testes finais.
+   - `dev`: Integração de novas funcionalidades.
+
+2. **Fluxo de Desenvolvimento**:
+   - Novas tarefas são desenvolvidas em branches `feature/SEUSM-XXXX`.
+   - Após a conclusão, são integradas à branch `dev`.
+   - A promoção para `Staging` e `Prod` ocorre conforme o ciclo de releases.
+
 ## 🛡️ Segurança e Boas Práticas
 - **PDO**: Consultas utilizam Prepared Statements para prevenir SQL Injection.
 - **Password Hashing**: Senhas são armazenadas utilizando `password_hash()` com o algoritmo padrão do PHP.
+- **Middleware**: Preparado para AuthMiddleware que validará acesso por perfil e futuramente tokens JWT.
 - **PSR-4**: Autoload estruturado seguindo as normas da comunidade.
 - **CORS**: Configurado no `public/index.php` para permitir integrações com o front-end.
 
