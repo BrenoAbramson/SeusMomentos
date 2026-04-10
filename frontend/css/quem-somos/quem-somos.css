@@ -1,0 +1,222 @@
+/* CONFIGURAÇÕES GERAIS */
+.about-page {
+    font-family: 'Manrope', sans-serif; /* */
+    color: #475569; /* */
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* TIPOGRAFIA ESTILIZADA */
+.about-page h1, .about-page h2, .about-page h3 {
+    font-family: 'Playfair Display', serif;
+    color: #0F172A; /* */
+}
+
+.about-page em {
+    font-style: italic;
+    font-weight: 400;
+}
+
+/* HERO SPLIT - 3 COLUNAS */
+.hero-split {
+    display: flex;
+    height: 970px;
+    max-width: 1280px;
+    margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-column {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px;
+    color: #FFFFFF;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+
+.hero-column::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(15, 23, 42, 0.45);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; 
+    color: #FFFFFF;
+    text-align: center;
+}
+
+/* ESTILIZAÇÃO DO TEXTO CONFORME O LAYOUT */
+.column-subtitle {
+    font-family: 'Manrope', sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    opacity: 0.9;
+}
+
+
+
+.hero-column span { font-size: 12px; letter-spacing: 2px; font-weight: 700; }
+.hero-column h1 { color: #FFFFFF; font-size: 42px; margin: 15px 0; line-height: 1.2; font-family: 'Playfair Display', serif; }
+
+.hero-column em {
+    font-style: italic;
+    font-weight: 400;
+}
+
+.hero-column p {
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    max-width: 300px; /* Limita a largura do parágrafo central */
+    margin: 0 auto;
+    opacity: 0.8;
+}
+
+/* SEÇÃO HISTÓRIA */
+.story-section { padding: 100px 0; background: #F8F3F0; }
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.subtitle { color: #149CB8; font-weight: 700; font-size: 14px; }
+.story-title h2 { font-size: 36px; margin-top: 10px; }
+
+/* PILARES QUE NOS GUIAM */
+.pillars-section { padding: 80px 0; background: #F8FAFC; text-align: center; }
+.section-title { margin-bottom: 50px; font-size: 32px; }
+
+.pillars-grid {
+    display: flex;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+}
+
+.pillar-card {
+    flex: 1;
+    background: #FFFFFF;
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.pillar-card:hover { transform: translateY(-10px); }
+
+.icon-wrapper {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0 20px 0;
+    font-size: 24px;
+}
+
+.icon-wrapper img {
+    width: 24px; /* Ajuste conforme o tamanho desejado no Figma */
+    height: 24px;
+    object-fit: contain;
+}
+
+/* Cores de fundo conforme os assets de seleção */
+.blue-light { 
+    background-color: rgba(20, 156, 184, 0.1); /* Cor 149CB8 com 10% opacidade */
+}
+
+.pink-light { 
+    background-color: rgba(212, 163, 163, 0.1); /* Cor D4A3A3 com 10% opacidade */
+}
+
+/* Cores de fundo dos ícones com 10% de opacidade */
+.excelence { background: rgba(20, 156, 184, 0.1); }
+.trust { background: rgba(212, 163, 163, 0.1); }
+.innovation { background: rgba(20, 156, 184, 0.1); }
+
+
+.highlight-banner {
+    /* Define a altura do banner conforme o Figma */
+    height: 450px; 
+    
+    /* Caminho para a imagem saindo da pasta CSS para a Assets */
+    background-image: url('../../assets/quem-somos/Luxury\ gala\ ballroom.png');
+    
+    /* Faz a imagem cobrir todo o espaço sem distorcer */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.highlight-overlay {
+    /* Adiciona espaçamento interno para o texto respirar */
+    padding: 80px 20px;
+    text-align: center;
+    width: 100%;
+    /* Cor de fundo escura com transparência para destacar o texto */
+    background: rgba(15, 23, 42, 0.5); 
+}
+
+.highlight-overlay h2 {
+    color: #FFFFFF;
+    font-size: 42px; /* Ajuste conforme o Figma */
+    margin-bottom: 15px;
+}
+
+.highlight-overlay p {
+    color: #FFFFFF;
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* CTA BOX */
+.cta-section { padding: 100px 0; }
+.cta-box {
+    background: #149CB8; /* */
+    border-radius: 32px;
+    padding: 80px 40px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.cta-box h2 { color: #FFFFFF; font-size: 36px; margin-bottom: 40px; }
+.btn-start {
+    background: #FFFFFF;
+    color: #149CB8;
+    padding: 18px 45px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.btn-start:hover { background: #F1F5F9; transform: scale(1.05); }
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .hero-split, .story-grid, .pillars-grid { grid-template-columns: 1fr; flex-direction: column; }
+    .hero-split { height: auto; }
+    .hero-column { height: 400px; }
+}
