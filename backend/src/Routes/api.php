@@ -26,10 +26,10 @@ if ($requestUri === "/ping" && $requestMethod === "GET") {
     Response::success(["message" => "pong"]);
 }
 
-// Rotas de Usuários: Gerencia cadastro (POST)
-if ($requestUri === "/users") {
+// Rotas de Autenticação e Cadastro
+if ($requestUri === "/auth/cadastro") {
     if ($requestMethod === "POST") {
-        (new UserController())->store();
+        (new UserController())->cadastrar();
     }
     else {
         Response::error("O endpoint de cadastro aceita apenas requisições POST", 405);
@@ -37,7 +37,7 @@ if ($requestUri === "/users") {
 }
 
 // Rota de Login: Verifica credenciais e inicia sessão
-if ($requestUri === "/login") {
+if ($requestUri === "/auth/login") {
     if ($requestMethod === "POST") {
         (new UserController())->login();
     }
