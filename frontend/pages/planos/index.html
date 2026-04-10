@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seus Momentos - Planos e Preços</title>
+
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <link rel="stylesheet" href="../../css/Planos/style.css" />
+  <link rel="stylesheet" href="../../css/header/style.css">
+<link rel="stylesheet" href="../../css/footer/style.css">
+</head>
+<body>
+  
+  
+  <div id="header"></div>
+<section class="hero-planos">
+  <span class="badge badge-overlay">PLANOS E PREÇOS</span>
+  
+  <h1 class="hero-title">
+    Escolha o plano perfeito para o seu 
+    <span class="hero-highlight">grande dia</span>
+  </h1>
+  
+  <p class="hero-subtitle">
+    Tudo o que você precisa para organizar seu evento sem estresse. RSVP,<br> lista 
+    de presentes e convites digitais em um só lugar.
+  </p>
+</section>
+<section class="pricing-container" id="planos">
+
+  <div class="pricing-card">
+    <h3 class="card-title">Grátis</h3>
+    <p class="card-desc">Ideal para começar os preparativos</p>
+    <div class="card-price">R$ 0 <small>/sempre</small></div>
+
+    <a class="btn-plan btn-free">Começar Agora</a>
+
+    <ul class="feature-list">
+      <li class="feature-item">RSVP Digital Básico</li>
+      <li class="feature-item">Convite Digital(1Modelo)</li>
+      <li class="feature-item">Site do Casal(Subdomínio)</li>
+      <li class="feature-item disabled">Domínio Personalizado</li>
+    </ul>
+  </div>
+
+  <div class="pricing-card featured">
+    <span class="popular-tag">Mais popular</span>
+
+    <h3 class="card-title">Premium</h3>
+    <p class="card-desc">Para noivos que buscam exclusividade</p>
+    <div class="card-price">R$ 99 <small>/mês</small></div>
+
+    <a class="btn-plan btn-premium">Escolher Premium</a>
+
+    <ul class="feature-list">
+      <li class="feature-item">Domínio Personalizado(.com)</li>
+      <li class="feature-item">Lista de Presentes em Dinheiro</li>
+     <li class="feature-item">Taxas de Resgate Reduzidas</li>
+      <li class="feature-item">Convites Digitais ilimitados</li>
+       <li class="feature-item"> Save the Date Animado </li>
+    </ul>
+  </div>
+
+</section>
+
+<section class="faq-section">
+  <h2 class="faq-title">Dúvidas Frequentes</h2>
+
+  <div class="faq-container">
+    <div class="faq-item">
+      <button class="faq-header" type="button">
+        <span>Como recebo os presentes em dinheiro?</span>
+        <span class="faq-icon"></span>
+      </button>
+      <div class="faq-body">
+        <p>Os valores dos presentes virtuais são convertidos em saldo na sua carteira Seus Momentos. Você pode transferir para sua conta bancária via PIX de forma rápida e segura.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-header" type="button">
+        <span>Posso alterar meu plano a qualquer momento?</span>
+       <span class="faq-icon"></span>
+      </button>
+      <div class="faq-body">
+        <p>Sim! Você pode fazer upgrade ou downgrade do seu plano diretamente pelo painel administrativo. No caso de upgrade, os novos recursos são liberados instantaneamente.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-header" type="button">
+        <span>Como funciona o RSVP por WhatsApp?</span>
+      <span class="faq-icon"></span>
+      </button>
+      <div class="faq-body">
+        <p>Nossa assistente virtual entra em contato com seus convidados via WhatsApp para confirmar a presença de forma humanizada e automatizada, atualizando sua lista em tempo real.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-header" type="button">
+        <span>O site fica no ar por quanto tempo?</span>
+      <span class="faq-icon"></span>
+      </button>
+      <div class="faq-body">
+        <p>Seu site permanece ativo por até 1 ano após a data do casamento nos planos Premium e Black, permitindo que você compartilhe as fotos e agradecimentos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+<div id="footer"></div>
+
+<script>
+  fetch('../../components/header.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('header').innerHTML = data;
+
+      const header = document.querySelector('.main-header');
+
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 20) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      });
+    });
+
+  fetch('../../components/footer.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('footer').innerHTML = data;
+    });
+</script>
+
+
+<script>
+lucide.createIcons();
+</script>
+<script src="../../js/Planos/script.js"></script>
+</body>
+</html>
