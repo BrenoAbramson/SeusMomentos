@@ -41,18 +41,57 @@ class UserService
     /**
      * Cria um novo registro de usuário no banco de dados.
      */
-    public function create($nome, $email, $senhaHash, $token)
+    public function cadastrar($nome, $email, $senhaHash, $token, $role = 'CLIENT')
     {
         $stmt = $this->db->prepare("
-            INSERT INTO users (nome, email, senha, token_verificacao)
-            VALUES (:nome, :email, :senha, :token)
+            INSERT INTO users (nome, email, senha, token_verificacao, role)
+            VALUES (:nome, :email, :senha, :token, :role)
         ");
 
         return $stmt->execute([
-            "nome" => $nome,
+            "nome"  => $nome,
             "email" => $email,
             "senha" => $senhaHash,
-            "token" => $token
+            "token" => $token,
+            "role"  => $role
+        ]);
+    }
+
+    /**
+     * Define o token de recuperação de senha para um usuário.
+     */
+    public function setResetToken($email, $tokenHash, $expiry)
+    {
+        $stmt = $this->db->prepare("
+            UPDATE users 
+            SET reset_token_hash = :hash, 
+                reset_token_expires_at = :expiry 
+            WHERE email = :email
+        ");
+
+        return $stmt->execute([
+            "hash"   => $tokenHash,
+            "expiry" => $expiry,
+            "email"  => $email
+        ]);
+    }
+
+    /**
+     * Atualiza a senha do usuário e limpa as informações de recuperação.
+     */
+    public function updatePassword($email, $newPasswordHash)
+    {
+        $stmt = $this->db->prepare("
+            UPDATE users 
+            SET senha = :senha, 
+                reset_token_hash = NULL, 
+                reset_token_expires_at = NULL 
+            WHERE email = :email
+        ");
+
+        return $stmt->execute([
+            "senha" => $newPasswordHash,
+            "email" => $email
         ]);
     }
 }

@@ -26,21 +26,53 @@ if ($requestUri === "/ping" && $requestMethod === "GET") {
     Response::success(["message" => "pong"]);
 }
 
-// Rotas de Usuários: Gerencia cadastro (POST)
-if ($requestUri === "/users") {
+// Rotas de Autenticação e Cadastro
+if ($requestUri === "/auth/cadastro") {
     if ($requestMethod === "POST") {
-        (new UserController())->store();
-    } else {
+        (new UserController())->cadastrar();
+    }
+    else {
         Response::error("O endpoint de cadastro aceita apenas requisições POST", 405);
     }
 }
 
 // Rota de Login: Verifica credenciais e inicia sessão
-if ($requestUri === "/login") {
+if ($requestUri === "/auth/login") {
     if ($requestMethod === "POST") {
         (new UserController())->login();
-    } else {
+    }
+    else {
         Response::error("O endpoint de login aceita apenas requisições POST", 405);
+    }
+}
+
+// Rota de Redefinição de Senha: Envia link de recuperação
+if ($requestUri === "/auth/reset-password") {
+    if ($requestMethod === "POST") {
+        (new UserController())->forgotPassword();
+    }
+    else {
+        Response::error("O endpoint de recuperação aceita apenas requisições POST", 405);
+    }
+}
+
+// Rota de Validação do Token (GET) - Para o Front-end
+if (strpos($requestUri, "/auth/reset-password/validate") === 0) {
+    if ($requestMethod === "GET") {
+        (new UserController())->validateToken();
+    }
+    else {
+        Response::error("Método não permitido", 405);
+    }
+}
+
+// Rota de Atualização de Senha
+if ($requestUri === "/auth/reset-password/update") {
+    if ($requestMethod === "POST") {
+        (new UserController())->updatePassword();
+    }
+    else {
+        Response::error("Método não permitido", 405);
     }
 }
 

@@ -6,65 +6,77 @@ const alerta = document.getElementById("alerta");
 const alertaTexto = document.getElementById("alerta-texto");
 const alertaIcone = document.getElementById("alerta-icone");
 
-function mostrarAlerta(texto,tipo){
+function mostrarAlerta(texto, tipo) {
 
-let icone = "";
+    let icone = "";
 
-if(tipo === "sucesso"){
-icone = "✔";
-}
+    if (tipo === "sucesso") {
+        icone = "✔";
+    }
 
-if(tipo === "erro"){
-icone = "✖";
-}
+    if (tipo === "erro") {
+        icone = "✖";
+    }
 
-if(tipo === "aviso"){
-icone = "!";
-}
+    if (tipo === "aviso") {
+        icone = "!";
+    }
 
-alertaTexto.innerText = texto;
-alertaIcone.innerText = icone;
+    alertaTexto.innerText = texto;
+    alertaIcone.innerText = icone;
 
-alerta.className = "alerta show " + tipo;
+    alerta.className = "alerta show " + tipo;
 
-setTimeout(()=>{
-alerta.classList.remove("show");
-},3000);
+    setTimeout(() => {
+        alerta.classList.remove("show");
+    }, 3000);
 
 }
 
 
 // LOGIN
 
-form.addEventListener("submit", function(event){
+form.addEventListener("submit", async function (event) {
 
-event.preventDefault();
+    event.preventDefault();
 
-if(email.value === "" || senha.value === ""){
-mostrarAlerta("Preencha todos os campos obrigatórios","aviso");
-return;
-}
+    if (email.value === "" || senha.value === "") {
+        mostrarAlerta("Preencha todos os campos obrigatórios", "aviso");
+        return;
+    }
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 
-if(!emailRegex.test(email.value)){
-mostrarAlerta("Formato de e-mail inválido","aviso");
-return; 
-}
+    if (!emailRegex.test(email.value)) {
+        mostrarAlerta("Formato de e-mail inválido", "aviso");
+        return;
+    }
 
-const emailCorreto = "teste@email.com";
-const senhaCorreta = "123456";
+    // --- CONEXÃO COM O BACKEND REAL ---
+    try {
+        const response = await fetch("http://127.0.0.1:8080/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: email.value,
+                senha: senha.value
+            })
+        });
 
-if(email.value !== emailCorreto || senha.value !== senhaCorreta){
-mostrarAlerta("E-mail ou senha inválidos","erro");
-return;
-}
+        const result = await response.json();
 
-mostrarAlerta("Login realizado com sucesso","sucesso");
-
-setTimeout(()=>{
-window.location.href = "home.html";
-},1500);
+        if (response.ok) {
+            mostrarAlerta("Login realizado com sucesso", "sucesso");
+            setTimeout(() => {
+                window.location.href = "home.html";
+            }, 1500);
+        } else {
+            mostrarAlerta(result.message || "E-mail ou senha inválidos", "erro");
+        }
+    } catch (error) {
+        mostrarAlerta("Erro de conexão com o servidor", "erro");
+        console.error("Erro no login:", error);
+    }
 
 });
 
@@ -78,26 +90,26 @@ const abrirModal = document.getElementById("abrirModal");
 const modal = document.getElementById("modalOverlay");
 const fecharModal = document.getElementById("closeModal");
 
-abrirModal.addEventListener("click", function(e){
-e.preventDefault();
-modal.style.display = "flex";
+abrirModal.addEventListener("click", function (e) {
+    e.preventDefault();
+    modal.style.display = "flex";
 });
 
 
 // FECHAR NO X
 
-fecharModal.addEventListener("click", function(){
-modal.style.display = "none";
+fecharModal.addEventListener("click", function () {
+    modal.style.display = "none";
 });
 
 
 // FECHAR CLICANDO FORA
 
-modal.addEventListener("click", function(e){
+modal.addEventListener("click", function (e) {
 
-if(e.target === modal){
-modal.style.display = "none";
-}
+    if (e.target === modal) {
+        modal.style.display = "none";
+    }
 
 });
 
@@ -107,23 +119,36 @@ modal.style.display = "none";
 const modalForm = document.querySelector(".modal-form");
 const modalEmail = document.querySelector(".modal-input");
 
-modalForm.addEventListener("submit", function(e){
+modalForm.addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-e.preventDefault();
+    const emailValor = modalEmail.value.trim();
+    const modalEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const emailValor = modalEmail.value.trim();
+    if (!modalEmailRegex.test(emailValor)) {
+        mostrarAlerta("Formato de e-mail inválido", "aviso");
+        return;
+    }
 
-const modalEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // --- CONEXÃO COM O BACKEND ---
+    try {
+        const response = await fetch("http://127.0.0.1:8080/auth/reset-password", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: emailValor })
+        });
 
-if(!modalEmailRegex.test(emailValor)){
+        const result = await response.json();
 
-mostrarAlerta("Formato de e-mail inválido","aviso");
-
-return;
-}
-
-mostrarAlerta("Link de recuperação enviado","sucesso");
-
-modal.style.display = "none";
-
+        if (response.ok) {
+            mostrarAlerta(result.data.message || "Link enviado com sucesso", "sucesso");
+            modal.style.display = "none";
+            modalEmail.value = ""; // Limpa o campo
+        } else {
+            mostrarAlerta(result.message || "Erro ao solicitar recuperação", "erro");
+        }
+    } catch (error) {
+        mostrarAlerta("Erro de conexão com o servidor", "erro");
+        console.error("Erro no fetch:", error);
+    }
 });
