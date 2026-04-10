@@ -70,7 +70,7 @@
             <p>Comece gratuitamente agora mesmo e junte-se a mais de 1 milhão de<br>pessoas que já eternizamos os seus momentos!</p>
             <div class="cta-btns">
                 <a href="pages/cadastro/index.html" class="btn-white">Começar Agora Grátis</a>
-                <a href="#" class="btn-outline">Ver Planos Premium</a>
+                <a href="pages/Planos/index.html" class="btn-outline">Ver Planos Premium</a>
             </div>
         </div>
 
@@ -84,6 +84,17 @@
     <div id="footer-placeholder"></div>
 
     <script>
+        function fixPaths(container) {
+            // Se estivermos na raiz, não precisamos adicionar ../
+            // Mas o script ajuda se usarmos caminhos relativos nos componentes
+            container.querySelectorAll('img').forEach(img => {
+                const src = img.getAttribute('src');
+                if (src && !src.startsWith('http') && !src.startsWith('/') && !src.startsWith('../')) {
+                    // Na raiz, o src já deve estar correto se o componente assume a raiz
+                }
+            });
+        }
+
         function loadComponent(id, path) {
             fetch(path)
                 .then(response => {
