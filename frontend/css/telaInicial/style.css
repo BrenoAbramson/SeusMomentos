@@ -1,0 +1,318 @@
+/* Variáveis baseadas no design pattern do Seus Momentos */
+:root {
+    --primary-color: #149CB8;
+    --dark-color: #0F172A;
+    --text-color: #475569;
+    --bg-light: #F8FAFC;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Manrope', sans-serif;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    margin-top: 80px; /* para compensar o header fixo */
+    background-color: #FFFFFF;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-heading);
+    color: var(--dark-color);
+    margin: 0;
+}
+
+/* ================= HERO SECTION ================= */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 80px 5%;
+    max-width: 1440px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.hero-subtitle {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 24px;
+}
+
+.hero h1 {
+    font-size: 56px;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    font-weight: 700;
+}
+
+.hero h1 span {
+    color: var(--primary-color);
+    font-style: italic;
+    font-weight: 600;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-bottom: 40px;
+}
+
+.btn-cta {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #FFFFFF !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 16px 32px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-cta:hover {
+    background-color: #107e94;
+    transform: translateY(-2px);
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hero-image img {
+    max-width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); /* Opcional caso a imagem não tenha bordas no PNG */
+}
+
+/* ================= RESOURCES SECTION ================= */
+.resources {
+    text-align: center;
+    padding: 100px 5%;
+    background-color: var(--bg-light);
+    margin-top: -40px; /* Para tirar o gap branco antes da seção */
+}
+
+.resources h2 {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.resources p {
+    font-size: 18px;
+    color: var(--text-color);
+    margin-bottom: 60px;
+    line-height: 1.6;
+}
+
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #FFFFFF;
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04), 0 10px 15px rgba(0, 0, 0, 0.02);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08), 0 20px 25px rgba(0, 0, 0, 0.05);
+}
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    background-color: #E6F5F8;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.icon-box img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.card h3 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    font-family: var(--font-body);
+    font-weight: 700;
+}
+
+.card p {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-bottom: 0;
+}
+
+/* ================= CTA BANNER SECTION ================= */
+.cta-banner {
+    padding: 80px 5%;
+    max-width: 1440px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+    margin-top: -60px;
+}
+
+.cta-container {
+    background-color: var(--primary-color);
+    border-radius: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 60px 80px;
+    color: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-content {
+    flex: 1;
+    max-width: 500px;
+    z-index: 2;
+}
+
+.cta-content h2 {
+    font-size: 42px;
+    color: #FFFFFF;
+    margin-bottom: 24px;
+    line-height: 1.2;
+}
+
+.cta-content p {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.cta-btns {
+    display: flex;
+    gap: 16px;
+}
+
+.btn-white {
+    background-color: #FFFFFF;
+    color: var(--primary-color) !important;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 14px 28px;
+    border-radius: 8px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-white:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: #FFFFFF !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: background-color 0.3s ease;
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.cta-mockup {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-mockup img {
+    max-width: 100%;
+    width: 400px;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 1024px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 40px;
+    }
+
+    .hero-content {
+        max-width: 100%;
+    }
+
+    .hero-image {
+        justify-content: center;
+        margin-top: 40px;
+    }
+
+    .cta-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 40px 30px;
+        gap: 40px;
+    }
+
+    .cta-mockup {
+        justify-content: center;
+    }
+    
+    .cta-btns {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .resources h2 {
+        font-size: 32px;
+    }
+
+    .cta-content h2 {
+        font-size: 32px;
+    }
+
+    .cta-btns {
+        flex-direction: column;
+        gap: 12px;
+    }
+}

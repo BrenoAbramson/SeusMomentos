@@ -1,0 +1,357 @@
+:root {
+  --bg-color: #ffffff;
+  --text-dark: #1A2E44;
+  --text-gray: #6B7280;
+  --text-light-gray: #334155;
+  --accent-teal: #5BC3AC;
+  --link-color: #118C9D;
+  --cta-bg: #098895;
+  --thumbnail-bg: #F3EFE9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Manrope', sans-serif;
+  color: var(--text-dark);
+  background: var(--bg-color);
+  overflow-x: hidden;
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+.exemplos-page {
+  padding-top: 130px;
+}
+
+/* === HEADER === */
+.exemplos-header {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 20px 60px;
+}
+
+.exemplos-header h1 {
+  font-size: 64px;
+  line-height: 1.1;
+  font-weight: 400;
+  color: var(--text-dark);
+  letter-spacing: -0.02em;
+}
+
+.exemplos-header h1 span {
+  display: block;
+  font-size: 72px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent-teal);
+  margin-top: 5px;
+}
+
+.exemplos-header p {
+  max-width: 700px;
+  margin: 32px auto 40px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-gray);
+}
+
+/* === FILTERS === */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: #F5F5F5;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 28px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-light-gray);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: #EBEBEB;
+  color: #0F172A;
+}
+
+/* === GRID === */
+.exemplos-grid {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.template-card {
+  text-align: center;
+  cursor: pointer;
+}
+
+.template-thumb {
+  width: 100%;
+  aspect-ratio: 0.76 / 1;
+  background-color: var(--thumbnail-bg);
+  border-radius: 8px;
+  margin-bottom: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.template-card:hover .template-thumb {
+  transform: translateY(-5px);
+}
+
+.template-card h3 {
+  font-family: "Manrope", sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.view-link {
+  font-family: "Inter", sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--link-color);
+  text-decoration: none;
+  letter-spacing: 1.5px;
+}
+
+/* Placeholder Arts inside Thumbs */
+.thumb-1 .placeholder-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid #DED7CD;
+  margin: 20px 0;
+}
+.thumb-1 .placeholder-line-top, .thumb-1 .placeholder-line-bottom {
+  width: 160px;
+  height: 1px;
+  background: #DED7CD;
+}
+
+.thumb-2 .squares-container {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+.thumb-2 .placeholder-square {
+  width: 60px;
+  height: 60px;
+  background: #EAE6DF;
+}
+.thumb-2 .placeholder-line-bottom {
+  width: 200px;
+  height: 1px;
+  background: #DED7CD;
+}
+
+.thumb-3, .thumb-4 {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 30px;
+}
+.placeholder-circle-solid {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #B6DFD9;
+  margin-top: 100px;
+  margin-bottom: 20px;
+}
+.placeholder-line-solid {
+  width: 160px;
+  height: 3px;
+  background: #EAE5DE;
+  margin-bottom: 8px;
+  border-radius: 2px;
+}
+.placeholder-line-solid-short {
+  width: 100px;
+  height: 3px;
+  background: #E6DFD6;
+  border-radius: 2px;
+}
+
+/* === CTA SECTION === */
+.cta-section {
+  padding: 0 40px 100px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.cta-box {
+  background: var(--cta-bg);
+  border-radius: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(9, 136, 149, 0.2);
+}
+
+.cta-content {
+  max-width: 450px;
+  position: relative;
+  z-index: 2;
+  color: #ffffff;
+}
+
+.cta-content h2 {
+  font-size: 50px;
+  line-height: 1.15;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+.cta-content h2 span {
+  font-style: italic;
+  display: block;
+}
+
+.cta-content p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 36px;
+  max-width: 380px;
+}
+
+.cta-btn {
+  background: #ffffff;
+  color: var(--cta-bg);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 16px 36px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* CTA VISUALS */
+.cta-visual {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 500px;
+  z-index: 1;
+}
+
+.visual-rectangle {
+  position: absolute;
+  top: 50%;
+  right: 60px;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 220px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+}
+
+.visual-circle {
+  position: absolute;
+  bottom: -150px;
+  right: -50px;
+  width: 450px;
+  height: 450px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 50%;
+}
+
+.star {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.star-1 {
+  width: 80px;
+  height: 80px;
+  top: 45%;
+  right: 220px;
+  transform: rotate(-15deg);
+}
+
+.star-2 {
+  width: 35px;
+  height: 35px;
+  top: 35%;
+  right: 150px;
+  transform: rotate(10deg);
+}
+
+.star-3 {
+  width: 25px;
+  height: 25px;
+  top: 60%;
+  right: 320px;
+  transform: rotate(-5deg);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .exemplos-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .exemplos-header h1 {
+    font-size: 48px;
+  }
+  .exemplos-header h1 span {
+    font-size: 54px;
+  }
+  .exemplos-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px 60px;
+  }
+  .cta-box {
+    flex-direction: column;
+    padding: 40px 30px;
+  }
+  .cta-visual {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    margin-top: 30px;
+    right: auto;
+  }
+  .visual-rectangle {
+    right: 50%;
+    transform: translate(50%, -50%);
+    width: 90%;
+  }
+}
