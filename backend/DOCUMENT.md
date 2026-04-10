@@ -53,6 +53,7 @@ CREATE TABLE users (
     nome VARCHAR(150) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
+    role VARCHAR(20) DEFAULT 'CLIENT' NOT NULL, -- ADMIN ou CLIENT
     email_verificado BOOLEAN DEFAULT FALSE,
     token_verificacao VARCHAR(255),
     reset_token_hash VARCHAR(255),
@@ -108,8 +109,8 @@ DB_PASSWORD=sua_senha_segura
 | Método | Endpoint | Descrição |
 |--------|----------|-----------|
 | GET | `/ping` | Teste de conectividade da API. |
-| POST | `/api/users` | Cadastro de novo usuário. |
-| POST | `/api/login` | Autenticação de usuário e início de sessão. |
+| POST | `/auth/cadastro` | Cadastro de novo usuário. |
+| POST | `/auth/login` | Autenticação de usuário e início de sessão. |
 | POST | `/auth/reset-password` | Solicitação de link de recuperação (válido por 3 min). |
 | GET | `/auth/reset-password/validate` | Valida se o link enviado ainda é válido/não expirou. |
 | POST | `/auth/reset-password/update` | Atualização final da senha no banco de dados. |
@@ -136,9 +137,31 @@ O sistema utiliza a classe `Src\Utils\Response` para garantir que todas as respo
 }
 ```
 
+## 👥 Sistema de Perfis (Roles)
+O sistema utiliza um controle de acesso baseado em perfis para diferenciar as ações permitidas por cada usuário:
+
+- **CLIENT**: Perfil padrão para novos cadastros. Possui acesso às funcionalidades básicas de usuário.
+- **ADMIN**: Perfil com permissões elevadas para gestão do sistema e moderação.
+
+As constantes de perfil são gerenciadas centralizadamente em `Src\Utils\UserRole.php`.
+
+## 🔄 Estratégia de Controle de Versão
+O projeto adota um modelo de **Git Flow Adaptado** para garantir a integridade e estabilidade do código:
+
+1. **Branches de Longa Duração**:
+   - `Prod`: Código estável em produção.
+   - `Staging`: Espelho de produção para testes finais.
+   - `dev`: Integração de novas funcionalidades.
+
+2. **Fluxo de Desenvolvimento**:
+   - Novas tarefas são desenvolvidas em branches `feature/SEUSM-XXXX`.
+   - Após a conclusão, são integradas à branch `dev`.
+   - A promoção para `Staging` e `Prod` ocorre conforme o ciclo de releases.
+
 ## 🛡️ Segurança e Boas Práticas
 - **PDO**: Consultas utilizam Prepared Statements para prevenir SQL Injection.
 - **Password Hashing**: Senhas são armazenadas utilizando `password_hash()` com o algoritmo padrão do PHP.
+- **Middleware**: Preparado para AuthMiddleware que validará acesso por perfil e futuramente tokens JWT.
 - **PSR-4**: Autoload estruturado seguindo as normas da comunidade.
 - **CORS**: Configurado no `public/index.php` para permitir integrações com o front-end.
 

@@ -41,18 +41,19 @@ class UserService
     /**
      * Cria um novo registro de usuário no banco de dados.
      */
-    public function create($nome, $email, $senhaHash, $token)
+    public function cadastrar($nome, $email, $senhaHash, $token, $role = 'CLIENT')
     {
         $stmt = $this->db->prepare("
-            INSERT INTO users (nome, email, senha, token_verificacao)
-            VALUES (:nome, :email, :senha, :token)
+            INSERT INTO users (nome, email, senha, token_verificacao, role)
+            VALUES (:nome, :email, :senha, :token, :role)
         ");
 
         return $stmt->execute([
-            "nome" => $nome,
+            "nome"  => $nome,
             "email" => $email,
             "senha" => $senhaHash,
-            "token" => $token
+            "token" => $token,
+            "role"  => $role
         ]);
     }
 
