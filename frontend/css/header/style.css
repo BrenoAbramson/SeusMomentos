@@ -1,0 +1,112 @@
+.main-header {
+    width: 100%;
+    height: 80px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: center;
+    padding: 0; 
+    font-family: 'Roboto', sans-serif;
+    position: fixed; 
+    top: 0;
+    z-index: 1000;
+}
+.header-container {
+    max-width: 1440px; 
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img { height: 35px; }
+
+.logo span {
+    font-family: 'Playfair Display', bold;
+    font-weight: 700;
+    color: #0F172A;
+    font-size: 24px;
+}
+
+/* Links do Menu */
+.nav-menu {
+    font-family: 'Manrope',  sans-serif;
+    font-weight: 600;
+    display: flex;
+    gap: 24px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #0F172A;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Efeito de hover nos links do menu */
+.nav-menu a:hover {
+    color: #149CB8; /* A cor azul do seu projeto */
+    transition: color 0.3s ease; /* Deixa a mudança de cor suave */
+}
+
+/* Aproveitando, você também pode aplicar no link de Login */
+.btn-login:hover {
+    color: #149CB8;
+    transition: color 0.3s ease;
+}
+
+/* Botões da Direita */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-login {
+    font-family: 'Manrope', sans-serif;
+    text-decoration: none;
+    color: #475569;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    margin-right: 20px;
+}
+
+.btn-signup-small {
+    font-family: 'Manrope', bold;
+    background-color: #149CB8;
+    color: #FFFFFF !important;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    font-size: 14px;
+
+}
+
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column; 
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .header-auth {
+        width: 100%;
+        justify-content: center;
+    }
+}
