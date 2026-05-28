@@ -116,6 +116,16 @@ h1, h2, h3 {
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.template-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+  border-radius: 8px;
+  display: block;
 }
 
 .template-card:hover .template-thumb {

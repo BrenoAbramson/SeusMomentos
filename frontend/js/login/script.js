@@ -67,8 +67,23 @@ form.addEventListener("submit", async function (event) {
 
         if (response.ok) {
             mostrarAlerta("Login realizado com sucesso", "sucesso");
+            
+            // Salvar informações no localStorage para as próximas telas
+            if (result.data && result.data.user) {
+                localStorage.setItem("user_id", result.data.user.id);
+                localStorage.setItem("user_nome", result.data.user.nome);
+                localStorage.setItem("user_role", result.data.user.role || "CLIENT");
+            }
+
             setTimeout(() => {
-                window.location.href = "home.html";
+                const user = result.data?.user;
+                if (user?.role === 'ADMIN') {
+                    window.location.href = "../admin/index.html";
+                } else if (user?.first_access === false) {
+                    window.location.href = "../dashboard/index.html";
+                } else {
+                    window.location.href = "../onboarding/index.html";
+                }
             }, 1500);
         } else {
             mostrarAlerta(result.message || "E-mail ou senha inválidos", "erro");
