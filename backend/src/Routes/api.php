@@ -12,6 +12,7 @@ use Src\Utils\Response;
 
 // Extrair a URI (tentando PATH_INFO primeiro para maior compatibilidade)
 $requestUri = $_SERVER['PATH_INFO'] ?? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$requestUri = rawurldecode($requestUri);
 
 // Caso a URI ainda contenha o "index.php", vamos limpá-la para isolar apenas o endpoint
 $scriptName = $_SERVER['SCRIPT_NAME'];
