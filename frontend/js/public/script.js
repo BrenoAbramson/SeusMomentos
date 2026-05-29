@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 1. Carregar Evento
     try {
-        const res = await fetch(`http://127.0.0.1:8080/events/${eventSlug}`);
+        const res = await fetch(`${window.API_BASE_URL}/events/${eventSlug}`);
         const data = await res.json();
         
         if (data.status === 'success') {
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 2. Carregar Presentes Ativos
     async function loadGifts(eventId) {
         try {
-            const res = await fetch(`http://127.0.0.1:8080/gifts?event_id=${eventId}&enabled=true`);
+            const res = await fetch(`${window.API_BASE_URL}/gifts?event_id=${eventId}&enabled=true`);
             const data = await res.json();
             
             const giftsList = document.getElementById('giftsList');
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         };
 
         try {
-            const res = await fetch(`http://127.0.0.1:8080/guests`, {
+            const res = await fetch(`${window.API_BASE_URL}/guests`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!guestIdCreated) return;
         
         try {
-            await fetch(`http://127.0.0.1:8080/guests/payment`, {
+            await fetch(`${window.API_BASE_URL}/guests/payment`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ guest_id: guestIdCreated, status: 'PAID' })

@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 1. Carregar o Evento do Usuário
     async function loadEvent() {
         try {
-            const res = await fetch(`http://127.0.0.1:8080/events?user_id=${userId}`);
+            const res = await fetch(`${window.API_BASE_URL}/events?user_id=${userId}`);
             const data = await res.json();
 
             if (data.status === 'success' && data.data.events.length > 0) {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 // Buscar detalhes completos do evento para pegar título e data customizados
                 try {
-                    const resDetalhe = await fetch(`http://127.0.0.1:8080/events/${eventSlug}`);
+                    const resDetalhe = await fetch(`${window.API_BASE_URL}/events/${eventSlug}`);
                     const dataDetalhe = await resDetalhe.json();
                     if (dataDetalhe.status === 'success' && dataDetalhe.data.event) {
                         const fullEvent = dataDetalhe.data.event;
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 2. Buscar e Renderizar Convites dos Convidados
     async function loadConvites(eventId) {
         try {
-            const res = await fetch(`http://127.0.0.1:8080/guests?event_id=${eventId}`);
+            const res = await fetch(`${window.API_BASE_URL}/guests?event_id=${eventId}`);
             const data = await res.json();
 
             if (data.status === 'success') {

@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 2. Carregar dados do Painel Administrativo
     async function loadAdminData() {
         try {
-            const res = await fetch(`http://127.0.0.1:8080/admin/dashboard?user_id=${userId}`);
+            const res = await fetch(`${window.API_BASE_URL}/admin/dashboard?user_id=${userId}`);
             
             if (res.status === 403 || res.status === 401) {
                 mostrarAlerta('Acesso negado pelo servidor.', 'erro');

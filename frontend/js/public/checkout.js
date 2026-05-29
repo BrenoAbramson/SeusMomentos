@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   let dadosCarregados = false;
   if (guestId) {
     try {
-      const response = await fetch(`http://127.0.0.1:8080/guests/detail?guest_id=${guestId}`);
+      const response = await fetch(`${window.API_BASE_URL}/guests/detail?guest_id=${guestId}`);
       const data = await response.json();
       if (data.status === 'success' && data.data) {
         gifts = data.data.gifts || [];
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (paymentParam === 'success') {
     try {
       // Atualiza modelo do convite
-      await fetch('http://127.0.0.1:8080/guests/invitation', {
+      await fetch(`${window.API_BASE_URL}/guests/invitation`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         })
       });
       // Atualiza status de pagamento para PAID
-      await fetch('http://127.0.0.1:8080/guests/payment', {
+      await fetch(`${window.API_BASE_URL}/guests/payment`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -301,7 +301,7 @@ function setupEventListeners() {
       btnOpenPaymentModal.innerHTML = 'Redirecionando para o Mercado Pago...';
 
       try {
-        const response = await fetch('http://127.0.0.1:8080/payments/create-checkout-preference', {
+        const response = await fetch(`${window.API_BASE_URL}/payments/create-checkout-preference`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -496,7 +496,7 @@ async function processarPagamentoESalvar() {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8080/payments/create', {
+      const response = await fetch(`${window.API_BASE_URL}/payments/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -579,7 +579,7 @@ async function processarPagamentoESalvar() {
       }
 
       // Enviar os dados do cartão diretamente ao nosso backend para tokenizar sem erro de CORS
-      const response = await fetch('http://127.0.0.1:8080/payments/create', {
+      const response = await fetch(`${window.API_BASE_URL}/payments/create`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -601,7 +601,7 @@ async function processarPagamentoESalvar() {
 
         if (paymentStatus === 'approved' || data.status === 'approved') {
           // Atualizar o design do convite no banco de dados
-          await fetch('http://127.0.0.1:8080/guests/invitation', {
+          await fetch(`${window.API_BASE_URL}/guests/invitation`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -645,14 +645,14 @@ function iniciarPollingStatus() {
 
   pollingInterval = setInterval(async () => {
     try {
-      const res = await fetch(`http://127.0.0.1:8080/payments/status?guest_id=${guestId}`);
+      const res = await fetch(`${window.API_BASE_URL}/payments/status?guest_id=${guestId}`);
       const data = await res.json();
 
       if (data.status === 'success' && data.data.payment_status === 'PAID') {
         detenerPollingStatus();
 
         // Salva a customização de modelo do convite ao identificar o pagamento
-        await fetch('http://127.0.0.1:8080/guests/invitation', {
+        await fetch(`${window.API_BASE_URL}/guests/invitation`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -763,7 +763,7 @@ async function removerPresenteDoCheckout(giftId) {
   if (guestId) {
     try {
       const restIds = gifts.map(gift => Number(gift.id));
-      await fetch('http://127.0.0.1:8080/guests/gifts', {
+      await fetch(`${window.API_BASE_URL}/guests/gifts`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
