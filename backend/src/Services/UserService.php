@@ -37,6 +37,22 @@ class UserService
         $stmt->execute(["email" => $email]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    
+    public function findById($id)
+    {
+        $stmt = $this->db->prepare("SELECT id, nome, email, role, email_verificado, criado_em, first_access FROM users WHERE id = :id LIMIT 1");
+        $stmt->execute(["id" => $id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    public function updateFirstAccess($id, $status = false)
+    {
+        $stmt = $this->db->prepare("UPDATE users SET first_access = :status WHERE id = :id");
+        return $stmt->execute([
+            "status" => $status ? 'true' : 'false',
+            "id" => $id
+        ]);
+    }
 
     /**
      * Cria um novo registro de usuário no banco de dados.

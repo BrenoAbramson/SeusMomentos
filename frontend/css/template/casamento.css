@@ -226,13 +226,15 @@ button {
 .hero-content h1 {
   font-size: 78px;
   font-family: 'Playfair Display', serif;
-  color: var(--primary);
+  color: var(--white);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
   margin-bottom: 18px;
 }
 
 .hero-content p {
   font-size: 18px;
-  color: var(--text-light);
+  color: #f1ebe6;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
   margin-bottom: 42px;
 }
 
@@ -266,6 +268,12 @@ button {
   object-fit: cover;
 }
 
+.fixed-image {
+  width: 100%;
+  height: auto;
+  max-width: 620px;
+  object-fit: cover;
+}
 .history-content h2 {
   max-width: 620px;
 
@@ -420,11 +428,12 @@ button {
 ========================= */
 .gifts-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 28px;
 }
 
 .gift-card {
+  text-align: center;
   transition: 0.3s ease;
 }
 
@@ -700,4 +709,12 @@ button {
   .header-container {
     gap: 18px;
   }
+}
+
+.gift-card.selected {
+  border: 2px solid var(--primary);
+  border-radius: 28px;
+  background-color: #fcf6f3;
+  padding: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
 }

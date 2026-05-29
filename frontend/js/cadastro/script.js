@@ -69,8 +69,16 @@ form.addEventListener('submit', async (e) => {
         if (response.ok) {
             // Sucesso retornado pelo Back-end
             mostrarAlerta("Cadastro realizado com sucesso!", "sucesso");
+            
+            // Salvar informações no localStorage para as próximas telas
+            if (data.data && data.data.user) {
+                localStorage.setItem("user_id", data.data.user.id);
+                localStorage.setItem("user_nome", data.data.user.nome);
+                localStorage.setItem("user_role", data.data.user.role || "CLIENT");
+            }
+
             setTimeout(() => {
-                window.location.href = "../../pages/login/index.html"; // Redireciona após sucesso
+                window.location.href = "../../pages/onboarding/index.html"; // Redireciona para o onboarding direto
             }, 2000);
         } else {
             // Erro validado pelo Back-end

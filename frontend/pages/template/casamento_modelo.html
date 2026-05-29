@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Ricardo e Luisa</title>
+  <title>{{TITLE}}</title>
 
   <!-- Fontes -->
 
@@ -24,25 +24,24 @@
   <!-- HEADER -->
   <header class="header">
     <div class="container header-container">
-      <a href="#hero" class="logo">R&L</a>
+      <a href="#hero" class="logo" id="logoText">{{INITIALS}}</a>
 
       <nav class="nav-menu">
         <a href="#historia">Nossa História</a>
-        <a href="#casamento">O Casamento</a>
         <a href="#presentes">Lista de Presentes</a>
         <a href="#rsvp">Confirmar Presença</a>
       </nav>
 
-      <a href="#rsvp" class="btn-header">Fale Conosco</a>
+      <a href="#rsvp" class="btn-header">Confirmar Presença</a>
     </div>
   </header>
 
   <main>
     <!-- HERO -->
-    <section id="hero" class="hero">
+    <section id="hero" class="hero" style="background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('../../assets/casamento/Casamento-em-sitios-11 1.png');">
       <div class="container hero-content">
-        <h1>Ricardo e Luisa</h1>
-        <p>24 de Outubro de 2024 • Toscana, Itália</p>
+        <h1 id="heroTitle">{{TITLE}}</h1>
+        <p id="heroSubtitle">{{DATE}} • {{LOCATION}}</p>
         <a href="#rsvp" class="btn-primary">Confirmar Online</a>
       </div>
     </section>
@@ -56,7 +55,7 @@
         </div>
 
         <div class="history-image">
-          <img src="../../assets/casamento/Mask Group.png" alt="Foto do casal Ricardo e Luisa">
+          <img id="coupleImage" class="fixed-image" src="{{BACKGROUND_URL}}" alt="Foto do casal">
         </div>
 
         <div class="history-content">
@@ -64,20 +63,12 @@
 
           <h2>Como tudo começou</h2>
 
-          <p>
-            Tudo começou com um amor compartilhado por discos de vinil antigos e cafés
-            em tardes chuvosas. Dos ruídos movimentados de nossa cidade natal às colinas
-            tranquilas da Toscana, construímos uma vida repleta de risos, aventuras e
-            apoio mútuo infinito.
-          </p>
-
-          <p class="history-quote">
-            “Duas almas, um caminho e uma vida inteira de poesia compartilhada.”
-          </p>
+          <p id="historyText">{{HISTORY_TEXT}}</p>
 
         </div>
       </div>
     </section>
+
     <!-- O DIA DO CASAMENTO -->
     <section id="casamento" class="wedding-day section-padding">
       <div class="container">
@@ -103,11 +94,13 @@
       </div>
     </section>
 
-    <!-- LISTA DE PRESENTES -->
+    <!-- PRESENTES -->
     <section id="presentes" class="gifts section-padding" style="background-color: #fcfaf9; border-top: 1px solid rgba(0,0,0,0.02); border-bottom: 1px solid rgba(0,0,0,0.02);">
       <div class="container">
         <div class="section-header">
+          <span class="section-label">Mimos & Carinho</span>
           <h2>Lista de Presentes</h2>
+          <p>Sua presença é o nosso maior presente! Mas se desejar nos homenagear, escolha um dos itens abaixo. O valor será revertido em saldo de Lua de Mel.</p>
         </div>
 
         <div class="gifts-grid" id="giftsGridList">
@@ -120,6 +113,7 @@
       </div>
     </section>
 
+
     <!-- RSVP -->
     <section id="rsvp" class="rsvp section-padding">
       <div class="container">
@@ -128,7 +122,7 @@
 
           <div class="section-header">
             <h2>Por Favor, Responda</h2>
-            <p>Por favor, informe-nos se poderá comparecer até 15 de agosto de 2024.</p>
+            <p id="rsvpDeadlineText">Por favor, confirme sua presença até {{DEADLINE_DATE}}.</p>
           </div>
 
           <form id="rsvpForm" class="rsvp-form">
@@ -157,8 +151,8 @@
             </div>
 
             <div class="form-group">
-              <label for="restricoes">Restrições alimentares</label>
-              <textarea id="restricoes" name="restricoes" placeholder="Alguma alergia ou preferência?"></textarea>
+              <label for="restricoes">Escreva algo para o casal</label>
+              <textarea id="restricoes" name="restricoes" placeholder="Deixe uma mensagem especial para nós..."></textarea>
             </div>
 
             <button type="submit" class="btn-primary btn-submit">
@@ -175,15 +169,14 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-container">
-      <h2>Ricardo e Luisa</h2>
+      <h2 id="footerTitle">{{TITLE}}</h2>
 
       <nav class="footer-links">
-        <a href="#presentes">Lista de Presentes</a>
-        <a href="#rsvp">Informações de Viagem</a>
+        <a href="#rsvp">Confirmar Presença</a>
         <a href="#">Política de Privacidade</a>
       </nav>
 
-      <p>© 2024 Ricardo e Luisa — Feito com Amor</p>
+      <p id="footerCopyright">© 2026 {{TITLE}} — Feito com Amor</p>
 
       <div class="footer-icons">
         <span>♥</span>
