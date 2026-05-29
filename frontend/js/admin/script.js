@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             let acoesHtml = '<span style="color:#94A3B8; font-style:italic;">Não criado</span>';
             if (user.event_slug) {
                 const basePath = window.location.pathname.substring(0, window.location.pathname.indexOf('/pages/admin/'));
-                const urlCompleta = window.location.origin + basePath + '/pages/public/index.php?' + user.event_slug;
+                const urlCompleta = window.location.origin + basePath + '/pages/public/index.html?' + user.event_slug;
                 acoesHtml = `<a href="${urlCompleta}" target="_blank" class="action-link">Ver Site ↗</a>`;
             }
 

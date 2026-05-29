@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 eventPlan = evento.plan || 'free';
                 
                 const basePath = window.location.pathname.substring(0, window.location.pathname.indexOf('/pages/dashboard/'));
-                const urlCompleta = window.location.origin + basePath + '/pages/public/index.php?' + eventSlug;
+                const urlCompleta = window.location.origin + basePath + '/pages/public/index.html?' + eventSlug;
                 
                 // Capitalizar primeira letra
                 let typeFmt = evento.event_type.replace('_', ' ');

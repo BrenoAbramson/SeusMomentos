@@ -716,7 +716,7 @@ function voltarParaOEvento() {
   localStorage.removeItem('checkout_event_date');
 
   if (eventSlug) {
-    window.location.href = `index.php?${eventSlug}`;
+    window.location.href = `index.html?${eventSlug}`;
   } else {
     window.location.href = 'index.html';
   }
