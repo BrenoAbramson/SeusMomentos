@@ -76,6 +76,14 @@ if ($requestUri === "/auth/reset-password/update") {
     }
 }
 
+// Rotas de Usuário (Me e First Access)
+if ($requestUri === "/auth/me" && $requestMethod === "GET") {
+    (new UserController())->me();
+}
+if ($requestUri === "/auth/first-access" && $requestMethod === "PUT") {
+    (new UserController())->updateFirstAccess();
+}
+
 // Rotas de Eventos
 if ($requestUri === "/events") {
     if ($requestMethod === "POST") {
@@ -155,6 +163,11 @@ if ($requestUri === "/payments/status" && $requestMethod === "GET") {
 
 if ($requestUri === "/payments/webhook" && $requestMethod === "POST") {
     (new \Src\Controllers\PaymentController())->webhook();
+}
+
+// Rotas de Administração
+if ($requestUri === "/admin/dashboard" && $requestMethod === "GET") {
+    (new \Src\Controllers\AdminController())->dashboard();
 }
 
 // Fallback: Caso nenhuma rota acima coincida, retorna erro 404

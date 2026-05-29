@@ -73,9 +73,17 @@ class UserController extends Controller
             // Em uma implementação real, usaríamos um PHPMailer ou serviço de e-mail aqui.
             $this->sendVerificationEmail($email, $token);
 
+            $user = $this->userService->findByEmail($email);
+
             Response::success([
-                "message" => "Usuário cadastrado com sucesso! Verifique seu e-mail para confirmar a conta.",
-                "email" => $email
+                "message" => "Usuário cadastrado com sucesso!",
+                "user" => [
+                    "id"    => $user['id'],
+                    "nome"  => $user['nome'],
+                    "email" => $user['email'],
+                    "role"  => $user['role'] ?? UserRole::CLIENT,
+                    "first_access" => $user['first_access'] ?? true
+                ]
             ], 201);
         }
         else {
@@ -120,11 +128,53 @@ class UserController extends Controller
                     "id"    => $user['id'],
                     "nome"  => $user['nome'],
                     "email" => $user['email'],
-                    "role"  => $user['role'] ?? UserRole::CLIENT
+                    "role"  => $user['role'] ?? UserRole::CLIENT,
+                    "first_access" => $user['first_access'] ?? true
                 ]
             ]);
         } else {
             Response::error("E-mail ou senha incorretos", 401);
+        }
+    }
+    
+    public function me()
+    {
+        // Aceita user_id via payload ou querystring
+        $userId = $_GET['user_id'] ?? null;
+        if (!$userId) {
+            $input = json_decode(file_get_contents("php://input"), true);
+            $userId = $input['user_id'] ?? null;
+        }
+
+        if (!$userId) {
+            Response::error("user_id é obrigatório", 400);
+        }
+
+        $user = $this->userService->findById($userId);
+        
+        if ($user) {
+            Response::success(["user" => $user]);
+        } else {
+            Response::error("Usuário não encontrado", 404);
+        }
+    }
+    
+    public function updateFirstAccess()
+    {
+        $input = json_decode(file_get_contents("php://input"), true);
+        $userId = $input['user_id'] ?? null;
+        
+        if (!$userId) {
+            Response::error("user_id é obrigatório", 400);
+        }
+        
+        // Seta como false para marcar que o onboarding acabou
+        $success = $this->userService->updateFirstAccess($userId, false);
+        
+        if ($success) {
+            Response::success(["message" => "Primeiro acesso atualizado"]);
+        } else {
+            Response::error("Erro ao atualizar status", 500);
         }
     }
 
