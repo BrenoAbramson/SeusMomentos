@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 2. Carregar dados do Painel Administrativo
     async function loadAdminData() {
         try {
-            const res = await fetch(`${window.API_BASE_URL}/admin/dashboard?user_id=${userId}`);
+            const res = await fetch(`http://127.0.0.1:8080/admin/dashboard?user_id=${userId}`);
             
             if (res.status === 403 || res.status === 401) {
                 mostrarAlerta('Acesso negado pelo servidor.', 'erro');
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             let acoesHtml = '<span style="color:#94A3B8; font-style:italic;">Não criado</span>';
             if (user.event_slug) {
                 const basePath = window.location.pathname.substring(0, window.location.pathname.indexOf('/pages/admin/'));
-                const urlCompleta = window.location.origin + basePath + '/pages/public/index.html?' + user.event_slug;
+                const urlCompleta = window.location.origin + basePath + '/pages/public/index.php?' + user.event_slug;
                 acoesHtml = `<a href="${urlCompleta}" target="_blank" class="action-link">Ver Site ↗</a>`;
             }
 

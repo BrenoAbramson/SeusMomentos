@@ -50,19 +50,19 @@ async function inicializarDadosEventos() {
   try {
     if (eventSlug) {
       // Modo Convidado Público
-      const res = await fetch(`${window.API_BASE_URL}/events/${encodeURIComponent(eventSlug)}`);
+      const res = await fetch(`http://127.0.0.1:8080/events/${encodeURIComponent(eventSlug)}`);
       const data = await res.json();
       if (data.status === 'success') {
         renderEvent(data.data.event);
       }
     } else if (eventId) {
       // Modo Preview do Editor
-      const res = await fetch(`${window.API_BASE_URL}/events?user_id=${userId}`);
+      const res = await fetch(`http://127.0.0.1:8080/events?user_id=${userId}`);
       const data = await res.json();
       if (data.status === 'success') {
         const evento = data.data.events.find(e => e.id == eventId);
         if (evento) {
-          const resDetalhe = await fetch(`${window.API_BASE_URL}/events/${evento.slug}`);
+          const resDetalhe = await fetch(`http://127.0.0.1:8080/events/${evento.slug}`);
           const dataDetalhe = await resDetalhe.json();
           if (dataDetalhe.status === 'success') {
             renderEvent(dataDetalhe.data.event);
@@ -159,7 +159,7 @@ if (rsvpForm) {
       return;
     }
 
-    fetch(`${window.API_BASE_URL}/guests`, {
+    fetch('http://127.0.0.1:8080/guests', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)

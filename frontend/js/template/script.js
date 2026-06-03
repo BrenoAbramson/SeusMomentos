@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Inicializa carregando o evento do banco (se não vier na URL, busca o último do usuário)
     async function loadData() {
         try {
-            let fetchUrl = `${window.API_BASE_URL}/events?user_id=${userId}`;
+            let fetchUrl = `http://127.0.0.1:8080/events?user_id=${userId}`;
             const res = await fetch(fetchUrl);
             const data = await res.json();
             
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 iframePreview.src = `${templateFile}?event_id=${eventId}&preview=true`;
 
                 // Precisamos buscar os detalhes via slug para pegar as customizações
-                const resDetalhe = await fetch(`${window.API_BASE_URL}/events/${eventSlug}`);
+                const resDetalhe = await fetch(`http://127.0.0.1:8080/events/${eventSlug}`);
                 const dataDetalhe = await resDetalhe.json();
 
                 if (dataDetalhe.status === 'success') {
@@ -241,7 +241,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         btnSave.innerText = "Salvando...";
 
         try {
-            const res = await fetch(`${window.API_BASE_URL}/events/${eventSlug}/customizations`, {
+            const res = await fetch(`http://127.0.0.1:8080/events/${eventSlug}/customizations`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)

@@ -1,8 +1,0 @@
-RewriteEngine On
-
-# Impedir que o Apache tente servir arquivos ou pastas físicas que não existem
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-
-# Redirecionar todas as outras requisições para o index.php do roteador
-RewriteRule ^ index.php [QSA,L]

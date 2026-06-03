@@ -28,14 +28,6 @@ class EventController extends Controller
             Response::error("Campos obrigatórios ausentes (user_id, event_type, people)", 400);
         }
 
-        if ($date) {
-            date_default_timezone_set('America/Sao_Paulo');
-            $tomorrow = date('Y-m-d', strtotime('+1 day'));
-            if ($date <= $tomorrow) {
-                Response::error("A data do casamento deve ser posterior ao dia de amanhã.", 400);
-            }
-        }
-
         $plan = $input['plan'] ?? 'free';
         $customSlug = $input['slug'] ?? null;
 

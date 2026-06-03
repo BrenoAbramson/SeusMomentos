@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         expiredContent.style.display = 'block'; // Mostra mensagem de erro central
     } else {
         // Verificar se o token expirou via Backend
-        fetch(`${window.API_BASE_URL}/auth/reset-password/validate?email=${encodeURIComponent(initialEmail)}&token=${initialToken}`)
+        fetch(`http://127.0.0.1:8080/auth/reset-password/validate?email=${encodeURIComponent(initialEmail)}&token=${initialToken}`)
             .then(async response => {
                 if (response.ok) {
                     // TOKEN VÁLIDO: Mostra o formulário
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 3. Chamada de rede real
         try {
-            const response = await fetch(`${window.API_BASE_URL}/auth/reset-password/update`, {
+            const response = await fetch("http://127.0.0.1:8080/auth/reset-password/update", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
