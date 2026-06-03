@@ -193,7 +193,7 @@ function renderEvent(event) {
   const btnCeremonyMaps = document.getElementById('btnCeremonyMaps');
 
   if (ceremonyAddress) {
-    ceremonyAddress.innerText = customStyles.ceremony_address || 'Vale della Libertà, 12, Pienza';
+    ceremonyAddress.innerText = customStyles.ceremony_address || event.location || 'Vale della Libertà, 12, Pienza';
   }
   if (ceremonyDetails) {
     ceremonyDetails.innerText = customStyles.ceremony_details || 'Às quatro horas da tarde na Capela de Santa Maria. Uma troca íntima de votos seguida por uma procissão de pétalas de rosa.';
