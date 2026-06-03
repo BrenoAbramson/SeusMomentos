@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <script src="/js/config.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convites & Mensagens - Seus Momentos</title>
+    <link rel="stylesheet" href="../../css/dashboard/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Cinzel:wght@400;600;700&family=Montserrat:wght@200;300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        .convites-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .convite-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            border: 1px solid #E2E8F0;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .convite-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .convite-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #F1F5F9;
+            padding-bottom: 12px;
+        }
+
+        .envelope-icon {
+            font-size: 24px;
+            background: #EBF8FA;
+            color: #149CB8;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .convite-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+        }
+
+        .convite-meta h3 {
+            font-size: 16px;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: #0F172A;
+            margin: 0;
+        }
+
+        .convite-meta span {
+            font-size: 12px;
+            color: #64748B;
+        }
+
+        .badge-design {
+            font-size: 11px;
+            font-weight: 700;
+            background: #F1F5F9;
+            color: #475569;
+            padding: 4px 10px;
+            border-radius: 20px;
+            align-self: flex-start;
+        }
+
+        .badge-design.classic {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .badge-design.modern {
+            background: #E0F2FE;
+            color: #0369A1;
+        }
+
+        .badge-design.vintage {
+            background: #F3E8FF;
+            color: #7E22CE;
+        }
+
+        .convite-body {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #475569;
+            font-style: italic;
+            background: #F8FAFC;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #F1F5F9;
+            flex: 1;
+        }
+
+        .convite-footer {
+            font-size: 11px;
+            color: #94A3B8;
+            text-align: right;
+            border-top: 1px solid #F8FAFC;
+            padding-top: 8px;
+        }
+
+        /* Estilos dos Convites igual aos modelos */
+        .convite-container-wrapper {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            border: 1px solid #E2E8F0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .convite-container-wrapper:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .convite-card-footer {
+            padding: 16px 20px;
+            border-top: 1px solid #F1F5F9;
+            background-color: #FCFAFA;
+        }
+
+        .convite-card-footer h3 {
+            font-size: 15px;
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            color: #0F172A;
+            margin: 0 0 4px 0;
+        }
+
+        .convite-card-footer span {
+            font-size: 12px;
+            color: #64748B;
+            display: block;
+        }
+
+        .invitation-preview-container {
+            border-radius: 12px 12px 0 0;
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .invitation-card-style {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .couple-names-display {
+            font-weight: 600;
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        .guest-message-display {
+            width: 85%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            font-style: italic;
+            opacity: 0.9;
+            margin: 8px 0;
+        }
+
+        /* CLASSIC STYLE */
+        .classic-style {
+            background-color: #fdfbf7;
+            border: 8px double #e5d8cc;
+            color: #5a453e;
+        }
+
+        .classic-style .floral-frame {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.25;
+        }
+
+        .classic-style .border-top-left {
+            top: 6px;
+            left: 6px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%238c5a44"><path d="M10,90 Q10,10 90,10 Q50,50 10,90 Z M40,20 Q20,20 20,40 Q30,30 40,20 Z"/></svg>');
+        }
+
+        .classic-style .border-top-right {
+            top: 6px;
+            right: 6px;
+            transform: rotate(90deg);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%238c5a44"><path d="M10,90 Q10,10 90,10 Q50,50 10,90 Z M40,20 Q20,20 20,40 Q30,30 40,20 Z"/></svg>');
+        }
+
+        .classic-style .border-bottom-left {
+            bottom: 6px;
+            left: 6px;
+            transform: rotate(-90deg);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%238c5a44"><path d="M10,90 Q10,10 90,10 Q50,50 10,90 Z M40,20 Q20,20 20,40 Q30,30 40,20 Z"/></svg>');
+        }
+
+        .classic-style .border-bottom-right {
+            bottom: 6px;
+            right: 6px;
+            transform: rotate(180deg);
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%238c5a44"><path d="M10,90 Q10,10 90,10 Q50,50 10,90 Z M40,20 Q20,20 20,40 Q30,30 40,20 Z"/></svg>');
+        }
+
+        .classic-style .card-tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #8c7063;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .classic-style .couple-names-display {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            color: #3e2d27;
+        }
+
+        .classic-style .classic-divider {
+            font-size: 14px;
+            color: #8c5a44;
+            margin-bottom: 8px;
+        }
+
+        .classic-style .guest-message-display {
+            font-family: 'Dancing Script', cursive;
+            font-size: 16px;
+            color: #5a453e;
+            line-height: 1.3;
+        }
+
+        .classic-style .card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #8c7063;
+            margin-top: 6px;
+        }
+
+        /* MODERN STYLE */
+        .modern-style {
+            background: radial-gradient(circle at center, #3d2d26 0%, #1e1411 100%);
+            color: #f1ebe6;
+            border: 1px solid #7c6255;
+        }
+
+        .modern-style .geometric-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(229, 216, 204, 0.15);
+            pointer-events: none;
+        }
+
+        .modern-style .geometric-overlay::after {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            bottom: 4px;
+            border: 1px solid rgba(229, 216, 204, 0.08);
+        }
+
+        .modern-style .modern-header {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .modern-style .modern-dot {
+            width: 3px;
+            height: 3px;
+            background-color: #d1bba6;
+            border-radius: 50%;
+        }
+
+        .modern-style .modern-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 7px;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            color: #d1bba6;
+        }
+
+        .modern-style .couple-names-display {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            letter-spacing: 0.05em;
+            color: #fff;
+        }
+
+        .modern-style .modern-line {
+            width: 30px;
+            height: 1px;
+            background-color: #d1bba6;
+            margin: 10px 0;
+        }
+
+        .modern-style .guest-message-display {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 11px;
+            font-weight: 300;
+            line-height: 1.5;
+            color: #ede5e2;
+        }
+
+        .modern-style .modern-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            padding-top: 8px;
+            border-top: 1px solid rgba(209, 187, 166, 0.15);
+            margin-top: 6px;
+        }
+
+        .modern-style .modern-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: #d1bba6;
+        }
+
+        .modern-style .rsvp-status-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 7px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #fff;
+            background-color: #149CB8;
+            padding: 2px 6px;
+            border-radius: 2px;
+        }
+
+        /* MINIMAL STYLE */
+        .minimal-style {
+            background-color: #ffffff;
+            color: #2c2523;
+        }
+
+        .minimal-style .minimal-border {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            right: 12px;
+            bottom: 12px;
+            border: 1px solid #eae5e2;
+        }
+
+        .minimal-style .minimal-serif {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            color: #e5d8cc;
+            margin-bottom: 4px;
+            font-weight: 300;
+        }
+
+        .minimal-style .couple-names-display {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #2c2523;
+        }
+
+        .minimal-style .guest-message-display {
+            font-family: 'Dancing Script', cursive;
+            font-size: 16px;
+            color: #6f5d59;
+            line-height: 1.4;
+        }
+
+        .minimal-style .minimal-date-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 70%;
+            margin-top: 6px;
+        }
+
+        .minimal-style .minimal-date-box .line {
+            flex-grow: 1;
+            height: 1px;
+            background-color: #eae5e2;
+        }
+
+        .minimal-style .minimal-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 8px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #9b8782;
+            white-space: nowrap;
+        }
+
+        .minimal-style .minimal-footer {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 7px;
+            letter-spacing: 0.05em;
+            color: #c0b3af;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body class="is-loading">
+
+    <!-- Sidebar / Menu Lateral -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <img src="../../assets/login/coraçao.png" alt="Logo" onerror="this.style.display='none'">
+            <span>Seus Momentos</span>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a href="../dashboard/index.html">Visão Geral</a>
+            <a href="../template/index.html" id="linkEditarTemplate">Editar Site</a>
+            <a href="../presentes/index.html">Lista de Presentes</a>
+            <a href="#" class="active">Convites</a>
+            <button class="btn-create" id="btnCriarNovoEvento">+ Novo Evento</button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="../../index.html" class="logout-link">Sair</a>
+        </div>
+    </aside>
+
+    <!-- Conteúdo Principal -->
+    <main class="main-content">
+        <header class="top-header">
+            <div>
+                <h1 id="eventoTitulo" class="skeleton-target">Carregando convites...</h1>
+                <p class="skeleton-target">Veja todos os convites selecionados pelos convidados e as mensagens gravadas
+                    neles.</p>
+            </div>
+        </header>
+
+        <!-- Seção Grid de Convites -->
+        <section class="convites-section">
+            <div class="convites-grid" id="convitesGrid">
+                <!-- Skeletons de Carregamento -->
+                <div class="convite-card" style="pointer-events: none;">
+                    <div style="display:flex; gap:12px; align-items:center;">
+                        <span class="skeleton" style="width: 44px; height: 44px; border-radius:10px;"></span>
+                        <div style="flex:1;">
+                            <span class="skeleton" style="width: 120px; height: 16px; display:block;"></span>
+                            <span class="skeleton"
+                                style="width: 80px; height: 12px; display:block; margin-top:4px;"></span>
+                        </div>
+                    </div>
+                    <span class="skeleton"
+                        style="width: 90px; height: 20px; border-radius:20px; margin-top:8px;"></span>
+                    <div class="skeleton" style="width: 100%; height: 80px; border-radius:12px; margin-top:8px;"></div>
+                </div>
+                <div class="convite-card" style="pointer-events: none;">
+                    <div style="display:flex; gap:12px; align-items:center;">
+                        <span class="skeleton" style="width: 44px; height: 44px; border-radius:10px;"></span>
+                        <div style="flex:1;">
+                            <span class="skeleton" style="width: 150px; height: 16px; display:block;"></span>
+                            <span class="skeleton"
+                                style="width: 100px; height: 12px; display:block; margin-top:4px;"></span>
+                        </div>
+                    </div>
+                    <span class="skeleton"
+                        style="width: 90px; height: 20px; border-radius:20px; margin-top:8px;"></span>
+                    <div class="skeleton" style="width: 100%; height: 80px; border-radius:12px; margin-top:8px;"></div>
+                </div>
+                <div class="convite-card" style="pointer-events: none;">
+                    <div style="display:flex; gap:12px; align-items:center;">
+                        <span class="skeleton" style="width: 44px; height: 44px; border-radius:10px;"></span>
+                        <div style="flex:1;">
+                            <span class="skeleton" style="width: 130px; height: 16px; display:block;"></span>
+                            <span class="skeleton"
+                                style="width: 90px; height: 12px; display:block; margin-top:4px;"></span>
+                        </div>
+                    </div>
+                    <span class="skeleton"
+                        style="width: 90px; height: 20px; border-radius:20px; margin-top:8px;"></span>
+                    <div class="skeleton" style="width: 100%; height: 80px; border-radius:12px; margin-top:8px;"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Alerta -->
+    <div id="alerta" class="alerta">
+        <div id="alerta-icone" class="alerta-icone"></div>
+        <div id="alerta-texto" class="alerta-texto"></div>
+    </div>
+
+    <!-- Modal de Manutenção -->
+    <div id="modalManutencao"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); align-items:center; justify-content:center; z-index:10000;">
+        <div
+            style="background:#FFFFFF; border-radius:16px; width:90%; max-width:400px; box-shadow:0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); overflow:hidden; display:flex; flex-direction:column;">
+            <div
+                style="display:flex; justify-content:space-between; align-items:center; padding:16px 24px; border-bottom:1px solid #E2E8F0; background:#F8FAFC;">
+                <h3 style="margin:0; font-size:16px; font-weight:700; color:#0F172A; font-family:'Manrope',sans-serif;">
+                    Aviso do Sistema</h3>
+                <button id="btnFecharManutencao"
+                    style="background:none; border:none; font-size:20px; cursor:pointer; color:#64748B; font-weight:700; display:flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:50%; transition:0.2s;">&times;</button>
+            </div>
+            <div
+                style="padding:24px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px;">
+                <div style="font-size:40px;">🛠️</div>
+                <h4 id="nomeRecurso"
+                    style="margin:0; font-size:18px; font-weight:700; color:#0F172A; font-family:'Playfair Display',serif;">
+                    Recurso em Desenvolvimento</h4>
+                <p style="margin:0; font-size:14px; line-height:1.6; color:#64748B; font-family:'Manrope',sans-serif;">
+                    Esta funcionalidade está em desenvolvimento ou em manutenção temporária. Por favor, tente novamente
+                    mais tarde.</p>
+                <button id="btnOkManutencao"
+                    style="margin-top:8px; width:100%; padding:12px; background:#149CB8; color:white; border:none; border-radius:8px; font-weight:700; cursor:pointer; transition:0.2s; font-family:'Manrope',sans-serif;">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../js/convites/script.js"></script>
+</body>
+
+</html>

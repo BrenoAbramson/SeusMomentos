@@ -1,0 +1,253 @@
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ font-family:'Manrope', sans-serif; background:#F8FAFC; display:flex; min-height:100vh; color:#0F172A; }
+
+/* Sidebar */
+.sidebar{ width:260px; background:#FFFFFF; border-right:1px solid #E2E8F0; display:flex; flex-direction:column; padding:24px; position:fixed; height:100vh; }
+.sidebar-logo{ display:flex; align-items:center; gap:12px; margin-bottom:40px; }
+.sidebar-logo img{ width:24px; height:24px; }
+.sidebar-logo span{ font-family:'Playfair Display', serif; font-weight:700; font-size:20px; }
+
+.sidebar-nav{ display:flex; flex-direction:column; gap:8px; flex:1; }
+.sidebar-nav a{ text-decoration:none; color:#64748B; font-weight:500; padding:12px 16px; border-radius:8px; transition:all 0.2s; }
+.sidebar-nav a:hover{ background:#F1F5F9; color:#0F172A; }
+.sidebar-nav a.active{ background:#149CB8; color:white; }
+
+.btn-create{ margin-top:24px; background:none; border:2px dashed #CBD5E1; color:#64748B; font-weight:700; padding:12px; border-radius:8px; cursor:pointer; transition:0.2s; }
+.btn-create:hover{ border-color:#149CB8; color:#149CB8; }
+
+.sidebar-footer{ margin-top:auto; padding-top:20px; border-top:1px solid #E2E8F0; }
+.logout-link{ color:#EF4444; text-decoration:none; font-weight:700; font-size:14px; display:block; padding:8px 0;}
+
+/* Main Content */
+.main-content{ margin-left:260px; padding:40px; width:calc(100% - 260px); }
+
+/* Header */
+.top-header{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; }
+.top-header h1{ font-family:'Playfair Display', serif; font-size:32px; margin-bottom:8px; }
+.top-header p{ color:#64748B; font-size:14px; }
+.top-header a{ color:#149CB8; text-decoration:none; font-weight:700; }
+
+.btn-share{ background:#149CB8; color:white; border:none; padding:12px 24px; border-radius:8px; font-weight:700; cursor:pointer; transition:0.2s; box-shadow:0 4px 6px -1px rgba(20,156,184,0.2); }
+.btn-share:hover{ background:#10829A; }
+
+/* Stats Grid */
+.stats-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:24px; margin-bottom:40px; }
+.stat-card{ background:white; padding:24px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); border:1px solid #F1F5F9; }
+.stat-card h3{ font-size:13px; text-transform:uppercase; color:#64748B; letter-spacing:0.5px; margin-bottom:12px; }
+.stat-value{ font-size:36px; font-weight:700; color:#0F172A; }
+.stat-card.destaque{ background:linear-gradient(135deg, #149CB8 0%, #0F768C 100%); color:white; border:none; }
+.stat-card.destaque h3, .stat-card.destaque .stat-value{ color:white; }
+
+/* Guests Section */
+.guests-section{ background:white; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); padding:24px; }
+.section-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+.section-header h2{ font-size:20px; font-family:'Playfair Display', serif; }
+.section-header input{ padding:10px 16px; border:1px solid #E2E8F0; border-radius:8px; width:260px; outline:none; }
+.section-header input:focus{ border-color:#149CB8; }
+
+.table-container{ overflow-x:auto; }
+.guests-table{ width:100%; border-collapse:collapse; text-align:left; }
+.guests-table th{ padding:16px; font-size:12px; text-transform:uppercase; color:#64748B; border-bottom:2px solid #F1F5F9; }
+.guests-table td{ padding:16px; border-bottom:1px solid #F1F5F9; font-size:14px; vertical-align:middle; }
+
+/* Badges */
+.badge{ padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700; }
+.badge.success{ background:#DCFCE7; color:#15803D; }
+.badge.pending{ background:#FEF3C7; color:#B45309; }
+.badge.danger{ background:#FEE2E2; color:#B91C1C; }
+
+/* Alerta */
+.alerta{ position:fixed; top:20px; right:20px; background:white; padding:16px 20px; border-radius:8px; display:flex; align-items:center; gap:12px; box-shadow:0 10px 25px rgba(0,0,0,0.15); min-width:320px; opacity:0; transform:translateX(120px); transition:all .4s ease; z-index:10001; }
+.alerta.show{ opacity:1; transform:translateX(0); }
+.alerta.sucesso{ border-bottom:4px solid #22c55e; }
+.alerta.erro{ border-bottom:4px solid #ef4444; }
+
+/* ==========================================================================
+   SKELETON LOADERS
+   ========================================================================== */
+.skeleton {
+  display: inline-block;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.06) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite linear;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Skeleton Target (para elementos estáticos durante carregamento) */
+.is-loading .skeleton-target {
+  color: transparent !important;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.06) 75%) !important;
+  background-size: 200% 100% !important;
+  animation: skeleton-loading 1.5s infinite linear !important;
+  border-radius: 6px !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Ocultar filhos de elementos complexos em carregamento */
+.is-loading .skeleton-target * {
+  visibility: hidden !important;
+}
+
+/* Mantém as dimensões de botões e cards grandes com o shimmer correspondente */
+.is-loading .stat-card.skeleton-target,
+.is-loading button.skeleton-target {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.06) 75%) !important;
+  background-size: 200% 100% !important;
+}
+
+/* Botão secundário de resgate */
+.btn-rescue {
+  background: #FFFFFF;
+  color: #149CB8;
+  border: 2px solid #149CB8;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-right: 12px;
+  box-shadow: 0 2px 4px rgba(20,156,184,0.05);
+}
+.btn-rescue:hover {
+  background: #e6f5f8;
+}
+
+/* Indicativo visual para as linhas clicáveis de convidados */
+.guests-table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.guests-table tbody tr:hover {
+  background-color: #F8FAFC;
+}
+
+/* Popups e Modais Generificados do Dashboard */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+.modal-content {
+  background: #FFFFFF;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 480px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: modalScaleIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalScaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  border-bottom: 1px solid #E2E8F0;
+  background: #F8FAFC;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #64748B;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  transition: 0.2s;
+}
+
+.modal-close-btn:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+}
+
+.modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Formulário de Resgate Pix */
+.pix-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.pix-form-group label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #149CB8;
+  letter-spacing: 0.05em;
+}
+
+.pix-form-group input,
+.pix-form-group select {
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #0F172A;
+  outline: none;
+  font-family: inherit;
+  transition: 0.2s;
+}
+
+.pix-form-group input:focus,
+.pix-form-group select:focus {
+  border-color: #149CB8;
+  box-shadow: 0 0 0 3px rgba(20, 156, 184, 0.08);
+}
+
+

@@ -1,0 +1,142 @@
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ font-family:'Manrope', sans-serif; background:#F8FAFC; display:flex; min-height:100vh; color:#0F172A; }
+
+/* Sidebar */
+.sidebar{ width:260px; background:#FFFFFF; border-right:1px solid #E2E8F0; display:flex; flex-direction:column; padding:24px; position:fixed; height:100vh; }
+.sidebar-logo{ display:flex; align-items:center; gap:12px; margin-bottom:40px; }
+.sidebar-logo img{ width:24px; height:24px; }
+.sidebar-logo span{ font-family:'Playfair Display', serif; font-weight:700; font-size:20px; }
+
+.sidebar-nav{ display:flex; flex-direction:column; gap:8px; flex:1; }
+.sidebar-nav a{ text-decoration:none; color:#64748B; font-weight:500; padding:12px 16px; border-radius:8px; transition:all 0.2s; }
+.sidebar-nav a:hover{ background:#F1F5F9; color:#0F172A; }
+.sidebar-nav a.active{ background:#149CB8; color:white; }
+
+.sidebar-footer{ margin-top:auto; padding-top:20px; border-top:1px solid #E2E8F0; }
+.logout-link{ color:#EF4444; text-decoration:none; font-weight:700; font-size:14px; display:block; padding:8px 0; cursor:pointer; }
+
+/* Main Content */
+.main-content{ margin-left:260px; padding:40px; width:calc(100% - 260px); }
+
+/* Header */
+.top-header{ display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:40px; }
+.top-header h1{ font-family:'Playfair Display', serif; font-size:32px; margin-bottom:8px; }
+.top-header p{ color:#64748B; font-size:14px; }
+
+/* Stats Grid */
+.stats-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; margin-bottom:40px; }
+@media (max-width: 900px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: 1fr; }
+}
+.stat-card{ background:white; padding:24px; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); border:1px solid #F1F5F9; }
+.stat-card h3{ font-size:13px; text-transform:uppercase; color:#64748B; letter-spacing:0.5px; margin-bottom:12px; }
+.stat-value{ font-size:36px; font-weight:700; color:#0F172A; }
+.stat-card.destaque{ background:linear-gradient(135deg, #149CB8 0%, #0F768C 100%); color:white; border:none; }
+.stat-card.destaque h3, .stat-card.destaque .stat-value{ color:white; }
+
+/* Users Section */
+.users-section{ background:white; border-radius:16px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); padding:24px; }
+.section-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; }
+.section-header h2{ font-size:20px; font-family:'Playfair Display', serif; }
+.section-header input{ padding:10px 16px; border:1px solid #E2E8F0; border-radius:8px; width:280px; outline:none; }
+.section-header input:focus{ border-color:#149CB8; }
+
+.table-container{ overflow-x:auto; }
+.users-table{ width:100%; border-collapse:collapse; text-align:left; }
+.users-table th{ padding:16px; font-size:12px; text-transform:uppercase; color:#64748B; border-bottom:2px solid #F1F5F9; }
+.users-table td{ padding:16px; border-bottom:1px solid #F1F5F9; font-size:14px; vertical-align:middle; }
+
+/* Badges */
+.badge{ padding:6px 12px; border-radius:20px; font-size:12px; font-weight:700; }
+.badge.success{ background:#DCFCE7; color:#15803D; }
+.badge.pending{ background:#FEF3C7; color:#B45309; }
+.badge.danger{ background:#FEE2E2; color:#B91C1C; }
+
+/* Alerta */
+.alerta{ position:fixed; top:20px; right:20px; background:white; padding:16px 20px; border-radius:8px; display:flex; align-items:center; gap:12px; box-shadow:0 10px 25px rgba(0,0,0,0.15); min-width:320px; opacity:0; transform:translateX(120px); transition:all .4s ease; z-index:10001; }
+.alerta.show{ opacity:1; transform:translateX(0); }
+.alerta.sucesso{ border-bottom:4px solid #22c55e; }
+.alerta.erro{ border-bottom:4px solid #ef4444; }
+
+/* Action Links */
+.action-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #149CB8;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.2s;
+}
+.action-link:hover {
+  color: #10829A;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   SKELETON LOADERS
+   ========================================================================== */
+.skeleton {
+  display: inline-block;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.06) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite linear;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Skeleton Target (para elementos estáticos durante carregamento) */
+.is-loading .skeleton-target {
+  color: transparent !important;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.06) 75%) !important;
+  background-size: 200% 100% !important;
+  border-radius: 6px !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Ocultar filhos de elementos complexos em carregamento */
+.is-loading .skeleton-target * {
+  visibility: hidden !important;
+}
+
+/* Mantém as dimensões de botões e cards grandes com o shimmer correspondente */
+.is-loading .stat-card.skeleton-target {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.06) 75%) !important;
+  background-size: 200% 100% !important;
+}
+
+.users-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+.users-table tbody tr:hover {
+  background-color: #F8FAFC;
+}
+
+/* Utilitário para ocultar elementos (sistema de abas) */
+.hidden {
+  display: none !important;
+}
+
+/* Estilos adicionais para botões de período nos gráficos */
+.btn-periodo.active {
+  background: #149CB8 !important;
+  color: white !important;
+  border-color: #149CB8 !important;
+}
+.btn-periodo:hover:not(.active) {
+  background: #F1F5F9 !important;
+}

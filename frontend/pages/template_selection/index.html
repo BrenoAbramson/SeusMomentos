@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <script src="/js/config.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escolha seu Template - Seus Momentos</title>
+  <meta name="description" content="Selecione o modelo perfeito para o seu evento especial e comece a personalizar agora mesmo.">
+  
+  <link rel="stylesheet" href="../../css/template_selection/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <!-- Alerta do Sistema -->
+  <div id="alerta" class="alerta" role="alert">
+    <div id="alerta-icone" class="alerta-icone"></div>
+    <div id="alerta-texto" class="alerta-texto"></div>
+  </div>
+
+  <div class="page-layout">
+    
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">
+          <img src="../../assets/login/coraçao.png" alt="Logo" onerror="this.style.display='none'">
+        </div>
+        <span class="logo-text">Seus Momentos</span>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="selection-container">
+        
+        <div class="selection-header">
+          <h1 class="selection-title">Escolha o seu Template</h1>
+          <p class="selection-subtitle">Selecione o modelo perfeito para começar a dar vida ao seu evento.</p>
+        </div>
+
+        <!-- Grid de Templates -->
+        <div class="templates-grid" id="templatesGrid">
+          
+          <!-- Template Casamento Classic Card (Semantico) -->
+          <article class="template-card" id="cardCasamentoClassic">
+            <div class="card-badge">Popular</div>
+            <div class="card-image-wrapper">
+              <img src="../../assets/casamento/Casamento-em-sitios-11 1.png" alt="Prévia do Template Casamento Classic" class="template-img">
+              <div class="card-overlay">
+                <span class="overlay-text">Visualização Clássica</span>
+              </div>
+            </div>
+            <div class="card-content">
+              <h2 class="template-name">Casamento Classic</h2>
+              <p class="template-description">Um design sofisticado com tipografia elegante e elementos florais sutis, perfeito para casamentos ao ar livre ou tradicionais.</p>
+              
+              <div class="card-actions">
+                <a href="../template/casamento.html" target="_blank" class="btn-secondary" id="btnVisualizarCasamento" rel="noopener noreferrer">
+                  Visualizar
+                </a>
+                <button type="button" class="btn-primary" id="btnEscolherCasamento">
+                  Escolher Template
+                </button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2026 SEUS MOMENTOS • GESTÃO DE CASAMENTOS</p>
+    </footer>
+
+  </div>
+
+  <script src="../../js/template_selection/script.js"></script>
+</body>
+</html>

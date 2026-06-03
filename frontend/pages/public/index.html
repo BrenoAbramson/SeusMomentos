@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/config.js"></script>
+    <title>Carregando Evento...</title>
+</head>
+<body>
+    <div id="app" style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Manrope', sans-serif; color: #666;">
+        Carregando o seu evento especial...
+    </div>
+    
+    <script>
+        async function init() {
+            // Pegar o slug da URL
+            let slug = window.location.search.substring(1);
+            slug = decodeURIComponent(slug);
+            if (slug.startsWith('evento=')) {
+                slug = slug.substring(7);
+            }
+            if (!slug) {
+                document.getElementById('app').innerText = "Evento não encontrado.";
+                return;
+            }
+
+            try {
+                // 1. Chamar a API do Backend no Render
+                const response = await fetch(`${window.API_BASE_URL}/events/${encodeURIComponent(slug)}`);
+                if (!response.ok) {
+                    document.getElementById('app').innerText = "Evento não encontrado ou erro de conexão.";
+                    return;
+                }
+                const data = await response.json();
+                if (data.status !== 'success') {
+                    document.getElementById('app').innerText = "Evento não encontrado.";
+                    return;
+                }
+
+                const event = data.data.event;
+                const customizations = event.customizations || {};
+                const eventType = event.event_type;
+
+                // 2. Definir e buscar o template
+                const templateFile = eventType === 'casamento' ? 'casamento_modelo.html' : '15anos_modelo.html';
+                const templateResponse = await fetch(`../template/${templateFile}`);
+                if (!templateResponse.ok) {
+                    document.getElementById('app').innerText = "Template do evento não encontrado.";
+                    return;
+                }
+                let html = await templateResponse.text();
+
+                // 3. Funções Auxiliares de Formatação
+                function formatarDataPorExtenso(dateStr) {
+                    if (!dateStr) return "";
+                    // dateStr: YYYY-MM-DD
+                    const parts = dateStr.split('-');
+                    const date = new Date(parts[0], parts[1] - 1, parts[2]);
+                    const dia = date.getDate().toString().padStart(2, '0');
+                    const ano = date.getFullYear();
+                    const meses = [
+                        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+                    ];
+                    const mesNome = meses[date.getMonth()];
+                    return `${dia} de ${mesNome} de ${ano}`;
+                }
+
+                // 4. Formatar dados e substituir placeholders
+                let defaultTitle = "";
+                if (event.people && Array.isArray(event.people)) {
+                    defaultTitle = event.people.map(p => p.name).join(" & ");
+                }
+                const title = customizations.main_title || defaultTitle;
+
+                // Iniciais do logo
+                let initials = "";
+                if (event.people && Array.isArray(event.people) && event.people.length > 0) {
+                    initials = event.people.map(p => p.name.trim().substring(0, 1).toUpperCase()).join("&");
+                } else {
+                    const cleanTitle = title.replace(/ e | & | and /gi, '&');
+                    initials = cleanTitle.split('&').map(pt => pt.trim().substring(0, 1).toUpperCase()).join('&');
+                }
+                if (!initials) initials = "R&L";
+
+                const defaultMsg = eventType === 'casamento'
+                    ? "Tudo começou com um amor compartilhado por discos de vinil antigos e cafés em tardes chuvosas."
+                    : "Convido você para uma noite de gala e encanto, onde celebraremos a transição e a beleza dos 15 anos.";
+                const message = customizations.custom_message || defaultMsg;
+
+                const defaultBg = eventType === 'casamento'
+                    ? "../../assets/casamento/paisagem.png"
+                    : "../../assets/15anos/rose-gold-hero.jpg";
+                const bgUrl = customizations.background_image || defaultBg;
+
+                const eventDate = event.event_date ? formatarDataPorExtenso(event.event_date) : 'Data a definir';
+                const location = event.location || 'Local a definir';
+
+                // Calcular prazo de RSVP (30 dias antes)
+                let deadlineFmt = "30 dias antes do evento";
+                if (event.event_date) {
+                    const parts = event.event_date.split('-');
+                    const eventDateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+                    eventDateObj.setDate(eventDateObj.getDate() - 30);
+                    const y = eventDateObj.getFullYear();
+                    const m = (eventDateObj.getMonth() + 1).toString().padStart(2, '0');
+                    const d = eventDateObj.getDate().toString().padStart(2, '0');
+                    deadlineFmt = formatarDataPorExtenso(`${y}-${m}-${d}`);
+                }
+
+                // Injetar os placeholders no HTML do template
+                html = html.replaceAll('{{TITLE}}', title);
+                html = html.replaceAll('{{INITIALS}}', initials);
+                html = html.replaceAll('{{DATE}}', eventDate);
+                html = html.replaceAll('{{LOCATION}}', location);
+                html = html.replaceAll('{{HISTORY_TEXT}}', message);
+                html = html.replaceAll('{{MESSAGE}}', message);
+                html = html.replaceAll('{{BACKGROUND_URL}}', bgUrl);
+                html = html.replaceAll('{{DEADLINE_DATE}}', deadlineFmt);
+
+                // Definir título da página
+                document.title = title;
+
+                // Definir dados no escopo global para que outros scripts acessem ( RSVP )
+                window.eventData = event;
+
+                // Substituir o conteúdo da página inteira pelo HTML renderizado
+                document.open();
+                document.write(html);
+                document.close();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('app').innerText = "Erro ao carregar o evento.";
+            }
+        }
+        window.onload = init;
+    </script>
+</body>
+</html>

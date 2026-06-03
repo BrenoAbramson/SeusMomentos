@@ -12,6 +12,7 @@ use Src\Utils\Response;
 
 // Extrair a URI (tentando PATH_INFO primeiro para maior compatibilidade)
 $requestUri = $_SERVER['PATH_INFO'] ?? parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$requestUri = rawurldecode($requestUri);
 
 // Caso a URI ainda contenha o "index.php", vamos limpá-la para isolar apenas o endpoint
 $scriptName = $_SERVER['SCRIPT_NAME'];
@@ -74,6 +75,100 @@ if ($requestUri === "/auth/reset-password/update") {
     else {
         Response::error("Método não permitido", 405);
     }
+}
+
+// Rotas de Usuário (Me e First Access)
+if ($requestUri === "/auth/me" && $requestMethod === "GET") {
+    (new UserController())->me();
+}
+if ($requestUri === "/auth/first-access" && $requestMethod === "PUT") {
+    (new UserController())->updateFirstAccess();
+}
+
+// Rotas de Eventos
+if ($requestUri === "/events") {
+    if ($requestMethod === "POST") {
+        (new \Src\Controllers\EventController())->store();
+    } elseif ($requestMethod === "GET") {
+        (new \Src\Controllers\EventController())->index();
+    }
+}
+
+if (strpos($requestUri, "/events/") === 0 && preg_match('/^\/events\/([^\/]+)$/', $requestUri, $matches)) {
+    if ($requestMethod === "GET") {
+        $_GET['slug'] = $matches[1];
+        (new \Src\Controllers\EventController())->show();
+    }
+}
+
+if (strpos($requestUri, "/events/") === 0 && preg_match('/^\/events\/([^\/]+)\/customizations$/', $requestUri, $matches)) {
+    if ($requestMethod === "PUT") {
+        (new \Src\Controllers\EventController())->updateCustomizations();
+    }
+}
+
+// Rotas de Presentes
+if ($requestUri === "/gifts") {
+    if ($requestMethod === "POST") {
+        (new \Src\Controllers\GiftController())->store();
+    } elseif ($requestMethod === "PUT") {
+        (new \Src\Controllers\GiftController())->update();
+    } elseif ($requestMethod === "DELETE") {
+        (new \Src\Controllers\GiftController())->destroy();
+    } elseif ($requestMethod === "GET") {
+        (new \Src\Controllers\GiftController())->index();
+    }
+}
+
+// Rotas de Convidados
+if ($requestUri === "/guests") {
+    if ($requestMethod === "POST") {
+        (new \Src\Controllers\GuestController())->store();
+    } elseif ($requestMethod === "GET") {
+        (new \Src\Controllers\GuestController())->index();
+    }
+}
+
+if ($requestUri === "/guests/payment" && $requestMethod === "PUT") {
+    (new \Src\Controllers\GuestController())->updatePayment();
+}
+
+if ($requestUri === "/guests/invitation" && $requestMethod === "PUT") {
+    (new \Src\Controllers\GuestController())->updateInvitation();
+}
+
+if ($requestUri === "/guests/detail" && $requestMethod === "GET") {
+    (new \Src\Controllers\GuestController())->detail();
+}
+
+if ($requestUri === "/guests/gifts" && $requestMethod === "PUT") {
+    (new \Src\Controllers\GuestController())->updateGifts();
+}
+
+// Rotas de Pagamento (Mercado Pago)
+if ($requestUri === "/payments/create" && $requestMethod === "POST") {
+    (new \Src\Controllers\PaymentController())->create();
+}
+
+if ($requestUri === "/payments/create-preference" && $requestMethod === "POST") {
+    (new \Src\Controllers\PaymentController())->createPlanPreference();
+}
+
+if ($requestUri === "/payments/create-checkout-preference" && $requestMethod === "POST") {
+    (new \Src\Controllers\PaymentController())->createCheckoutPreference();
+}
+
+if ($requestUri === "/payments/status" && $requestMethod === "GET") {
+    (new \Src\Controllers\PaymentController())->status();
+}
+
+if ($requestUri === "/payments/webhook" && $requestMethod === "POST") {
+    (new \Src\Controllers\PaymentController())->webhook();
+}
+
+// Rotas de Administração
+if ($requestUri === "/admin/dashboard" && $requestMethod === "GET") {
+    (new \Src\Controllers\AdminController())->dashboard();
 }
 
 // Fallback: Caso nenhuma rota acima coincida, retorna erro 404

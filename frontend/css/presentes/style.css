@@ -1,0 +1,266 @@
+/* Estilos adicionais para a seleção de presentes */
+
+.gifts-selection-section {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    padding: 24px;
+    margin-top: 20px;
+}
+
+.selection-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #F1F5F9;
+    padding-bottom: 16px;
+}
+
+.selection-header h2 {
+    font-size: 20px;
+    font-family: 'Playfair Display', serif;
+    color: #0F172A;
+}
+
+.selection-info span {
+    background: #F1F5F9;
+    color: #64748B;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.gifts-grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+}
+
+.loading-placeholder {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    color: #64748B;
+    font-size: 16px;
+}
+
+/* Card de Presente */
+.gift-selection-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.gift-selection-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border-color: #149CB8;
+}
+
+.gift-card-image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+    background: #F8FAFC;
+}
+
+.gift-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gift-selection-card:hover .gift-card-image img {
+    transform: scale(1.05);
+}
+
+.gift-card-body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.gift-card-body h3 {
+    font-size: 15px;
+    color: #334155;
+    margin-bottom: 8px;
+    font-weight: 600;
+    min-height: 44px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.gift-card-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #149CB8;
+    margin-bottom: 16px;
+}
+
+/* Botão Selecionar */
+.btn-select-gift {
+    width: 100%;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid #CBD5E1;
+    background: #FFFFFF;
+    color: #64748B;
+}
+
+.btn-select-gift:hover {
+    background: #F8FAFC;
+    color: #0F172A;
+    border-color: #94A3B8;
+}
+
+/* Estado Selecionado */
+.gift-selection-card.selected {
+    border-color: #149CB8;
+    background: rgba(20, 156, 184, 0.02);
+}
+
+.gift-selection-card.selected .btn-select-gift {
+    background: #149CB8;
+    color: white;
+    border-color: #149CB8;
+    box-shadow: 0 4px 6px -1px rgba(20, 156, 184, 0.2);
+}
+
+.gift-selection-card.selected .btn-select-gift:hover {
+    background: #10829A;
+    border-color: #10829A;
+}
+
+/* Badge de Selecionado no Canto Superior Direito */
+.gift-select-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #149CB8;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    z-index: 2;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.2s ease;
+}
+
+.gift-selection-card.selected .gift-select-badge {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* ==========================================================================
+   SKELETON LOADERS
+   ========================================================================== */
+.skeleton {
+  display: inline-block;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.06) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s infinite linear;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Skeletons para os cards de presentes */
+.skeleton-gift-card {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+}
+
+.skeleton-card-image {
+  width: 100%;
+  height: 180px;
+  border-radius: 0;
+}
+
+.skeleton-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.skeleton-card-title {
+  height: 16px;
+  width: 80%;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.skeleton-card-value {
+  height: 20px;
+  width: 50%;
+  border-radius: 4px;
+}
+
+.skeleton-card-button {
+  height: 38px;
+  width: 100%;
+  border-radius: 8px;
+  margin-top: auto;
+}
+
+/* Skeleton Target (para elementos estáticos durante carregamento) */
+.is-loading .skeleton-target {
+  color: transparent !important;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.06) 25%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.06) 75%) !important;
+  background-size: 200% 100% !important;
+  animation: skeleton-loading 1.5s infinite linear !important;
+  border-radius: 6px !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Ocultar filhos de elementos complexos em carregamento */
+.is-loading .skeleton-target * {
+  visibility: hidden !important;
+}
+

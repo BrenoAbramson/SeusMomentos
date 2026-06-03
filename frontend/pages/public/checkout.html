@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <script src="/js/config.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seus Momentos — Escolha seu Convite</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Cinzel:wght@400;600;700&family=Montserrat:wght@200;300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../css/public/checkout.css">
+
+  <!-- Mercado Pago SDK -->
+  <script src="https://sdk.mercadopago.com/js/v2"></script>
+</head>
+
+<body class="is-loading">
+  <!-- Header do Checkout (Passos) -->
+  <header class="checkout-header">
+    <div class="checkout-container header-content">
+      <a href="javascript:history.back()" class="btn-back">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Voltar ao site
+      </a>
+      <div class="logo">Seus Momentos</div>
+      <div class="step-indicator">Passo 2 de 2</div>
+    </div>
+  </header>
+
+  <main class="checkout-main">
+    <div class="checkout-container grid-layout">
+      <!-- Painel Esquerdo: Resumo dos Presentes Escolhidos -->
+      <section class="panel gifts-panel">
+        <div class="panel-header">
+          <h2 class="skeleton-target">Seus Presentes</h2>
+          <p class="skeleton-target">Confira os mimos que você selecionou para presentear os noivos.</p>
+        </div>
+
+        <div class="gifts-list" id="checkoutGiftsList">
+          <!-- Skeleton Items -->
+          <div class="skeleton-gift-item">
+            <div class="skeleton skeleton-img"></div>
+            <div class="skeleton-info">
+              <div class="skeleton skeleton-title"></div>
+              <div class="skeleton skeleton-price"></div>
+            </div>
+          </div>
+          <div class="skeleton-gift-item">
+            <div class="skeleton skeleton-img"></div>
+            <div class="skeleton-info">
+              <div class="skeleton skeleton-title"></div>
+              <div class="skeleton skeleton-price"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="summary-card">
+          <div class="summary-row">
+            <span class="skeleton-target">Total dos Presentes:</span>
+            <span id="giftsTotalValue"><span class="skeleton skeleton-value"></span></span>
+          </div>
+          <div class="summary-row highlight">
+            <span class="skeleton-target">Taxa de Conveniência:</span>
+            <span class="free-badge skeleton-target">R$ 0,00 (Grátis!)</span>
+          </div>
+          <div class="divider"></div>
+          <div class="summary-row total">
+            <span class="skeleton-target">Total Geral:</span>
+            <strong id="checkoutTotalValue"><span class="skeleton skeleton-value" style="width: 80px; height: 24px;"></span></strong>
+          </div>
+        </div>
+
+        <div class="help-box skeleton-target">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="help-icon">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          <div class="help-text">
+            <h4>Como funciona a lista?</h4>
+            <p>Os itens escolhidos serão convertidos em cotas de dinheiro para a Lua de Mel dos noivos. Eles receberão
+              99% do valor de forma segura.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Painel Direito: Escolha do Convite & Preview -->
+      <section class="panel invitation-panel">
+        <div class="panel-header">
+          <h2 class="skeleton-target">Escolha a Arte do seu Convite</h2>
+          <p class="skeleton-target">Selecione o estilo visual que mais combina com a sua mensagem.</p>
+        </div>
+
+        <div class="invitation-selectors">
+          <div class="selector-card active skeleton-target" data-model="classic">
+            <div class="selector-icon floral">✿</div>
+            <div class="selector-info">
+              <h3>Classic</h3>
+              <p>Clássico & Florido</p>
+            </div>
+            <div class="radio-indicator"></div>
+          </div>
+
+          <div class="selector-card skeleton-target" data-model="modern">
+            <div class="selector-icon geometric">⬡</div>
+            <div class="selector-info">
+              <h3>Modern</h3>
+              <p>Geométrico & Sofisticado</p>
+            </div>
+            <div class="radio-indicator"></div>
+          </div>
+
+          <div class="selector-card skeleton-target" data-model="minimal">
+            <div class="selector-icon clean">✦</div>
+            <div class="selector-info">
+              <h3>Minimal</h3>
+              <p>Chic & Minimalista</p>
+            </div>
+            <div class="radio-indicator"></div>
+          </div>
+        </div>
+
+        <!-- Área de Preview -->
+        <div class="preview-wrapper">
+          <div class="preview-badge">Prévia em Tempo Real</div>
+
+          <div class="invitation-preview-container classic" id="invitationPreview">
+            <!-- Modelo Classic -->
+            <div class="invitation-card-style classic-style">
+              <div class="floral-frame border-top-left"></div>
+              <div class="floral-frame border-top-right"></div>
+              <div class="floral-frame border-bottom-left"></div>
+              <div class="floral-frame border-bottom-right"></div>
+
+              <div class="card-inner">
+                <span class="card-tagline">Save the Date</span>
+                <h1 class="couple-names-display"><span class="skeleton skeleton-text skeleton-names"></span></h1>
+                <div class="classic-divider">❦</div>
+                <p class="guest-message-display"><span class="skeleton skeleton-text skeleton-message"></span></p>
+                <div class="card-details">
+                  <div class="date-badge" id="previewDateClassic"><span class="skeleton skeleton-text skeleton-date"></span></div>
+                  <div class="location-badge">Presença Confirmada</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modelo Modern -->
+            <div class="invitation-card-style modern-style" style="display: none;">
+              <div class="geometric-overlay"></div>
+              <div class="card-inner">
+                <div class="modern-header">
+                  <span class="modern-dot"></span>
+                  <span class="modern-label">CONVITE DE CASAMENTO</span>
+                  <span class="modern-dot"></span>
+                </div>
+                <h1 class="couple-names-display"><span class="skeleton skeleton-text skeleton-names"></span></h1>
+                <div class="modern-line"></div>
+                <p class="guest-message-display"><span class="skeleton skeleton-text skeleton-message"></span></p>
+                <div class="modern-footer">
+                  <div class="modern-date" id="previewDateModern"><span class="skeleton skeleton-text skeleton-date"></span></div>
+                  <div class="rsvp-status-badge">Confirmado</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modelo Minimal -->
+            <div class="invitation-card-style minimal-style" style="display: none;">
+              <div class="minimal-border"></div>
+              <div class="card-inner">
+                <div class="minimal-serif">M</div>
+                <h1 class="couple-names-display"><span class="skeleton skeleton-text skeleton-names"></span></h1>
+                <p class="guest-message-display"><span class="skeleton skeleton-text skeleton-message"></span></p>
+                <div class="minimal-date-box">
+                  <span class="line"></span>
+                  <span class="minimal-date" id="previewDateMinimal"><span class="skeleton skeleton-text skeleton-date"></span></span>
+                  <span class="line"></span>
+                </div>
+                <div class="minimal-footer">Com amor e alegria</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-finalize skeleton-target" id="btnOpenPaymentModal">
+          Realize Pagamento e Confirme sua Presença
+          <span class="arrow-icon">→</span>
+        </button>
+      </section>
+    </div>
+  </main>
+
+  <!-- Modal de Pagamento -->
+  <div class="modal-backdrop" id="paymentModal">
+    <div class="modal-card payment-modal-card">
+      <button class="btn-close-modal" id="btnClosePaymentModal">✕</button>
+      <div class="payment-modal-header">
+        <h2>Realizar Pagamento</h2>
+        <p>Selecione a forma de pagamento para os mimos escolhidos</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="payment-tabs">
+        <button class="payment-tab active" data-tab="pix">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            style="margin-right: 6px;">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <line x1="9" y1="9" x2="15" y2="15"></line>
+            <line x1="15" y1="9" x2="9" y2="15"></line>
+          </svg>
+          Pix
+        </button>
+        <button class="payment-tab" data-tab="card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            style="margin-right: 6px;">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+          Cartão de Crédito/Débito
+        </button>
+      </div>
+
+      <!-- Tab Content: Pix -->
+      <div class="tab-content active" id="tabContentPix">
+        <div class="pix-instructions">
+          <p>Escaneie o QR Code abaixo pelo aplicativo do seu banco ou copie a chave Pix para realizar o pagamento.</p>
+        </div>
+
+        <div class="pix-qr-code-box">
+          <!-- SVG QR Code simulado de altíssima fidelidade -->
+          <svg class="qr-code-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="white" />
+            <!-- Cantos posicionadores (Padrão QR Code) -->
+            <rect x="5" y="5" width="20" height="20" fill="black" />
+            <rect x="8" y="8" width="14" height="14" fill="white" />
+            <rect x="11" y="11" width="8" height="8" fill="black" />
+
+            <rect x="75" y="5" width="20" height="20" fill="black" />
+            <rect x="78" y="8" width="14" height="14" fill="white" />
+            <rect x="81" y="11" width="8" height="8" fill="black" />
+
+            <rect x="5" y="75" width="20" height="20" fill="black" />
+            <rect x="8" y="78" width="14" height="14" fill="white" />
+            <rect x="11" y="81" width="8" height="8" fill="black" />
+
+            <!-- Pixels fictícios para parecer real -->
+            <rect x="35" y="5" width="6" height="6" fill="black" />
+            <rect x="45" y="10" width="12" height="6" fill="black" />
+            <rect x="65" y="5" width="6" height="12" fill="black" />
+            <rect x="30" y="20" width="18" height="6" fill="black" />
+            <rect x="55" y="25" width="6" height="6" fill="black" />
+            <rect x="65" y="20" width="12" height="12" fill="black" />
+
+            <rect x="5" y="35" width="6" height="12" fill="black" />
+            <rect x="20" y="40" width="12" height="6" fill="black" />
+            <rect x="35" y="35" width="20" height="6" fill="black" />
+            <rect x="60" y="40" width="6" height="18" fill="black" />
+            <rect x="75" y="35" width="18" height="6" fill="black" />
+
+            <rect x="10" y="55" width="12" height="6" fill="black" />
+            <rect x="30" y="50" width="6" height="12" fill="black" />
+            <rect x="45" y="55" width="12" height="12" fill="black" />
+            <rect x="70" y="50" width="6" height="6" fill="black" />
+            <rect x="80" y="55" width="12" height="6" fill="black" />
+
+            <rect x="35" y="75" width="12" height="6" fill="black" />
+            <rect x="55" y="70" width="6" height="18" fill="black" />
+            <rect x="65" y="80" width="12" height="12" fill="black" />
+            <rect x="85" y="75" width="8" height="6" fill="black" />
+
+            <!-- Logo Central do Pix estilizado -->
+            <path d="M45,45 L50,40 L55,45 L50,50 Z" fill="#32b3a2" />
+          </svg>
+        </div>
+
+        <div class="pix-key-box">
+          <input type="text" readonly id="pixKeyInput"
+            value="00020126580014br.gov.bcb.pix0136e3b56a1b-3d6d-4c3e-8f2c-56b9c9f041b35204000053039865802BR5920SeusMomentosLTDA6009SaoPaulo62070503***6304A1B2">
+          <button class="btn-copy-pix" id="btnCopyPix">
+            <span>Copiar Código Pix</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Content: Card -->
+      <div class="tab-content" id="tabContentCard" style="display: none;">
+        <form id="paymentCardForm" class="payment-card-form" onsubmit="return false;">
+          <div class="form-group-payment">
+            <label for="cardNumber">Número do Cartão</label>
+            <div class="input-icon-wrapper">
+              <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+              <span class="card-brand-icon" id="cardBrandIcon">💳</span>
+            </div>
+          </div>
+
+          <div class="form-group-payment">
+            <label for="cardName">Nome Impresso no Cartão</label>
+            <input type="text" id="cardName" placeholder="Como no cartão" style="text-transform: uppercase;">
+          </div>
+
+          <div class="payment-form-row">
+            <div class="form-group-payment">
+              <label for="cardExpiry">Validade</label>
+              <input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5">
+            </div>
+
+            <div class="form-group-payment">
+              <label for="cardCvv">CVV</label>
+              <input type="text" id="cardCvv" placeholder="123" maxlength="4">
+            </div>
+          </div>
+
+          <div class="form-group-payment">
+            <label for="cardInstallments">Parcelamento</label>
+            <select id="cardInstallments">
+              <option value="1">1x sem juros</option>
+            </select>
+          </div>
+        </form>
+      </div>
+
+      <div class="payment-modal-footer">
+        <div class="payment-total-display">
+          <span>Total a pagar:</span>
+          <strong id="paymentTotalAmount">R$ 0,00</strong>
+        </div>
+        <button class="btn-finalize" id="btnConfirmPayment">
+          Confirmar Pagamento
+          <span class="arrow-icon">→</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Sucesso -->
+  <div class="modal-backdrop" id="successModal">
+    <div class="modal-card">
+      <div class="modal-icon-success">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white"
+          stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h2>Presença Confirmada!</h2>
+      <p>Seu convite foi personalizado com sucesso e enviado ao casal.</p>
+      <div class="modal-summary-box">
+        <div class="modal-summary-item">
+          <span>Modelo Escolhido:</span>
+          <strong id="modalSelectedModel">Classic</strong>
+        </div>
+        <div class="modal-summary-item">
+          <span>Presentes Escolhidos:</span>
+          <strong id="modalGiftsCount">0 presentes</strong>
+        </div>
+      </div>
+      <button class="btn-primary" id="btnCloseModal">Fechar e Voltar</button>
+    </div>
+  </div>
+
+  <!-- JS -->
+  <script src="../../js/public/checkout.js"></script>
+</body>
+
+</html>

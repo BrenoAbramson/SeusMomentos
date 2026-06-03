@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <script src="/js/config.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Primeiro Acesso - Seus Momentos</title>
+  <link rel="stylesheet" href="../../css/onboarding/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="onboarding-page">
+    <div class="onboarding-container">
+      
+      <div class="logo">
+        <div class="logo-icon">
+          <img src="../../assets/login/coraçao.png" alt="Logo" onerror="this.style.display='none'">
+        </div>
+        <span class="logo-text">Seus Momentos</span>
+      </div>
+
+      <div class="onboarding-header">
+        <h1 class="onboarding-title">Vamos começar o seu evento!</h1>
+        <p class="onboarding-subtitle">Para preparar tudo perfeitamente, conte-nos alguns detalhes básicos.</p>
+      </div>
+
+      <form class="onboarding-form" id="onboardingForm">
+        
+        <!-- Passo 1 -->
+        <div class="step active" id="step1">
+            <h2>Qual é o tipo de evento?</h2>
+            <div class="type-cards">
+                <div class="type-card" data-type="casamento">
+                    <h3>Casamento</h3>
+                    <p>Celebre a união com uma lista inteligente.</p>
+                </div>
+                <div class="type-card" data-type="15_anos">
+                    <h3>Festa de 15 Anos</h3>
+                    <p>Momentos inesquecíveis para uma noite mágica.</p>
+                </div>
+            </div>
+            <button type="button" class="btn-next" id="btnNext1" disabled>Avançar</button>
+        </div>
+
+        <!-- Passo 2 -->
+        <div class="step" id="step2">
+            <h2>Quem são os anfitriões?</h2>
+            
+            <div id="fieldsCasamento" class="dynamic-fields" style="display: none;">
+                <div class="input-group">
+                    <label>Nome da Pessoa 1</label>
+                    <input type="text" id="nome1" placeholder="Ex: Ana">
+                </div>
+                <div class="input-group">
+                    <label>Nome da Pessoa 2</label>
+                    <input type="text" id="nome2" placeholder="Ex: Lucas">
+                </div>
+            </div>
+
+            <div id="fields15Anos" class="dynamic-fields" style="display: none;">
+                <div class="input-group">
+                    <label>Nome do Aniversariante</label>
+                    <input type="text" id="nomeAniversariante" placeholder="Ex: Maria">
+                </div>
+            </div>
+            
+            <div class="nav-buttons">
+                <button type="button" class="btn-back" id="btnBack1">Voltar</button>
+                <button type="button" class="btn-next" id="btnNext2">Avançar</button>
+            </div>
+        </div>
+
+        <!-- Passo 3 -->
+        <div class="step" id="step3">
+            <h2>Detalhes finais do evento</h2>
+            <div class="input-group">
+                <label>Data do Evento</label>
+                <input type="date" id="dataEvento">
+            </div>
+            <div class="input-group">
+                <label>Local do Evento (Opcional)</label>
+                <input type="text" id="localEvento" placeholder="Ex: Espaço das Palmeiras, SP">
+            </div>
+            
+            <div class="nav-buttons">
+                <button type="button" class="btn-back" id="btnBack2">Voltar</button>
+                <button type="button" class="btn-next" id="btnNext3">Avançar</button>
+            </div>
+        </div>
+
+        <!-- Passo 4 -->
+        <div class="step" id="step4">
+            <h2>Escolha o seu plano</h2>
+            <p style="font-size: 13px; color: #64748B; margin-top: -16px; margin-bottom: 8px; text-align: center;">Os recursos e a taxa de presentes variam conforme o plano escolhido.</p>
+            
+            <div class="plan-cards">
+                <div class="plan-card" data-plan="free">
+                    <div class="plan-header">
+                        <h3>Plano Grátis</h3>
+                        <span class="plan-price">R$ 0</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Taxa de 3% sobre presentes</li>
+                        <li>URL gerada automaticamente</li>
+                        <li>Recursos básicos do site</li>
+                    </ul>
+                </div>
+                
+                <div class="plan-card" data-plan="premium">
+                    <div class="plan-header">
+                        <h3>Plano Premium</h3>
+                        <span class="plan-price">R$ 30</span>
+                    </div>
+                    <ul class="plan-features">
+                        <li>Taxa de 1% sobre presentes</li>
+                        <li>URL Personalizada</li>
+                        <li>Recursos exclusivos</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Campo dinâmico para URL Personalizada (aparece se escolher premium) -->
+            <div id="customUrlGroup" class="input-group" style="display: none; margin-top: 8px; margin-bottom: 8px;">
+                <label>Deseja personalizar a URL do seu site?</label>
+                <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                    <span style="color: #64748B; font-size: 13px; font-weight: 500;">seusmomentos.com/</span>
+                    <input type="text" id="customUrl" placeholder="Ex: ana-e-lucas" style="flex: 1; padding: 10px 12px; height: 38px;">
+                </div>
+                <small style="color: #64748B; margin-top: 4px; display: block; font-size: 11px;">Apenas letras minúsculas, números, hifens e & são permitidos.</small>
+            </div>
+            
+            <div class="nav-buttons">
+                <button type="button" class="btn-back" id="btnBack3">Voltar</button>
+                <button type="submit" class="btn-submit" id="btnSubmit" disabled>Criar Meu Evento!</button>
+            </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  
+  <div id="alerta" class="alerta">
+    <div id="alerta-icone" class="alerta-icone"></div>
+    <div id="alerta-texto" class="alerta-texto"></div>
+  </div>
+
+  <script src="../../js/onboarding/script.js"></script>
+</body>
+</html>

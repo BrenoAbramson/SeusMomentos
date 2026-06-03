@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <script src="/js/config.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Site - Seus Momentos</title>
+    <link rel="stylesheet" href="../../css/template/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="is-loading">
+
+    <div class="editor-layout">
+        <!-- Barra Lateral de Edição -->
+        <aside class="editor-sidebar">
+            <div class="sidebar-header">
+                <a href="../dashboard/index.html" class="btn-back">← Voltar</a>
+                <h2 class="skeleton-target">Editar Site</h2>
+            </div>
+            
+            <form id="editorForm" class="editor-form">
+                
+                <div class="form-section">
+                    <h3 class="skeleton-target">Textos Principais</h3>
+                    <div class="input-group skeleton-target">
+                        <label>Título Principal</label>
+                        <input type="text" id="inputTitle" placeholder="Ex: Ana & Lucas">
+                    </div>
+                    <div class="input-group skeleton-target">
+                        <label>Mensagem ou História</label>
+                        <textarea id="inputMessage" rows="4" placeholder="Escreva algo especial para os convidados..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="skeleton-target">Cerimônia do Evento</h3>
+                    <div class="input-group skeleton-target">
+                        <label>Endereço da Cerimônia</label>
+                        <input type="text" id="inputCeremonyAddress" placeholder="Ex: Vale della Libertà, 12, Pienza">
+                    </div>
+                    <div class="input-group skeleton-target">
+                        <label>Link do Google Maps</label>
+                        <input type="url" id="inputCeremonyMaps" placeholder="Ex: https://maps.google.com/?q=...">
+                    </div>
+                    <div class="input-group skeleton-target">
+                        <label>Detalhes da Cerimônia</label>
+                        <textarea id="inputCeremonyDetails" rows="3" placeholder="Ex: Às quatro horas da tarde na Capela de Santa Maria..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3 class="skeleton-target">Design e Imagens</h3>
+                    <div class="input-group skeleton-target">
+                        <label>Foto do Casal / Debutante</label>
+                        <input type="file" id="inputBackground" accept="image/*">
+                        <input type="hidden" id="hiddenImageName" name="image_name">
+                        <input type="hidden" id="hiddenBackgroundData" name="background_image">
+                        <small>Faça o upload de uma foto especial de vocês</small>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-save skeleton-target" id="btnSave">Salvar Alterações</button>
+            </form>
+        </aside>
+
+        <!-- Área de Preview (Tempo Real) -->
+        <main class="editor-preview">
+            
+            <div class="preview-header">
+                <p class="skeleton-target">Visualização em Tempo Real</p>
+                <div class="view-toggles skeleton-target">
+                    <button class="active" id="btnViewDesktop">Desktop</button>
+                    <button id="btnViewMobile">Mobile</button>
+                </div>
+            </div>
+
+            <!-- Frame do Convite -->
+            <div class="preview-frame desktop skeleton-target" id="previewFrame">
+                <iframe id="iframePreview" style="width: 100%; height: 100%; border: none; background: #fff;" src="about:blank"></iframe>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Alerta -->
+    <div id="alerta" class="alerta">
+        <div id="alerta-icone" class="alerta-icone"></div>
+        <div id="alerta-texto" class="alerta-texto"></div>
+    </div>
+
+    <script src="../../js/template/script.js"></script>
+</body>
+</html>
