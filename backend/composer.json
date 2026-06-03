@@ -15,7 +15,9 @@
     "require": {
         "vlucas/phpdotenv": "^5.5",
         "guzzlehttp/guzzle": "^7.5",
-        "phpmailer/phpmailer": "^7.0"
+        "phpmailer/phpmailer": "^7.0",
+        "ext-pdo": "*",
+        "ext-pdo_pgsql": "*"
     },
     "scripts": {
         "start": "php -S 127.0.0.1:8080 -t public public/index.php"

@@ -26,6 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedType = null;
     let selectedPlan = null;
 
+    // Define a data mínima do evento para posterior ao dia de amanhã (a partir de depois de amanhã)
+    const dataEventoInput = document.getElementById('dataEvento');
+    if (dataEventoInput) {
+        const hoje = new Date();
+        const depoisDeAmanha = new Date(hoje);
+        depoisDeAmanha.setDate(hoje.getDate() + 2);
+        const yyyy = depoisDeAmanha.getFullYear();
+        const mm = String(depoisDeAmanha.getMonth() + 1).padStart(2, '0');
+        const dd = String(depoisDeAmanha.getDate()).padStart(2, '0');
+        dataEventoInput.min = `${yyyy}-${mm}-${dd}`;
+    }
+
     // Seleção de Tipo
     typeCards.forEach(card => {
         card.addEventListener('click', () => {
@@ -91,6 +103,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!dataEvento) {
             return mostrarAlerta('Por favor, informe a data do evento.', 'erro');
         }
+
+        const dataSelecionada = new Date(dataEvento + 'T00:00:00');
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+        const limite = new Date(hoje);
+        limite.setDate(hoje.getDate() + 1); // amanhã
+
+        if (dataSelecionada <= limite) {
+            return mostrarAlerta('A data do casamento deve ser posterior ao dia de amanhã.', 'erro');
+        }
+
         step3.classList.remove('active');
         step4.classList.add('active');
     });
@@ -127,6 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!dataEvento) {
             return mostrarAlerta('Por favor, informe a data do evento.', 'erro');
+        }
+
+        const dataSelecionada = new Date(dataEvento + 'T00:00:00');
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+        const limite = new Date(hoje);
+        limite.setDate(hoje.getDate() + 1); // amanhã
+
+        if (dataSelecionada <= limite) {
+            return mostrarAlerta('A data do casamento deve ser posterior ao dia de amanhã.', 'erro');
         }
 
         if (!selectedPlan) {
@@ -168,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Chamada para a API
-            const response = await fetch('http://127.0.0.1:8080/events', {
+            const response = await fetch(`${window.API_BASE_URL}/events`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -178,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 // Atualiza first_access para false no backend
-                await fetch('http://127.0.0.1:8080/auth/first-access', {
+                await fetch(`${window.API_BASE_URL}/auth/first-access`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ user_id: userId })
@@ -187,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (selectedPlan === 'premium') {
                     mostrarAlerta('Redirecionando para o Mercado Pago para ativação...', 'sucesso');
                     try {
-                        const prefResponse = await fetch('http://127.0.0.1:8080/payments/create-preference', {
+                        const prefResponse = await fetch(`${window.API_BASE_URL}/payments/create-preference`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
@@ -281,5 +314,15 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay) fechar();
         });
+    }
+
+    // Pré-seleciona o plano vindo da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const planParam = urlParams.get('plan');
+    if (planParam) {
+        const targetCard = Array.from(planCards).find(c => c.dataset.plan === planParam);
+        if (targetCard) {
+            targetCard.click();
+        }
     }
 });

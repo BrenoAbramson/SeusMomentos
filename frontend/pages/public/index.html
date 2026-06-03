@@ -3,123 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="pageTitle">Convite - Seus Momentos</title>
-    <link rel="stylesheet" href="../../css/public/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="/js/config.js"></script>
+    <title>Carregando Evento...</title>
 </head>
 <body>
-
-    <!-- Hero Section -->
-    <header class="hero" id="heroSection">
-        <div class="overlay"></div>
-        <div class="hero-content">
-            <h1 id="eventTitle">Carregando...</h1>
-            <p class="date" id="eventDate">-</p>
-            <p class="message" id="eventMessage">-</p>
-            <p class="location" id="eventLocation">-</p>
-            
-            <button class="btn-rsvp" id="btnScrollToForm">Confirmar Presença</button>
-        </div>
-    </header>
-
-    <!-- Seção de Confirmação e Presentes -->
-    <section class="rsvp-section" id="rsvpArea">
-        <div class="rsvp-container">
-            <h2>Confirme sua presença e escolha seu presente</h2>
-            <p>Ficaremos muito felizes com a sua participação!</p>
-            
-            <form id="rsvpForm" class="rsvp-form">
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Seu Nome Completo</label>
-                        <input type="text" id="guestName" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Telefone / WhatsApp</label>
-                        <input type="text" id="guestPhone">
-                    </div>
-                    <div class="input-group">
-                        <label>Seu E-mail</label>
-                        <input type="email" id="guestEmail" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Você irá comparecer?</label>
-                        <select id="guestConfirm" required>
-                            <option value="1">Sim, com certeza!</option>
-                            <option value="0">Infelizmente, não poderei.</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="input-group full">
-                    <label>Deixe uma mensagem para os anfitriões</label>
-                    <textarea id="guestMessage" rows="3"></textarea>
-                </div>
-
-                <!-- Lista de Presentes -->
-                <div class="gifts-area" id="giftsArea">
-                    <h3>Lista de Presentes</h3>
-                    <p class="gift-subtitle">Selecione um ou mais presentes para contribuir com a lua de mel / festa!</p>
-                    <div class="gifts-list" id="giftsList">
-                        <!-- Carregado via JS -->
-                    </div>
-                    <div class="gift-total">
-                        Total selecionado: <span id="giftTotalValue">R$ 0,00</span>
-                    </div>
-                </div>
-
-                <!-- Escolha do Convite -->
-                <div class="templates-area" id="templatesArea">
-                    <h3>Escolha o modelo do seu convite</h3>
-                    <p class="gift-subtitle">Os anfitriões disponibilizaram 3 estilos para o seu convite digital!</p>
-                    
-                    <div class="template-cards">
-                        <div class="t-card selected" data-model="classic">
-                            <div class="t-preview classic"></div>
-                            <h4>Classic</h4>
-                        </div>
-                        <div class="t-card" data-model="modern">
-                            <div class="t-preview modern"></div>
-                            <h4>Modern</h4>
-                        </div>
-                        <div class="t-card" data-model="minimal">
-                            <div class="t-preview minimal"></div>
-                            <h4>Minimal</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <button type="button" class="btn-submit" id="btnOpenCheckout">Confirmar e Ir para o Pagamento</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- MODAL DE PIX -->
-    <div class="modal-overlay" id="pixModal">
-        <div class="modal-box">
-            <button class="modal-close" id="closePixModal">✕</button>
-            <h2 class="modal-title">Pagamento via PIX</h2>
-            <p class="modal-text">Você escolheu contribuir com <strong><span id="pixValue">R$ 0,00</span></strong>.</p>
-            
-            <div class="pix-code">
-                <img src="../../assets/home/qrcode_pix.png" alt="QR Code PIX Simulado" style="width:150px; height:150px; margin: 20px 0;">
-                <p>Ou use a chave Pix Copia e Cola:</p>
-                <div class="copy-paste">
-                    <input type="text" value="00020126360014BR.GOV.BCB.PIX... (Simulado)" readonly id="pixKey">
-                    <button id="btnCopyPix">Copiar</button>
-                </div>
-            </div>
-
-            <button class="modal-button" id="btnSimulatePaid">Simular Pagamento Concluído</button>
-        </div>
+    <div id="app" style="display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Manrope', sans-serif; color: #666;">
+        Carregando o seu evento especial...
     </div>
+    
+    <script>
+        async function init() {
+            // Pegar o slug da URL
+            let slug = window.location.search.substring(1);
+            slug = decodeURIComponent(slug);
+            if (slug.startsWith('evento=')) {
+                slug = slug.substring(7);
+            }
+            if (!slug) {
+                document.getElementById('app').innerText = "Evento não encontrado.";
+                return;
+            }
 
-    <!-- Alerta -->
-    <div id="alerta" class="alerta">
-        <div id="alerta-icone" class="alerta-icone"></div>
-        <div id="alerta-texto" class="alerta-texto"></div>
-    </div>
+            try {
+                // 1. Chamar a API do Backend no Render
+                const response = await fetch(`${window.API_BASE_URL}/events/${encodeURIComponent(slug)}`);
+                if (!response.ok) {
+                    document.getElementById('app').innerText = "Evento não encontrado ou erro de conexão.";
+                    return;
+                }
+                const data = await response.json();
+                if (data.status !== 'success') {
+                    document.getElementById('app').innerText = "Evento não encontrado.";
+                    return;
+                }
 
-    <script src="../../js/public/script.js"></script>
+                const event = data.data.event;
+                const customizations = event.customizations || {};
+                const eventType = event.event_type;
+
+                // 2. Definir e buscar o template
+                const templateFile = eventType === 'casamento' ? 'casamento_modelo.html' : '15anos_modelo.html';
+                const templateResponse = await fetch(`../template/${templateFile}`);
+                if (!templateResponse.ok) {
+                    document.getElementById('app').innerText = "Template do evento não encontrado.";
+                    return;
+                }
+                let html = await templateResponse.text();
+
+                // 3. Funções Auxiliares de Formatação
+                function formatarDataPorExtenso(dateStr) {
+                    if (!dateStr) return "";
+                    // dateStr: YYYY-MM-DD
+                    const parts = dateStr.split('-');
+                    const date = new Date(parts[0], parts[1] - 1, parts[2]);
+                    const dia = date.getDate().toString().padStart(2, '0');
+                    const ano = date.getFullYear();
+                    const meses = [
+                        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+                        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+                    ];
+                    const mesNome = meses[date.getMonth()];
+                    return `${dia} de ${mesNome} de ${ano}`;
+                }
+
+                // 4. Formatar dados e substituir placeholders
+                let defaultTitle = "";
+                if (event.people && Array.isArray(event.people)) {
+                    defaultTitle = event.people.map(p => p.name).join(" & ");
+                }
+                const title = customizations.main_title || defaultTitle;
+
+                // Iniciais do logo
+                let initials = "";
+                if (event.people && Array.isArray(event.people) && event.people.length > 0) {
+                    initials = event.people.map(p => p.name.trim().substring(0, 1).toUpperCase()).join("&");
+                } else {
+                    const cleanTitle = title.replace(/ e | & | and /gi, '&');
+                    initials = cleanTitle.split('&').map(pt => pt.trim().substring(0, 1).toUpperCase()).join('&');
+                }
+                if (!initials) initials = "R&L";
+
+                const defaultMsg = eventType === 'casamento'
+                    ? "Tudo começou com um amor compartilhado por discos de vinil antigos e cafés em tardes chuvosas."
+                    : "Convido você para uma noite de gala e encanto, onde celebraremos a transição e a beleza dos 15 anos.";
+                const message = customizations.custom_message || defaultMsg;
+
+                const defaultBg = eventType === 'casamento'
+                    ? "../../assets/casamento/paisagem.png"
+                    : "../../assets/15anos/rose-gold-hero.jpg";
+                const bgUrl = customizations.background_image || defaultBg;
+
+                const eventDate = event.event_date ? formatarDataPorExtenso(event.event_date) : 'Data a definir';
+                const location = event.location || 'Local a definir';
+
+                // Calcular prazo de RSVP (30 dias antes)
+                let deadlineFmt = "30 dias antes do evento";
+                if (event.event_date) {
+                    const parts = event.event_date.split('-');
+                    const eventDateObj = new Date(parts[0], parts[1] - 1, parts[2]);
+                    eventDateObj.setDate(eventDateObj.getDate() - 30);
+                    const y = eventDateObj.getFullYear();
+                    const m = (eventDateObj.getMonth() + 1).toString().padStart(2, '0');
+                    const d = eventDateObj.getDate().toString().padStart(2, '0');
+                    deadlineFmt = formatarDataPorExtenso(`${y}-${m}-${d}`);
+                }
+
+                // Injetar os placeholders no HTML do template
+                html = html.replaceAll('{{TITLE}}', title);
+                html = html.replaceAll('{{INITIALS}}', initials);
+                html = html.replaceAll('{{DATE}}', eventDate);
+                html = html.replaceAll('{{LOCATION}}', location);
+                html = html.replaceAll('{{HISTORY_TEXT}}', message);
+                html = html.replaceAll('{{MESSAGE}}', message);
+                html = html.replaceAll('{{BACKGROUND_URL}}', bgUrl);
+                html = html.replaceAll('{{DEADLINE_DATE}}', deadlineFmt);
+
+                // Definir título da página
+                document.title = title;
+
+                // Definir dados no escopo global para que outros scripts acessem ( RSVP )
+                window.eventData = event;
+
+                // Substituir o conteúdo da página inteira pelo HTML renderizado
+                document.open();
+                document.write(html);
+                document.close();
+            } catch (err) {
+                console.error(err);
+                document.getElementById('app').innerText = "Erro ao carregar o evento.";
+            }
+        }
+        window.onload = init;
+    </script>
 </body>
 </html>

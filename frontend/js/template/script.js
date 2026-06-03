@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let eventId = eventIdParam;
     let eventSlug = '';
     let eventDate = null;
+    let eventLocation = '';
 
     let dataLoaded = false;
     let iframeLoaded = false;
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Inicializa carregando o evento do banco (se não vier na URL, busca o último do usuário)
     async function loadData() {
         try {
-            let fetchUrl = `http://127.0.0.1:8080/events?user_id=${userId}`;
+            let fetchUrl = `${window.API_BASE_URL}/events?user_id=${userId}`;
             const res = await fetch(fetchUrl);
             const data = await res.json();
             
@@ -53,12 +54,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 iframePreview.src = `${templateFile}?event_id=${eventId}&preview=true`;
 
                 // Precisamos buscar os detalhes via slug para pegar as customizações
-                const resDetalhe = await fetch(`http://127.0.0.1:8080/events/${eventSlug}`);
+                const resDetalhe = await fetch(`${window.API_BASE_URL}/events/${eventSlug}`);
                 const dataDetalhe = await resDetalhe.json();
 
                 if (dataDetalhe.status === 'success') {
                     const evData = dataDetalhe.data.event;
                     eventDate = evData.event_date;
+                    eventLocation = evData.location || '';
                     const c = evData.customizations;
 
                     // O título padrão pode ser o nome das pessoas
@@ -80,7 +82,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             console.error("Erro ao converter custom_styles", err);
                         }
                     }
-                    inputCeremonyAddress.value = customStyles.ceremony_address || '';
+                    inputCeremonyAddress.value = customStyles.ceremony_address || eventLocation;
                     inputCeremonyMaps.value = customStyles.ceremony_maps || '';
                     inputCeremonyDetails.value = customStyles.ceremony_details || '';
                     // inputBackground remains empty (file input cannot be prefilled)
@@ -164,7 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const iframeBtnCeremonyMaps = iframeDoc.getElementById('btnCeremonyMaps');
 
         if (iframeCeremonyAddress) {
-            iframeCeremonyAddress.innerText = inputCeremonyAddress.value || 'Vale della Libertà, 12, Pienza';
+            iframeCeremonyAddress.innerText = inputCeremonyAddress.value || eventLocation || 'Vale della Libertà, 12, Pienza';
         }
         if (iframeCeremonyDetails) {
             iframeCeremonyDetails.innerText = inputCeremonyDetails.value || 'Às quatro horas da tarde na Capela de Santa Maria. Uma troca íntima de votos seguida por uma procissão de pétalas de rosa.';
@@ -241,7 +243,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         btnSave.innerText = "Salvando...";
 
         try {
-            const res = await fetch(`http://127.0.0.1:8080/events/${eventSlug}/customizations`, {
+            const res = await fetch(`${window.API_BASE_URL}/events/${eventSlug}/customizations`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)

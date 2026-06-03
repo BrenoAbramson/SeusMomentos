@@ -89,7 +89,7 @@ async function inicializarDadosEventos() {
   try {
     if (eventSlug) {
       // Modo Convidado Público
-      const res = await fetch(`http://127.0.0.1:8080/events/${encodeURIComponent(eventSlug)}`);
+      const res = await fetch(`${window.API_BASE_URL}/events/${encodeURIComponent(eventSlug)}`);
       const data = await res.json();
       if (data.status === 'success') {
         renderEvent(data.data.event);
@@ -98,12 +98,12 @@ async function inicializarDadosEventos() {
       }
     } else if (eventId) {
       // Modo Preview do Editor
-      const res = await fetch(`http://127.0.0.1:8080/events?user_id=${userId}`);
+      const res = await fetch(`${window.API_BASE_URL}/events?user_id=${userId}`);
       const data = await res.json();
       if (data.status === 'success') {
         const evento = data.data.events.find(e => e.id == eventId);
         if (evento) {
-          const resDetalhe = await fetch(`http://127.0.0.1:8080/events/${evento.slug}`);
+          const resDetalhe = await fetch(`${window.API_BASE_URL}/events/${evento.slug}`);
           const dataDetalhe = await resDetalhe.json();
           if (dataDetalhe.status === 'success') {
             renderEvent(dataDetalhe.data.event);
@@ -193,7 +193,7 @@ function renderEvent(event) {
   const btnCeremonyMaps = document.getElementById('btnCeremonyMaps');
 
   if (ceremonyAddress) {
-    ceremonyAddress.innerText = customStyles.ceremony_address || 'Vale della Libertà, 12, Pienza';
+    ceremonyAddress.innerText = customStyles.ceremony_address || event.location || 'Vale della Libertà, 12, Pienza';
   }
   if (ceremonyDetails) {
     ceremonyDetails.innerText = customStyles.ceremony_details || 'Às quatro horas da tarde na Capela de Santa Maria. Uma troca íntima de votos seguida por uma procissão de pétalas de rosa.';
@@ -291,7 +291,7 @@ if (form) {
       localStorage.setItem('checkout_event_date', eventData ? formatarData(eventData.event_date) : "");
       localStorage.setItem('checkout_event_slug', eventData ? eventData.slug : "");
 
-      fetch('http://127.0.0.1:8080/guests', {
+      fetch(`${window.API_BASE_URL}/guests`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -423,7 +423,7 @@ const IMAGENS_MAP = {
 
 async function carregarPresentesDoEvento(eventId) {
   try {
-    const res = await fetch(`http://127.0.0.1:8080/gifts?event_id=${eventId}&enabled=true`);
+    const res = await fetch(`${window.API_BASE_URL}/gifts?event_id=${eventId}&enabled=true`);
     const data = await res.json();
     if (data.status === 'success') {
       presentesFiltrados = data.data.gifts;
