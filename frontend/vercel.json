@@ -1,29 +1,12 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    {
-      "source": "/home",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/planos",
-      "destination": "/pages/planos/index.html"
-    },
-    {
-      "source": "/exemplos",
-      "destination": "/pages/exemplos/index.html"
-    },
-    {
-      "source": "/quem-somos",
-      "destination": "/pages/quemSomos/index.html"
-    },
-    {
-      "source": "/login",
-      "destination": "/pages/login/index.html"
-    },
-    {
-      "source": "/cadastro",
-      "destination": "/pages/cadastro/index.html"
-    }
+    { "source": "/home", "destination": "/index.html" },
+    { "source": "/planos", "destination": "/pages/planos/index.html" },
+    { "source": "/exemplos", "destination": "/pages/exemplos/index.html" },
+    { "source": "/quem-somos", "destination": "/pages/quemSomos/index.html" },
+    { "source": "/login", "destination": "/pages/login/index.html" },
+    { "source": "/cadastro", "destination": "/pages/cadastro/index.html" },
+    { "source": "/dashboard", "destination": "/pages/dashboard/index.html" }
   ]
 }
