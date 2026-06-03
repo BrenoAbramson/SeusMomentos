@@ -1,37 +1,5 @@
 {
   "cleanUrls": true,
-  "redirects": [
-    {
-      "source": "/index.html",
-      "destination": "/home",
-      "permanent": true
-    },
-    {
-      "source": "/pages/planos/index.html",
-      "destination": "/planos",
-      "permanent": true
-    },
-    {
-      "source": "/pages/exemplos/index.html",
-      "destination": "/exemplos",
-      "permanent": true
-    },
-    {
-      "source": "/pages/quemSomos/index.html",
-      "destination": "/quem-somos",
-      "permanent": true
-    },
-    {
-      "source": "/pages/login/index.html",
-      "destination": "/login",
-      "permanent": true
-    },
-    {
-      "source": "/pages/cadastro/index.html",
-      "destination": "/cadastro",
-      "permanent": true
-    }
-  ],
   "rewrites": [
     {
       "source": "/home",
