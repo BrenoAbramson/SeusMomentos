@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 1. Carregar o Evento do Usuário
     async function loadEvent() {
         try {
-            const res = await fetch(`http://127.0.0.1:8080/events?user_id=${userId}`);
+            const res = await fetch(`${window.API_BASE_URL}/events?user_id=${userId}`);
             const data = await res.json();
             
             if(data.status === 'success' && data.data.events.length > 0) {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 eventPlan = evento.plan || 'free';
                 
                 const basePath = window.location.pathname.substring(0, window.location.pathname.indexOf('/pages/dashboard/'));
-                const urlCompleta = window.location.origin + basePath + '/pages/public/index.php?' + eventSlug;
+                const urlCompleta = window.location.origin + basePath + '/pages/public/index.html?' + eventSlug;
                 
                 // Capitalizar primeira letra
                 let typeFmt = evento.event_type.replace('_', ' ');
@@ -80,13 +80,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function loadGuests(eventId) {
         try {
             // Primeiro, carregar os presentes do evento
-            const giftsRes = await fetch(`http://127.0.0.1:8080/gifts?event_id=${eventId}`);
+            const giftsRes = await fetch(`${window.API_BASE_URL}/gifts?event_id=${eventId}`);
             const giftsData = await giftsRes.json();
             if (giftsData.status === 'success') {
                 allGifts = giftsData.data.gifts || [];
             }
 
-            const res = await fetch(`http://127.0.0.1:8080/guests?event_id=${eventId}`);
+            const res = await fetch(`${window.API_BASE_URL}/guests?event_id=${eventId}`);
             const data = await res.json();
             
             if(data.status === 'success') {

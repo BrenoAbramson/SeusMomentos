@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Chamada para a API
-            const response = await fetch('http://127.0.0.1:8080/events', {
+            const response = await fetch(`${window.API_BASE_URL}/events`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 // Atualiza first_access para false no backend
-                await fetch('http://127.0.0.1:8080/auth/first-access', {
+                await fetch(`${window.API_BASE_URL}/auth/first-access`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ user_id: userId })
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (selectedPlan === 'premium') {
                     mostrarAlerta('Redirecionando para o Mercado Pago para ativação...', 'sucesso');
                     try {
-                        const prefResponse = await fetch('http://127.0.0.1:8080/payments/create-preference', {
+                        const prefResponse = await fetch(`${window.API_BASE_URL}/payments/create-preference`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({

@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 1. Carregar Dados do Evento
     async function loadEvent() {
         try {
-            const res = await fetch(`http://127.0.0.1:8080/events?user_id=${userId}`);
+            const res = await fetch(`${window.API_BASE_URL}/events?user_id=${userId}`);
             const data = await res.json();
             
             if (data.status === 'success' && data.data.events.length > 0) {
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 2. Carregar Presentes Cadastrados no Banco
     async function loadGifts() {
         try {
-            const res = await fetch(`http://127.0.0.1:8080/gifts?event_id=${currentEventId}`);
+            const res = await fetch(`${window.API_BASE_URL}/gifts?event_id=${currentEventId}`);
             const data = await res.json();
             
             if (data.status === 'success') {
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Desmarcar / Deletar do banco
             btn.innerText = "Removendo...";
             try {
-                const res = await fetch(`http://127.0.0.1:8080/gifts?id=${dbId}`, {
+                const res = await fetch(`${window.API_BASE_URL}/gifts?id=${dbId}`, {
                     method: 'DELETE'
                 });
                 const result = await res.json();
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             };
 
             try {
-                const res = await fetch('http://127.0.0.1:8080/gifts', {
+                const res = await fetch(`${window.API_BASE_URL}/gifts`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
