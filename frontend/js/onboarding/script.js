@@ -26,6 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedType = null;
     let selectedPlan = null;
 
+    // Define a data mínima do evento para posterior ao dia de amanhã (a partir de depois de amanhã)
+    const dataEventoInput = document.getElementById('dataEvento');
+    if (dataEventoInput) {
+        const hoje = new Date();
+        const depoisDeAmanha = new Date(hoje);
+        depoisDeAmanha.setDate(hoje.getDate() + 2);
+        const yyyy = depoisDeAmanha.getFullYear();
+        const mm = String(depoisDeAmanha.getMonth() + 1).padStart(2, '0');
+        const dd = String(depoisDeAmanha.getDate()).padStart(2, '0');
+        dataEventoInput.min = `${yyyy}-${mm}-${dd}`;
+    }
+
     // Seleção de Tipo
     typeCards.forEach(card => {
         card.addEventListener('click', () => {
@@ -91,6 +103,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!dataEvento) {
             return mostrarAlerta('Por favor, informe a data do evento.', 'erro');
         }
+
+        const dataSelecionada = new Date(dataEvento + 'T00:00:00');
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+        const limite = new Date(hoje);
+        limite.setDate(hoje.getDate() + 1); // amanhã
+
+        if (dataSelecionada <= limite) {
+            return mostrarAlerta('A data do casamento deve ser posterior ao dia de amanhã.', 'erro');
+        }
+
         step3.classList.remove('active');
         step4.classList.add('active');
     });
@@ -127,6 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!dataEvento) {
             return mostrarAlerta('Por favor, informe a data do evento.', 'erro');
+        }
+
+        const dataSelecionada = new Date(dataEvento + 'T00:00:00');
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+        const limite = new Date(hoje);
+        limite.setDate(hoje.getDate() + 1); // amanhã
+
+        if (dataSelecionada <= limite) {
+            return mostrarAlerta('A data do casamento deve ser posterior ao dia de amanhã.', 'erro');
         }
 
         if (!selectedPlan) {
