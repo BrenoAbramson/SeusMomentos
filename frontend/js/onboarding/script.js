@@ -315,4 +315,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === overlay) fechar();
         });
     }
+
+    // Pré-seleciona o plano vindo da URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const planParam = urlParams.get('plan');
+    if (planParam) {
+        const targetCard = Array.from(planCards).find(c => c.dataset.plan === planParam);
+        if (targetCard) {
+            targetCard.click();
+        }
+    }
 });

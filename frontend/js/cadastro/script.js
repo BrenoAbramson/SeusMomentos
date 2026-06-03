@@ -78,7 +78,10 @@ form.addEventListener('submit', async (e) => {
             }
 
             setTimeout(() => {
-                window.location.href = "../../pages/onboarding/index.html"; // Redireciona para o onboarding direto
+                const urlParams = new URLSearchParams(window.location.search);
+                const plan = urlParams.get('plan');
+                const redirectUrl = plan ? `../../pages/onboarding/index.html?plan=${plan}` : "../../pages/onboarding/index.html";
+                window.location.href = redirectUrl; // Redireciona para o onboarding direto
             }, 2000);
         } else {
             // Erro validado pelo Back-end
